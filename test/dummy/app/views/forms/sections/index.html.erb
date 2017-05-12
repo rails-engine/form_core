@@ -1,0 +1,26 @@
+<div class="section">
+  <div class="container">
+    <p content="content">
+      <%= link_to 'New Section', new_form_section_path(@form), class: 'button is-primary' %>
+    </p>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @sections.each do |section| %>
+          <tr>
+            <td><%= section.title %></td>
+            <td>
+              <%= link_to 'Edit', edit_form_section_path(@form, section) %> |
+              <%= link_to 'Destroy', [@form, section], method: :delete, data: {confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

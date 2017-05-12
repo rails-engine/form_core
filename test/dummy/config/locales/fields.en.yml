@@ -1,0 +1,40 @@
+en:
+  activerecord:
+    attributes:
+      field:
+        name: Name
+        title: Title
+        label: Label
+        hint: Hint
+        prompt: Prompt
+        accessibilities:
+          hidden: Hidden
+          read: Read-only
+          read_and_write: Normal
+
+  activemodel:
+    attributes:
+      options_model:
+        presence: Required
+        acceptance: Acceptance
+        confirmation: Confirmation
+        exclusion: Exclusion
+        format: Format
+        inclusion: Inclusion
+        length: Length
+        numericality: Numericality
+        message: Message
+        with: Regexp
+        in: In
+        minimax: Minimum
+        maximum: Maximum
+        is: Equal
+        lower_bounds:
+          disabled: off
+          greater_than: '>'
+          greater_than_or_equal_to: '>='
+        upper_bounds:
+          disabled: off
+          less_than: '<'
+          less_than_or_equal_to: '<='
+

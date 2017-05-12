@@ -1,0 +1,13 @@
+<div class="field">
+  <%= f.label field.name, field.label, class: 'label' %>
+  <p class="control">
+    <% if field.options.multiline %>
+      <%= f.text_area field.name, class: 'textarea', id: field.id, placeholder: field.prompt, required: field.required %>
+    <% else %>
+      <%= f.text_field field.name, class: 'input', id: field.id, placeholder: field.prompt, required: field.required %>
+    <% end %>
+  </p>
+  <% if field.hint.present? %>
+    <p class="help"><%= field.hint %></p>
+  <% end %>
+</div>

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  label: MyString
+  hint: MyString
+  prompt: MyString
+  accessibility: 0
+  validations:
+  options:
+  section: one
+
+two:
+  name: MyString
+  label: MyString
+  hint: MyString
+  prompt: MyString
+  accessibility: 0
+  validations:
+  options:
+  section: two

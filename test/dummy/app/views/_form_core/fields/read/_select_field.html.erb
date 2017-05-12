@@ -1,0 +1,18 @@
+<div class="field">
+  <%= f.label field.name, field.label, class: 'label' %>
+  <p class="control">
+    <%= f.select field.name, options_for_select(field.collection, field.value), {include_blank: field.include_blank?}, id: field.id, placeholder: field.prompt, disabled: "disabled" %>
+  </p>
+
+  <% if field.hint.present? %>
+    <p class="help"><%= field.hint %></p>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener("turbolinks:load", function() {
+    $('#<%= field.id %>').selectize({
+      create: <%= field.can_custom_value? %>
+    });
+  });
+</script>

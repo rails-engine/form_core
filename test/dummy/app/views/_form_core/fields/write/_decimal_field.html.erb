@@ -1,0 +1,9 @@
+<div class="field">
+  <%= f.label field.name, field.label, class: 'label' %>
+  <p class="control">
+    <%= f.number_field field.name, class: 'input', id: field.id, placeholder: field.prompt, **field.to_builder_options %>
+  </p>
+  <% if field.hint.present? %>
+    <p class="help"><%= field.hint %></p>
+  <% end %>
+</div>

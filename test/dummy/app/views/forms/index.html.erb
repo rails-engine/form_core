@@ -1,0 +1,29 @@
+<div class="section">
+  <div class="container">
+    <p content="content">
+      <%= link_to 'New Form', new_form_path, class: 'button is-primary' %>
+    </p>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @forms.each do |form| %>
+        <tr>
+          <td><%= form.title %></td>
+          <td><%= form.description %></td>
+          <td>
+            <%= link_to 'Show', form %> |
+            <%= link_to 'Edit', edit_form_path(form) %> |
+            <%= link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

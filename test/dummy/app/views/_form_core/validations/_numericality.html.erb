@@ -1,0 +1,44 @@
+<% numericality = validations.numericality %>
+
+<h3 class="title">Numericality</h3>
+
+<%= f.fields_for :numericality, numericality do |ff| %>
+  <% if numericality.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(numericality.errors.count, "error") %> prohibited this form from being saved:
+        </p>
+      </div>
+      <div class="message-body">
+        <% numericality.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="field has-addons">
+    <p class="control">
+      <span class="select">
+        <%= ff.select :lower_bound, options_for_enum_select(numericality.class, :lower_bound, numericality.lower_bound), {}, class: 'select' %>
+      </span>
+    </p>
+    <p class="control">
+      <%= ff.number_field :lower_value, step: 0.01, class: 'input' %>
+    </p>
+  </div>
+
+  <div class="field has-addons">
+    <p class="control">
+      <span class="select">
+        <%= ff.select :upper_bound, options_for_enum_select(numericality.class, :upper_bound, numericality.upper_bound), {}, class: 'select' %>
+      </span>
+    </p>
+    <p class="control">
+      <%= ff.number_field :upper_value, step: 0.01, class: 'input' %>
+    </p>
+  </div>
+<% end %>
+
+<hr>

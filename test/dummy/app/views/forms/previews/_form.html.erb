@@ -1,0 +1,43 @@
+<%= form_with(model: preview, scope: :preview, url: form_preview_path(form), local: true) do |f| %>
+  <% if preview.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(preview.errors.count, "error") %> prohibited this form from being submitted:
+        </p>
+      </div>
+      <div class="message-body">
+        <% preview.errors.messages.each do |name, messages| %>
+          <% messages.each do |message| %>
+            <li><%= "#{field_label(form, field_name: name)} #{message}" %></li>
+          <% end %>
+        <% end %>
+      </div>
+    </article>
+  <% end %>
+
+  <% form.sections.each do |section| %>
+    <section class="section">
+      <div class="container">
+        <h1 class="title"><%= section.title %></h1>
+        <% section.fields.each do |field| %>
+          <% case field.accessibility %>
+          <% when :read_and_write %>
+            <%= render "_form_core/fields/write/#{field.type_key}", f: f, field: present(field, target: preview) %>
+          <% when :read_only %>
+            <%= render "_form_core/fields/read/#{field.type_key}", f: f, field: present(field, target: preview) %>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+
+  <div class="field is-grouped">
+    <p class="control">
+      <%= f.submit class: 'button is-primary' %>
+    </p>
+    <p class="control">
+      <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
+    </p>
+  </div>
+<% end %>

@@ -1,0 +1,42 @@
+<div class="section">
+  <div class="container">
+    <p content="content">
+      <%= link_to 'New field', new_nested_form_field_path(@nested_form), class: 'button is-primary' %>
+      <%= link_to 'Back', form_fields_path(@nested_form.attachable.form), class: 'button is-link' %>
+    </p>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Label</th>
+        <th>Type</th>
+        <th>Accessibility</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @fields.each do |field| %>
+          <tr>
+            <td><%= field.name %></td>
+            <td><%= field.label %></td>
+            <td><%= field.class.model_name.human %></td>
+            <td><%= Field.human_enum_value(:accessibility, field.accessibility) %></td>
+            <td>
+              <%= link_to 'Validations', edit_field_validations_path(field) %> |
+              <%= link_to 'Options', edit_field_options_path(field) %> |
+              <% if data_source_attached_field?(field) %>
+                <%= link_to 'Data source', edit_field_data_source_options_path(field) %> |
+              <% end %>
+              <% if nested_form_attached_field?(field) %>
+                <%= link_to 'Fields', nested_form_fields_path(field.nested_form) %> |
+              <% end %>
+              <%= link_to 'Edit', edit_nested_form_field_path(@nested_form, field) %> |
+              <%= link_to 'Destroy', nested_form_field_path(@nested_form, field), method: :delete, data: {confirm: 'Are you sure?'} %>
+            </td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+

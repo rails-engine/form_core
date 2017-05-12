@@ -1,0 +1,35 @@
+<div class="nested-fields">
+  <p>
+    <% if f.object.errors.any? %>
+      <article class="message is-danger">
+        <div class="message-header">
+          <p>
+            <%= pluralize(f.object.errors.count, "error") %> prohibited this form from being submitted:
+          </p>
+        </div>
+        <div class="message-body">
+          <% f.object.errors.messages.each do |name, messages| %>
+            <% messages.each do |message| %>
+              <li><%= "#{form.fields.select { |field| field.name == name}.first&.label } #{message}" %></li>
+            <% end %>
+          <% end %>
+        </div>
+      </article>
+    <% end %>
+
+    <% form.fields.each do |field| %>
+      <% case field.accessibility %>
+      <% when :read_and_write %>
+        <%= render "_form_core/fields/write/#{field.type_key}", f: f, field: present(field, target: f.object) %>
+      <% when :read_only %>
+        <%= render "_form_core/fields/read/#{field.type_key}", f: f, field: present(field, target: f.object) %>
+      <% end %>
+    <% end %>
+
+    <div class="field is-grouped">
+      <p class="control">
+        <%= link_to_remove_association "Remove", f, class: "button is-danger" %>
+      </p>
+    </div>
+  </p>
+</div>

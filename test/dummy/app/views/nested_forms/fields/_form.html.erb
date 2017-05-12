@@ -1,0 +1,73 @@
+<%= form_with(model: [form, field.becomes(Field)], scope: :field, local: true) do |f| %>
+  <% if field.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(field.errors.count, "error") %> prohibited this form from being saved:
+        </p>
+      </div>
+      <div class="message-body">
+        <% field.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, class: 'label' %>
+    <p class="control">
+      <%= f.text_field :name, class: 'input', placeholder: 'Name' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :label, class: 'label' %>
+    <p class="control">
+      <%= f.text_field :label, class: 'input', placeholder: 'Label' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :hint, class: 'label' %>
+    <p class="control">
+      <%= f.text_field :hint, class: 'input', placeholder: 'Hint' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :prompt, class: 'label' %>
+    <p class="control">
+      <%= f.text_field :prompt, class: 'input', placeholder: 'Prompt' %>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= f.label :type, class: 'label' %>
+    <p class="control">
+    <span class="select">
+      <%= f.select :type, options_for_field_types(selected: field.class.to_s) %>
+    </span>
+    </p>
+  </div>
+
+  <div class="field">
+    <p class="control">
+      <% Field.accessibilities.each do |k, _| %>
+        <label class="radio">
+          <%= f.radio_button :accessibility, k %>
+          <%= Field.human_enum_value :accessibility, k %>
+        </label>
+      <% end %>
+    </p>
+  </div>
+
+  <div class="field is-grouped">
+    <p class="control">
+      <%= f.submit class: 'button is-primary' %>
+    </p>
+    <p class="control">
+      <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
+    </p>
+  </div>
+<% end %>

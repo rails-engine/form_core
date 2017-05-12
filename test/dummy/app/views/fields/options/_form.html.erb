@@ -1,0 +1,27 @@
+<%= form_with(model: options, scope: :options, url: field_options_path(field), method: :patch, local: true) do |f| %>
+  <% if options.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(options.errors.count, "error") %> prohibited this form from being saved:
+        </p>
+      </div>
+      <div class="message-body">
+        <% options.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </div>
+    </article>
+  <% end %>
+
+  <%= render "_form_core/fields/options/#{field.type_key}", f: f, options: options %>
+
+  <div class="field is-grouped">
+    <p class="control">
+      <%= f.submit class: 'button is-primary' %>
+    </p>
+    <p class="control">
+      <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
+    </p>
+  </div>
+<% end %>

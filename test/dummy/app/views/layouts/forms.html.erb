@@ -1,0 +1,39 @@
+<% content_for :content do %>
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <div class="container">
+        <p class="title">
+          <%= @form.title %>
+        </p>
+        <p class="subtitle">
+          <%= @form.description %>
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-foot">
+      <div class="container">
+        <nav class="tabs is-boxed">
+          <ul>
+            <%= content_tag(:li, class: "#{"is-active" if controller_name == "forms"}") do %>
+              <%= link_to "Overview", form_path(@form) %>
+            <% end %>
+            <%= content_tag(:li, class: "#{"is-active" if controller_name == "fields"}") do %>
+              <%= link_to "Fields", form_fields_path(@form) %>
+            <% end %>
+            <%= content_tag(:li, class: "#{"is-active" if controller_name == "sections"}") do %>
+              <%= link_to "Sections", form_sections_path(@form) %>
+            <% end %>
+            <%= content_tag(:li, class: "#{"is-active" if controller_name == "previews"}") do %>
+              <%= link_to "Preview", form_preview_path(@form) %>
+            <% end %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <%= yield %>
+<% end %>
+
+<%= render template: 'layouts/application' %>

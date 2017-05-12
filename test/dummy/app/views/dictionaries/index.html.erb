@@ -1,0 +1,37 @@
+<div class="section">
+  <div class="container">
+    <p content="content">
+      <%= link_to 'New', new_dictionary_path, class: 'button is-primary' %>
+    </p>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Scope</th>
+        <th>Value</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @dictionaries.each do |dictionary| %>
+        <tr>
+          <td>
+            <%= dictionary.id %>
+          </td>
+          <td>
+            <%= dictionary.scope %>
+          </td>
+          <td>
+            <%= dictionary.value %>
+          </td>
+          <td>
+            <%= link_to 'Edit', edit_dictionary_path(dictionary) %> |
+            <%= link_to 'Destroy', dictionary, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+

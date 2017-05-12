@@ -1,0 +1,12 @@
+<h3 class="title">Resource field</h3>
+
+<div class="field">
+  <%= f.label :data_source_type, class: 'label' %>
+  <p class="control">
+    <span class="select">
+      <%= f.select :data_source_type, options_for_data_source_types(selected: options.data_source_type) %>
+    </span>
+  </p>
+</div>
+
+<hr>

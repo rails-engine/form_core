@@ -1,0 +1,36 @@
+<% format = validations.format %>
+
+<h3 class="title">Format</h3>
+
+<%= f.fields_for :format, format do |ff| %>
+  <% if format.errors.any? %>
+    <article class="message is-danger">
+      <div class="message-header">
+        <p>
+          <%= pluralize(format.errors.count, "error") %> prohibited this form from being saved:
+        </p>
+      </div>
+      <div class="message-body">
+        <% format.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </div>
+    </article>
+  <% end %>
+
+  <div class="field">
+    <%= ff.label :with %>
+    <p class="control">
+      <%= ff.text_field :with, class: 'input'%>
+    </p>
+  </div>
+
+  <div class="field">
+    <%= ff.label :message %>
+    <p class="control">
+      <%= ff.text_field :message, class: 'input'%>
+    </p>
+  </div>
+<% end %>
+
+<hr>
