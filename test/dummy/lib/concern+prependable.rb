@@ -5,7 +5,7 @@ module Prependable
   def prepend_features(base)
     if base.instance_variable_defined?(:@_dependencies)
       base.instance_variable_get(:@_dependencies) << self
-      return false
+      false
     else
       return false if base < self
       super
