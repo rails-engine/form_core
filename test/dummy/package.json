@@ -1,5 +1,5 @@
 {
-  "name": "form_core",
+  "name": "dummy",
   "private": true,
   "dependencies": {
     "autoprefixer": "^7.1.1",
@@ -9,7 +9,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.5.1",
-    "bulma": "^0.4.1",
+    "bulma": "^0.4.2",
     "coffee-loader": "^0.7.3",
     "coffee-script": "^1.12.6",
     "compression-webpack-plugin": "^0.4.0",
