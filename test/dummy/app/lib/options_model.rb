@@ -8,7 +8,7 @@ class OptionsModel
   validate do
     self.class.attribute_names.each do |attribute_name|
       attribute = public_send(attribute_name)
-      if attribute.is_a?(OptionsModel) && attribute.invalid?
+      if attribute.is_a?(self.class) && attribute.invalid?
         errors.add attribute_name, :invalid
       end
     end

@@ -6,7 +6,7 @@ module Concerns::OptionsModel
       def attribute(name, cast_type, default: nil, array: false)
         name = name.to_sym
         if dangerous_attribute_method?(name)
-          raise ArgumentError, "#{name} is defined by OptionsModel. Check to make sure that you don't have an attribute or method with the same name."
+          raise ArgumentError, "#{name} is defined by #{self.class}. Check to make sure that you don't have an attribute or method with the same name."
         end
 
         ActiveModel::Type.lookup(cast_type)
@@ -15,32 +15,32 @@ module Concerns::OptionsModel
 
         generated_attribute_methods.synchronize do
           generated_attribute_methods.module_eval <<-STR, __FILE__, __LINE__ + 1
-            def #{name}
-              value = attributes[:#{name}]
-              return value unless value.nil?
-              attributes[:#{name}] = self.class.attribute_defaults[:#{name}].#{default.respond_to?(:call) ? "call" : "dup"}
-              attributes[:#{name}]
-            end
+          def #{name}
+            value = attributes[:#{name}]
+            return value unless value.nil?
+            attributes[:#{name}] = self.class.attribute_defaults[:#{name}].#{default.respond_to?(:call) ? "call" : "dup"}
+            attributes[:#{name}]
+          end
           STR
 
           if array
             generated_attribute_methods.module_eval <<-STR, __FILE__, __LINE__ + 1
-              def #{name}=(value)
-                if value.respond_to?(:to_a)
-                  attributes[:#{name}] = value.to_a.map { |i| ActiveModel::Type.lookup(:#{cast_type}).cast(i) }
-                elsif value.nil?
-                  attributes[:#{name}] = self.class.attribute_defaults[:#{name}].#{default.respond_to?(:call) ? "call" : "dup"}
-                else
-                  raise ArgumentError,
-                        "`value` should respond to `to_a`, but got \#{value.class} -- \#{value.inspect}"
-                end
+            def #{name}=(value)
+              if value.respond_to?(:to_a)
+                attributes[:#{name}] = value.to_a.map { |i| ActiveModel::Type.lookup(:#{cast_type}).cast(i) }
+              elsif value.nil?
+                attributes[:#{name}] = self.class.attribute_defaults[:#{name}].#{default.respond_to?(:call) ? "call" : "dup"}
+              else
+                raise ArgumentError,
+                      "`value` should respond to `to_a`, but got \#{value.class} -- \#{value.inspect}"
               end
+            end
             STR
           else
             generated_attribute_methods.module_eval <<-STR, __FILE__, __LINE__ + 1
-              def #{name}=(value)
-                attributes[:#{name}] = ActiveModel::Type.lookup(:#{cast_type}).cast(value)
-              end
+            def #{name}=(value)
+              attributes[:#{name}] = ActiveModel::Type.lookup(:#{cast_type}).cast(value)
+            end
             STR
 
             if cast_type == :boolean
@@ -64,9 +64,9 @@ module Concerns::OptionsModel
         pluralized_name = name.to_s.pluralize
         generated_class_methods.synchronize do
           generated_class_methods.module_eval <<-STR, __FILE__, __LINE__ + 1
-            def #{pluralized_name}
-              @_#{pluralized_name} ||= %w(#{enum.join(" ")}).freeze
-            end
+          def #{pluralized_name}
+            @_#{pluralized_name} ||= %w(#{enum.join(" ")}).freeze
+          end
           STR
 
           validates name, inclusion: {in: enum}, allow_nil: allow_nil
@@ -80,7 +80,7 @@ module Concerns::OptionsModel
 
         name = name.to_sym
         if dangerous_attribute_method?(name)
-          raise ArgumentError, "#{name} is defined by OptionsModel. Check to make sure that you don't have an attribute or method with the same name."
+          raise ArgumentError, "#{name} is defined by #{self.class}. Check to make sure that you don't have an attribute or method with the same name."
         end
 
         if class_name.present?
@@ -91,25 +91,25 @@ module Concerns::OptionsModel
 
         generated_attribute_methods.synchronize do
           generated_attribute_methods.module_eval <<-STR, __FILE__, __LINE__ + 1
-            def #{name}
-              @_#{name} ||= self.class.nested_classes[:#{name}].new(attributes[:#{name}])
-            end
+          def #{name}
+            @_#{name} ||= self.class.nested_classes[:#{name}].new(attributes[:#{name}])
+          end
           STR
 
           generated_attribute_methods.module_eval <<-STR, __FILE__, __LINE__ + 1
-            def #{name}=(value)
-              klass = self.class.nested_classes[:#{name}]
-              if value.respond_to?(:to_h)
-                @_#{name} = klass.new(value.to_h)
-              elsif value.is_a? klass
-                @_#{name} = value
-              elsif value.nil?
-                @_#{name} = klass.new
-              else
-                raise ArgumentError,
-                      "`value` should respond to `to_h` or \#{klass}, but got \#{value.class}"
-              end
+          def #{name}=(value)
+            klass = self.class.nested_classes[:#{name}]
+            if value.respond_to?(:to_h)
+              @_#{name} = klass.new(value.to_h)
+            elsif value.is_a? klass
+              @_#{name} = value
+            elsif value.nil?
+              @_#{name} = klass.new
+            else
+              raise ArgumentError,
+                    "`value` should respond to `to_h` or \#{klass}, but got \#{value.class}"
             end
+          end
           STR
         end
 
@@ -134,7 +134,7 @@ module Concerns::OptionsModel
       # A method name is 'dangerous' if it is already (re)defined by OptionsModel, but
       # not by any ancestors. (So 'puts' is not dangerous but 'save' is.)
       def dangerous_attribute_method?(name) # :nodoc:
-        method_defined_within?(name, OptionsModel)
+        method_defined_within?(name, self.class)
       end
 
       def method_defined_within?(name, klass, superklass = klass.superclass) # :nodoc:

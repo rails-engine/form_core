@@ -23,7 +23,7 @@ module FormCore
     public_class_method :define_method
     class << self
       def name
-        @name ||= "Form"
+        @_name ||= "Form"
       end
 
       def name=(value)
