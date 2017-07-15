@@ -1,5 +1,5 @@
 module Fields::Options
-  class DecimalField < ::OptionsModel
+  class DecimalField < FieldOptions
     attribute :step, :decimal, default: 0
 
     validates :step,

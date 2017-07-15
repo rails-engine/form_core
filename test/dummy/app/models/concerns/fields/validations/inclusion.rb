@@ -3,7 +3,7 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      has_one :inclusion, anonymous_class: InclusionOptions
+      embeds_one :inclusion, anonymous_class: InclusionOptions
     end
 
     def interpret_to(model, field_name, accessibility, options = {})
@@ -11,7 +11,7 @@ module Concerns::Fields
       inclusion.interpret_to model, field_name, accessibility, options
     end
 
-    class InclusionOptions < ::OptionsModel
+    class InclusionOptions < FieldOptions
       attribute :message, :string, default: ""
       attribute :in, :string, default: [], array: true
 

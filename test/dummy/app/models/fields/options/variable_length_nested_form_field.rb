@@ -1,5 +1,5 @@
 module Fields::Options
-  class VariableLengthNestedFormField < ::OptionsModel
+  class VariableLengthNestedFormField < FieldOptions
 
   end
 end

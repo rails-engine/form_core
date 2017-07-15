@@ -27,8 +27,6 @@ gem "turbolinks", "~> 5"
 gem "sass-rails", "~> 5.0"
 # Use Uglifier as compressor for JavaScript assets
 gem "uglifier", ">= 1.3.0"
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem "webpacker"
 
 # Use Puma as the app server
 gem "puma"
@@ -40,3 +38,4 @@ gem "web-console"
 gem "pry-byebug"
 
 gem "cocoon"
+gem "options_model"

@@ -1,5 +1,5 @@
 module Fields::Options
-  class ResourceField < ::OptionsModel
+  class ResourceField < FieldOptions
     include Concerns::Fields::Options::DataSource
   end
 end

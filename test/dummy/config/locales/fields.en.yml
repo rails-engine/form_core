@@ -14,7 +14,7 @@ en:
 
   activemodel:
     attributes:
-      options_model:
+      field_options:
         presence: Required
         acceptance: Acceptance
         confirmation: Confirmation

@@ -1,5 +1,5 @@
 module Fields::Validations
-  class ResourceField < ::OptionsModel
+  class ResourceField < FieldOptions
     prepend Concerns::Fields::Validations::Presence
   end
 end

@@ -1,5 +1,5 @@
 module Fields::Validations
-  class IntegerField < ::OptionsModel
+  class IntegerField < FieldOptions
     prepend Concerns::Fields::Validations::Presence
     prepend Concerns::Fields::Validations::Numericality
   end

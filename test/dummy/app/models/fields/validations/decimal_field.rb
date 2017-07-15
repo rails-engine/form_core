@@ -1,5 +1,5 @@
 module Fields::Validations
-  class DecimalField < ::OptionsModel
+  class DecimalField < FieldOptions
     prepend Concerns::Fields::Validations::Presence
     prepend Concerns::Fields::Validations::Numericality
   end

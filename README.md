@@ -5,7 +5,7 @@ A Rails engine providing ability to generate dynamic form.
 
 ## Usage
 
-TODO
+See demo for now.
 
 ## Installation
 

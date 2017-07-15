@@ -1,5 +1,5 @@
 module Fields::Validations
-  class TextField < ::OptionsModel
+  class TextField < FieldOptions
     prepend Concerns::Fields::Validations::Presence
     prepend Concerns::Fields::Validations::Length
     prepend Concerns::Fields::Validations::Format

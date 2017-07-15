@@ -3,7 +3,7 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      has_one :numericality, anonymous_class: NumericalityOptions
+      embeds_one :numericality, anonymous_class: NumericalityOptions
     end
 
     def interpret_to(model, field_name, accessibility, options = {})
@@ -11,7 +11,7 @@ module Concerns::Fields
       numericality.interpret_to model, field_name, accessibility, options
     end
 
-    class NumericalityOptions < ::OptionsModel
+    class NumericalityOptions < FieldOptions
       attribute_names.merge [:lower_bound, :upper_bound]
 
       attribute :lower_value, :float, default: 0.0

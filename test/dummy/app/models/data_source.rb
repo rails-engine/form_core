@@ -1,4 +1,4 @@
-class DataSource < OptionsModel
+class DataSource < FieldOptions
   def type_key
     self.class.model_name.name.split("::").last.underscore
   end

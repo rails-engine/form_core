@@ -3,7 +3,7 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      has_one :length, anonymous_class: LengthOptions
+      embeds_one :length, anonymous_class: LengthOptions
     end
 
     def interpret_to(model, field_name, accessibility, options = {})
@@ -11,7 +11,7 @@ module Concerns::Fields
       length.interpret_to model, field_name, accessibility, options
     end
 
-    class LengthOptions < ::OptionsModel
+    class LengthOptions < FieldOptions
       attribute :minimum, :integer, default: 0
       attribute :maximum, :integer, default: 0
       attribute :is, :integer, default: 0

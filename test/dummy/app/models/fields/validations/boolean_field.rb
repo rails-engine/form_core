@@ -1,5 +1,5 @@
 module Fields::Validations
-  class BooleanField < ::OptionsModel
+  class BooleanField < FieldOptions
     prepend Concerns::Fields::Validations::Acceptance
   end
 end

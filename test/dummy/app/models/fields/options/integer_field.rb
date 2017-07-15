@@ -1,5 +1,5 @@
 module Fields::Options
-  class IntegerField < ::OptionsModel
+  class IntegerField < FieldOptions
     attribute :step, :integer, default: 0
 
     validates :step,

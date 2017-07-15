@@ -1,5 +1,5 @@
 module Fields::Options
-  class BooleanField < ::OptionsModel
+  class BooleanField < FieldOptions
 
   end
 end

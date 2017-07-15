@@ -3,7 +3,7 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      has_one :format, anonymous_class: FormatOptions
+      embeds_one :format, anonymous_class: FormatOptions
     end
 
     def interpret_to(model, field_name, accessibility, options = {})
@@ -11,7 +11,7 @@ module Concerns::Fields
       format.interpret_to model, field_name, accessibility, options
     end
 
-    class FormatOptions < ::OptionsModel
+    class FormatOptions < FieldOptions
       attribute :with, :string, default: ""
       attribute :message, :string, default: ""
 
