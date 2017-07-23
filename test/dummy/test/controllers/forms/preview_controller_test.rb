@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Forms::PreviewControllerTest < ActionDispatch::IntegrationTest
   test "should get show" do

@@ -40,7 +40,7 @@ module FormCore
         klass
       end
 
-      # Returns a string like 'Post(id:integer, title:string, body:text)'
+      # Returns a string like "Post(id:integer, title:string, body:text)"
       def inspect
         attr_list = attribute_types.map { |name, type| "#{name}: #{type.type}" } * ", "
         "#<VirtualModel:#{name}:#{object_id} #{attr_list}>"

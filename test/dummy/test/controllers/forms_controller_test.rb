@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class FormsControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -16,7 +16,7 @@ class FormsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create form" do
-    assert_difference('Form.count') do
+    assert_difference("Form.count") do
       post forms_url, params: { form: {  } }
     end
 
@@ -39,7 +39,7 @@ class FormsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy form" do
-    assert_difference('Form.count', -1) do
+    assert_difference("Form.count", -1) do
       delete form_url(@form)
     end
 

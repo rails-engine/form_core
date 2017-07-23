@@ -1,5 +1,5 @@
 class Forms::FieldsController < Forms::ApplicationController
-  before_action :set_field, only: [:show, :edit, :update, :destroy]
+  before_action :set_field, only: %i[show edit update destroy]
 
   # GET /forms/1/fields
   def index
@@ -20,7 +20,7 @@ class Forms::FieldsController < Forms::ApplicationController
     @field = @form.fields.build(field_params)
 
     if @field.save
-      redirect_to form_fields_url(@form), notice: 'Field was successfully created.'
+      redirect_to form_fields_url(@form), notice: "Field was successfully created."
     else
       render :new
     end
@@ -29,7 +29,7 @@ class Forms::FieldsController < Forms::ApplicationController
   # PATCH/PUT /forms/1/fields/1
   def update
     if @field.update(field_params)
-      redirect_to form_fields_url(@form), notice: 'Field was successfully updated.'
+      redirect_to form_fields_url(@form), notice: "Field was successfully updated."
     else
       render :edit
     end
@@ -38,7 +38,7 @@ class Forms::FieldsController < Forms::ApplicationController
   # DELETE /forms/1/fields/1
   def destroy
     @field.destroy
-    redirect_to form_fields_url(@form), notice: 'Field was successfully destroyed.'
+    redirect_to form_fields_url(@form), notice: "Field was successfully destroyed."
   end
 
   private

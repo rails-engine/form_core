@@ -8,8 +8,6 @@ class Fields::ApplicationController < ApplicationController
     @field = FormCore::Field.find(params[:field_id])
   end
 
-  protected
-
   def fields_url
     form = @field.form
 

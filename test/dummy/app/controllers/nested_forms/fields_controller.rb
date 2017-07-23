@@ -1,5 +1,5 @@
 class NestedForms::FieldsController < NestedForms::ApplicationController
-  before_action :set_field, only: [:show, :edit, :update, :destroy]
+  before_action :set_field, only: %i[show edit update destroy]
 
   def index
     @fields = @nested_form.fields.includes(:section).all
@@ -16,7 +16,7 @@ class NestedForms::FieldsController < NestedForms::ApplicationController
     @field = @nested_form.fields.build(field_params)
 
     if @field.save
-      redirect_to nested_form_fields_url(@nested_form), notice: 'Field was successfully created.'
+      redirect_to nested_form_fields_url(@nested_form), notice: "Field was successfully created."
     else
       render :new
     end
@@ -24,7 +24,7 @@ class NestedForms::FieldsController < NestedForms::ApplicationController
 
   def update
     if @field.update(field_params)
-      redirect_to nested_form_fields_url(@nested_form), notice: 'Field was successfully updated.'
+      redirect_to nested_form_fields_url(@nested_form), notice: "Field was successfully updated."
     else
       render :edit
     end
@@ -32,7 +32,7 @@ class NestedForms::FieldsController < NestedForms::ApplicationController
 
   def destroy
     @field.destroy
-    redirect_to nested_form_fields_url(@nested_form), notice: 'Field was successfully destroyed.'
+    redirect_to nested_form_fields_url(@nested_form), notice: "Field was successfully destroyed."
   end
 
   private

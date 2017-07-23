@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class Dictionaries::CategoriesControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -16,7 +16,7 @@ class Dictionaries::CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create dictionaries_category" do
-    assert_difference('Dictionaries::Category.count') do
+    assert_difference("Dictionaries::Category.count") do
       post dictionaries_categories_url, params: { dictionaries_category: { value: @dictionaries_category.value } }
     end
 
@@ -39,7 +39,7 @@ class Dictionaries::CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy dictionaries_category" do
-    assert_difference('Dictionaries::Category.count', -1) do
+    assert_difference("Dictionaries::Category.count", -1) do
       delete dictionaries_category_url(@dictionaries_category)
     end
 

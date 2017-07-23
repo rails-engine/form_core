@@ -1,5 +1,5 @@
 class Forms::ApplicationController < ApplicationController
-  layout 'forms'
+  layout "forms"
 
   before_action :set_form
 

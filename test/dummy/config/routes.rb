@@ -1,28 +1,28 @@
 Rails.application.routes.draw do
 
-  resources :dictionaries, except: [:show]
+  resources :dictionaries, except: %i[show]
 
-  resources :forms do
+  resources :forms, except: %i[show] do
     scope module: :forms do
-      resource :preview, only: [:show, :create]
-      resources :sections, except: [:show]
-      resources :fields, except: [:show]
+      resource :preview, only: %i[show create]
+      resources :sections, except: %i[show]
+      resources :fields, except: %i[show]
     end
   end
 
-  resources :fields, only: [] do
+  resources :fields, only: %i[] do
     scope module: :fields do
-      resource :validations, only: [:edit, :update]
-      resource :options, only: [:edit, :update]
-      resource :data_source_options, only: [:edit, :update]
+      resource :validations, only: %i[edit update]
+      resource :options, only: %i[edit update]
+      resource :data_source_options, only: %i[edit update]
     end
   end
 
-  resources :nested_forms, only: [] do
+  resources :nested_forms, only: %i[] do
     scope module: :nested_forms do
-      resources :fields, except: [:show]
+      resources :fields, except: %i[show]
     end
   end
 
-  root to: 'home#index'
+  root to: "forms#index"
 end

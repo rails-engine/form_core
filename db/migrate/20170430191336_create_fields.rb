@@ -1,4 +1,4 @@
-class CreateFormCoreFields < ActiveRecord::Migration[5.1]
+class CreateFields < ActiveRecord::Migration[5.1]
   def change
     create_table :form_core_fields do |t|
       t.string :name, null: false

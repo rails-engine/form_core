@@ -1,4 +1,4 @@
-require_relative 'boot'
+require_relative "boot"
 
 # Pick the frameworks you want:
 require "active_record/railtie"
@@ -14,7 +14,7 @@ Bundler.require(*Rails.groups)
 require "form_core"
 
 %w(concern+prependable form_core+data_sources enum_translate).each do |filename|
-  require Pathname.new(File.dirname(__FILE__)).realpath.parent.join('lib', "#{filename}.rb")
+  require Pathname.new(File.dirname(__FILE__)).realpath.parent.join("lib", "#{filename}.rb")
 end
 
 module Dummy

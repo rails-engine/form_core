@@ -4,7 +4,6 @@
       <%= link_to 'FormCore', root_path, class: 'nav-item brand' %>
     </div>
     <div class="nav-right nav-menu">
-      <%= link_to 'Home', root_path, class: "nav-item is-tab #{"is-active" if current_page?(root_path)}" %>
       <%= link_to 'Dictionaries', dictionaries_path, class: "nav-item is-tab #{"is-active" if controller_name == "dictionaries"}" %>
       <%= link_to 'Forms', forms_path, class: "nav-item is-tab #{"is-active" if controller.class.to_s.split("::").first =~ /\A(FormsController|Forms)\z/}" %>
     </div>

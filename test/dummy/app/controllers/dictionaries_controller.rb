@@ -1,5 +1,5 @@
 class DictionariesController < ApplicationController
-  before_action :set_dictionary, only: [:edit, :update, :destroy]
+  before_action :set_dictionary, only: %i[edit update destroy]
 
   # GET /dictionaries/dictionaries
   def index
@@ -20,7 +20,7 @@ class DictionariesController < ApplicationController
     @dictionary = Dictionary.new(dictionary_params)
 
     if @dictionary.save
-      redirect_to dictionaries_url, notice: 'dictionary was successfully created.'
+      redirect_to dictionaries_url, notice: "dictionary was successfully created."
     else
       render :new
     end
@@ -29,7 +29,7 @@ class DictionariesController < ApplicationController
   # PATCH/PUT /dictionaries/dictionaries/1
   def update
     if @dictionary.update(dictionary_params)
-      redirect_to dictionaries_url, notice: 'dictionary was successfully updated.'
+      redirect_to dictionaries_url, notice: "dictionary was successfully updated."
     else
       render :edit
     end
@@ -38,7 +38,7 @@ class DictionariesController < ApplicationController
   # DELETE /dictionaries/dictionaries/1
   def destroy
     @dictionary.destroy
-    redirect_to dictionaries_url, notice: 'dictionary was successfully destroyed.'
+    redirect_to dictionaries_url, notice: "dictionary was successfully destroyed."
   end
 
   private

@@ -8,7 +8,7 @@ class Fields::OptionsController < Fields::ApplicationController
   def update
     @options.assign_attributes(options_params)
     if @options.valid? && @field.save(validate: false)
-      redirect_to fields_url, notice: 'Field was successfully updated.'
+      redirect_to fields_url, notice: "Field was successfully updated."
     else
       render :edit
     end

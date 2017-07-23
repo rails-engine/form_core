@@ -8,7 +8,7 @@ class Fields::ValidationsController < Fields::ApplicationController
   def update
     @validations.assign_attributes(validations_params)
     if @validations.valid? && @field.save(validate: false)
-      redirect_to fields_url, notice: 'Field was successfully updated.'
+      redirect_to fields_url, notice: "Field was successfully updated."
     else
       render :edit
     end

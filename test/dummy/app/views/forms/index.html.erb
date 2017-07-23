@@ -17,7 +17,7 @@
           <td><%= form.title %></td>
           <td><%= form.description %></td>
           <td>
-            <%= link_to 'Show', form %> |
+            <%= link_to 'Show', form_fields_path(form) %> |
             <%= link_to 'Edit', edit_form_path(form) %> |
             <%= link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' } %>
           </td>
