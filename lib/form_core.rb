@@ -6,24 +6,6 @@ require "form_core/concerns/models/field"
 
 module FormCore
   class << self
-    def field_classes
-      @field_classes ||= Set.new
-    end
-
-    def register_field_class(klass)
-      unless klass && klass < Field && !klass.abstract_class?
-        raise ArgumentError, "#{klass} should be sub-class of #{Field} and can't be abstract class."
-      end
-
-      field_classes << klass
-    end
-
-    def register_field_classes(*classes)
-      classes.each do |klass|
-        register_field_class klass
-      end
-    end
-
     def virtual_model_class
       @virtual_model_class ||= VirtualModel
     end

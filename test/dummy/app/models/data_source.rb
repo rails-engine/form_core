@@ -1,4 +1,8 @@
 class DataSource < FieldOptions
+  include ActiveSupport::DescendantsTracker
+
+  with_unused_attributes!
+
   def type_key
     self.class.model_name.name.split("::").last.underscore
   end
@@ -52,4 +56,8 @@ class DataSource < FieldOptions
       scoped_records(scoped_condition).where(find_condition).first
     end
   end
+end
+
+%w[empty dictionary].each do |type|
+  require_dependency "data_sources/#{type}"
 end

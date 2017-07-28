@@ -7,7 +7,7 @@ class Field < FormCore::Field
             presence: true
   validates :type,
             inclusion: {
-              in: -> (_) { FormCore.field_classes.map(&:to_s) }
+              in: ->(_) { Field.descendants.map(&:to_s) }
             }
 
   def type_key
@@ -39,4 +39,10 @@ class Field < FormCore::Field
 
     options.interpret_to(model, name, accessibility)
   end
+end
+
+%w[
+boolean decimal integer resource resource_select select text variable_length_nested_form
+].each do |type|
+  require_dependency "fields/#{type}_field"
 end

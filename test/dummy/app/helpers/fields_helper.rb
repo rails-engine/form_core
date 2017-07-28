@@ -1,10 +1,10 @@
 module FieldsHelper
   def options_for_field_types(selected: nil)
-    options_for_select(FormCore.field_classes.map { |klass| [klass.model_name.human, klass.to_s] }, selected)
+    options_for_select(Field.descendants.map { |klass| [klass.model_name.human, klass.to_s] }, selected)
   end
 
   def options_for_data_source_types(selected: nil)
-    options_for_select(FormCore.data_source_classes.map { |klass| [klass.model_name.human, klass.to_s] }, selected)
+    options_for_select(DataSource.descendants.map { |klass| [klass.model_name.human, klass.to_s] }, selected)
   end
 
   def data_source_attached_field?(field)
