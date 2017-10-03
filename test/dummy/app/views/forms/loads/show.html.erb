@@ -1,0 +1,20 @@
+<div class="section">
+  <div class="container">
+    <%= form_with url: form_load_path(@form), method: :post, local: true do |f| %>
+      <div class="field">
+        <div class="control">
+          <%= f.text_area :serialized, class: "textarea", rows: 10 %>
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <p class="control">
+          <%= f.submit "Load from YAML", class: 'button is-primary' %>
+        </p>
+        <p class="control">
+          <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>

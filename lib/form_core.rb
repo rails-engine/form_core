@@ -1,6 +1,10 @@
 require "form_core/engine"
-require "form_core/virtual_model"
+require "form_core/errors"
 
+require "form_core/coder"
+require "form_core/coders/yaml_coder"
+
+require "form_core/virtual_model"
 require "form_core/concerns/models/form"
 require "form_core/concerns/models/field"
 
@@ -15,6 +19,7 @@ module FormCore
         raise ArgumentError, "#{klass} should be sub-class of #{VirtualModel}."
       end
 
+      @reserved_names = nil
       @virtual_model_class = klass
     end
 
@@ -23,6 +28,18 @@ module FormCore
         %i(def class module private public protected allocate new parent superclass) +
           virtual_model_class.instance_methods(true)
       )
+    end
+
+    def virtual_model_coder_class
+      @virtual_model_coder_class ||= YAMLCoder
+    end
+
+    def virtual_model_coder_class=(klass)
+      unless klass && klass < Coder
+        raise ArgumentError, "#{klass} should be sub-class of #{Coder}."
+      end
+
+      @virtual_model_coder_class = klass
     end
   end
 end

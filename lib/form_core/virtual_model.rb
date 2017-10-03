@@ -2,7 +2,6 @@ require "duck_record"
 
 module FormCore
   class VirtualModel < ::DuckRecord::Base
-
     # Returns the contents of the record as a nicely formatted string.
     def inspect
       # We check defined?(@attributes) not to issue warnings if the object is
@@ -21,6 +20,10 @@ module FormCore
       "#<VirtualModel:#{self.class.name}:#{object_id} #{inspection}>"
     end
 
+    def dump
+      self.class.dump(self)
+    end
+
     public_class_method :define_method
     class << self
       def name
@@ -33,6 +36,20 @@ module FormCore
 
         @_name = value
       end
+
+      def coder
+        @_coder ||= FormCore.virtual_model_coder_class.new(self)
+      end
+
+      def coder=(klass)
+        unless klass && klass < Coder
+          raise ArgumentError, "#{klass} should be sub-class of #{Coder}."
+        end
+
+        @_coder = klass.new(self)
+      end
+
+      delegate :dump, :load, to: :coder, allow_nil: false
 
       def build(name = nil)
         klass = Class.new(self)

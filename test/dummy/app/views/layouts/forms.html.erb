@@ -24,6 +24,9 @@
             <%= content_tag(:li, class: "#{"is-active" if controller_name == "previews"}") do %>
               <%= link_to "Preview", form_preview_path(@form) %>
             <% end %>
+            <%= content_tag(:li, class: "#{"is-active" if controller_name == "loads"}") do %>
+              <%= link_to "Load", form_load_path(@form) %>
+            <% end %>
           </ul>
         </nav>
       </div>

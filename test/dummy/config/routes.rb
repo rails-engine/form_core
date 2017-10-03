@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :forms, except: %i[show] do
     scope module: :forms do
       resource :preview, only: %i[show create]
+      resource :load, only: %i[show create]
       resources :sections, except: %i[show]
       resources :fields, except: %i[show]
     end
