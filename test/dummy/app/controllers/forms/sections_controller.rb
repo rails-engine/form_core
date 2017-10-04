@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Forms::SectionsController < Forms::ApplicationController
   before_action :set_section, only: %i[show edit update destroy]
 

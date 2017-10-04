@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DataSources
   class Dictionary < DataSource
     def text_method

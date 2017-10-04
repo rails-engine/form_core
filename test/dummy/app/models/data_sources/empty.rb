@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DataSources
   class Empty < DataSource
     def foreign_field_name_suffix
@@ -13,7 +15,6 @@ module DataSources
     end
 
     def interpret_to(_model, _field_name, _accessibility, _options = {})
-
     end
 
     class << self

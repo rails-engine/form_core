@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class Fields::OptionsController < Fields::ApplicationController
   before_action :set_options
 
   def edit
-
   end
 
   def update

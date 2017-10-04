@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class Fields::DataSourceOptionsController < Fields::ApplicationController
   before_action :require_data_source_options
   before_action :set_options
 
   def edit
-
   end
 
   def update

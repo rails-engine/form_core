@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NestedForms::ApplicationController < ApplicationController
   before_action :set_nested_form
 

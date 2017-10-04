@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
@@ -15,7 +17,7 @@ Gem::Specification.new do |s|
   A Rails engine providing ability to generate dynamic form.
   It's would make such as dynamic fields of model or questionnaire easily.
   TEXT
-  s.license     = "MIT"
+  s.license = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 

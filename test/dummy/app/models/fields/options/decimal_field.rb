@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields::Options
   class DecimalField < FieldOptions
     attribute :step, :decimal, default: 0

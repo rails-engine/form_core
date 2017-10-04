@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Forms::PreviewsController < Forms::ApplicationController
   before_action :eager_load_fields_and_sections
   before_action :set_preview

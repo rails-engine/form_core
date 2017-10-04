@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields
   class ResourceSelectField < SelectField
     serialize :options, Options::ResourceSelectField

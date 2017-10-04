@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields
   class BooleanField < Field
     serialize :validations, Validations::BooleanField

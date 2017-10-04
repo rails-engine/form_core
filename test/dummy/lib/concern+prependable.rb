@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Cheated from https://gitlab.com/gitlab-org/gitlab-ee/blob/master/config/initializers/0_as_concern.rb
 # This module is based on: https://gist.github.com/bcardarella/5735987
 

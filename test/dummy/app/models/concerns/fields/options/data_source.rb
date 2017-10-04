@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Concerns::Fields
   module Options::DataSource
     extend ActiveSupport::Concern
@@ -30,7 +32,7 @@ module Concerns::Fields
 
     def data_source=(value)
       if value.respond_to?(:to_h)
-        nested_attributes[:data_source]= data_source_class.new(value.to_h)
+        nested_attributes[:data_source] = data_source_class.new(value.to_h)
       elsif value.is_a? data_source_class
         nested_attributes[:data_source] = value
       elsif value.nil?

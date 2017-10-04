@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields
   class MultipleSelectFieldPresenter < FieldPresenter
     MAX_HARD_CODE_ITEMS_SIZE = 20

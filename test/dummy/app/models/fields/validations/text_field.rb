@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields::Validations
   class TextField < FieldOptions
     prepend Concerns::Fields::Validations::Presence

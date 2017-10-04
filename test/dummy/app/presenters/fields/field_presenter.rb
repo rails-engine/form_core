@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Fields::FieldPresenter < ApplicationPresenter
   def required
     @model.validations.fetch(:presence) { false }

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DataSource < FieldOptions
   include ActiveSupport::DescendantsTracker
 

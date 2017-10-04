@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FormCore::Concerns
   module Models
     module Form

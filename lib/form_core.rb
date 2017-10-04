@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "form_core/engine"
 require "form_core/errors"
 

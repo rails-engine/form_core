@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActionView::Base.field_error_proc = Proc.new do |html_tag, _instance|
   if html_tag =~ /<(input|label|textarea|select)/
     html_field = Nokogiri::HTML::DocumentFragment.parse(html_tag)

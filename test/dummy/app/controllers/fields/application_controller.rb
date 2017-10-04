@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Fields::ApplicationController < ApplicationController
   before_action :set_field
 

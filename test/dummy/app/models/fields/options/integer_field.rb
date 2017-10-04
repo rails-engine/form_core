@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields::Options
   class IntegerField < FieldOptions
     attribute :step, :integer, default: 0

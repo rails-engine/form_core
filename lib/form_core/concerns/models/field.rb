@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FormCore::Concerns
   module Models
     module Field
@@ -74,7 +76,6 @@ module FormCore::Concerns
       end
 
       def interpret_extra_to(_model, _accessibility, _overrides = {})
-
       end
 
       def check_model_validity!(model)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationPresenter < SimpleDelegator
   def initialize(model, view, options = {})
     super(model)

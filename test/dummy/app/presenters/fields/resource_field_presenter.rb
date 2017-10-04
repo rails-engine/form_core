@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields
   class ResourceFieldPresenter < FieldPresenter
     delegate :scoped_records, :value_method, :text_method, to: :data_source

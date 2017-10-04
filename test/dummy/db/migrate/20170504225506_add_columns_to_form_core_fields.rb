@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddColumnsToFormCoreFields < ActiveRecord::Migration[5.1]
   def change
     change_table :form_core_fields do |t|

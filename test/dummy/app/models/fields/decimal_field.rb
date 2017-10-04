@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields
   class DecimalField < Field
     serialize :validations, Validations::DecimalField

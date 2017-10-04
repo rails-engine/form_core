@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DictionariesController < ApplicationController
   before_action :set_dictionary, only: %i[edit update destroy]
 

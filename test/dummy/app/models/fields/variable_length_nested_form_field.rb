@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields
   class VariableLengthNestedFormField < Field
     has_one :nested_form, as: :attachable, dependent: :destroy

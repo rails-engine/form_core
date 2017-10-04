@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "duck_record"
 
 module FormCore

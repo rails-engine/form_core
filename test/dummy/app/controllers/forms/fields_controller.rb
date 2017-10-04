@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Forms::FieldsController < Forms::ApplicationController
   before_action :set_field, only: %i[show edit update destroy]
 

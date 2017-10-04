@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class Forms::Fields::ValidationsControllerTest < ActionDispatch::IntegrationTest
@@ -5,5 +7,4 @@ class Forms::Fields::ValidationsControllerTest < ActionDispatch::IntegrationTest
     get forms_fields_validation_show_url
     assert_response :success
   end
-
 end

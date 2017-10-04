@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NestedForms::FieldsController < NestedForms::ApplicationController
   before_action :set_field, only: %i[show edit update destroy]
 

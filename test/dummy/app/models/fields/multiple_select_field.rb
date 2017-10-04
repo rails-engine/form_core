@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields
   class MultipleSelectField < Field
     serialize :validations, Validations::MultipleSelectField

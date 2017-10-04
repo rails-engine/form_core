@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Fields
   class ResourceSelectFieldPresenter < FieldPresenter
     def include_blank?

@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class Fields::ValidationsController < Fields::ApplicationController
   before_action :set_validations
 
   def edit
-
   end
 
   def update

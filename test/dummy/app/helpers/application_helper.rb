@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def options_for_enum_select(klass, attribute, selected = nil)
     container = klass.public_send(attribute.to_s.pluralize).map do |k, v|

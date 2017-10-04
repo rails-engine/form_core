@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module FormCore
   class Coder
     attr_reader :object_class
