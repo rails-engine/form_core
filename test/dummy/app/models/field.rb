@@ -20,29 +20,25 @@ class Field < FormCore::Field
     return unless accessibility == :read_and_write
 
     validations_overrides = overrides.fetch(:validations) { {} }
-    validations = if validations_overrides.any?
-                    self.validations.dup.update(validations_overrides)
-                  else
-                    self.validations
-                  end
+    validations =
+      if validations_overrides.any?
+        self.validations.dup.update(validations_overrides)
+      else
+        self.validations
+      end
 
     validations.interpret_to(model, name, accessibility)
   end
 
   def interpret_extra_to(model, accessibility, overrides = {})
     options_overrides = overrides.fetch(:options) { {} }
-    options = if options_overrides.any?
-                self.options.dup.update(options_overrides)
-              else
-                self.options
-              end
+    options =
+      if options_overrides.any?
+        self.options.dup.update(options_overrides)
+      else
+        self.options
+      end
 
     options.interpret_to(model, name, accessibility)
   end
-end
-
-%w[
-boolean decimal integer resource resource_select select text variable_length_nested_form
-].each do |type|
-  require_dependency "fields/#{type}_field"
 end
