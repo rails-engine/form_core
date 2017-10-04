@@ -30,11 +30,11 @@ module FormCore::Concerns
       end
 
       def name
-        super&.to_sym
+        self[:name]&.to_sym
       end
 
       def accessibility
-        super&.to_sym
+        self[:accessibility]&.to_sym
       end
 
       def stored_type
