@@ -5,7 +5,8 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      attribute_names << :data_source
+      # There are something complicated, let's hack it!
+      attribute_names_for_nesting << :data_source
 
       attribute :data_source_type, :string, default: DataSources::Empty.to_s
 
@@ -27,7 +28,10 @@ module Concerns::Fields
     end
 
     def data_source
-      nested_attributes[:data_source] ||= data_source_class.new(attributes[:data_source])
+      if attributes[:data_source].class != data_source_class
+        nested_attributes[:data_source] = data_source_class.new(nested_attributes[:data_source].to_h)
+      end
+      nested_attributes[:data_source]
     end
 
     def data_source=(value)
