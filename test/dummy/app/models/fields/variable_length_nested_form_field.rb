@@ -36,22 +36,24 @@ module Fields
 
     def interpret_validations_to(model, accessibility, overrides = {})
       validations_overrides = overrides.fetch(:validations) { {} }
-      validations = if validations_overrides.any?
-                      self.validations.dup.update(validations_overrides)
-                    else
-                      self.validations
-                    end
+      validations =
+        if validations_overrides.any?
+          self.validations.dup.update(validations_overrides)
+        else
+          self.validations
+        end
 
       validations.interpret_to(model, pluralized_name, accessibility)
     end
 
     def interpret_extra_to(model, accessibility, overrides = {})
       options_overrides = overrides.fetch(:options) { {} }
-      options = if options_overrides.any?
-                  self.options.dup.update(options_overrides)
-                else
-                  self.options
-                end
+      options =
+        if options_overrides.any?
+          self.options.dup.update(options_overrides)
+        else
+          self.options
+        end
 
       options.interpret_to(model, pluralized_name, accessibility)
     end

@@ -1,7 +1,6 @@
-@import "bulma/bulma";
-@import "font-awesome-sprockets";
-@import "font-awesome";
-@import "selectize/dist/css/selectize";
+@import "selectize";
+@import "selectize.default";
+@import "bulma";
 
 body {
   display: flex;

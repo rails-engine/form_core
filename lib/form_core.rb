@@ -2,6 +2,7 @@ require "form_core/engine"
 require "form_core/errors"
 
 require "form_core/coder"
+require "form_core/coders/hash_coder"
 require "form_core/coders/yaml_coder"
 
 require "form_core/virtual_model"
@@ -31,7 +32,7 @@ module FormCore
     end
 
     def virtual_model_coder_class
-      @virtual_model_coder_class ||= YAMLCoder
+      @virtual_model_coder_class ||= HashCoder
     end
 
     def virtual_model_coder_class=(klass)
