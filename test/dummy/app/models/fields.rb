@@ -2,7 +2,7 @@
 
 module Fields
   %w[
-  boolean decimal integer text resource
+  text boolean decimal integer resource
   resource_select select multiple_select
   variable_length_nested_form
   ].each do |type|

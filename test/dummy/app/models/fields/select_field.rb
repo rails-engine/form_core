@@ -15,9 +15,9 @@ module Fields
 
     protected
 
-    def interpret_extra_to(model, accessibility, _overrides = {})
+    def interpret_extra_to(model, accessibility, overrides = {})
+      super
       return if accessibility != :editable || !options.strict_select?
-
       model.validates name, inclusion: {in: options.collection}, allow_blank: true
     end
   end

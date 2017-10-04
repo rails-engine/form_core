@@ -2,9 +2,9 @@
   <div class="container">
     <p content="content">
       <%= link_to 'New field', new_nested_form_field_path(@nested_form), class: 'button is-primary' %>
-      <%= link_to 'Back', form_fields_path(@nested_form.attachable.form), class: 'button is-link' %>
+      <%= link_to 'Back', smart_form_fields_path(@nested_form.attachable.form), class: 'button is-link' %>
     </p>
-    <table class="table">
+    <table class="table is-fullwidth">
       <thead>
       <tr>
         <th>Name</th>

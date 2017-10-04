@@ -21,6 +21,8 @@ module Fields
       accessibility = overrides.fetch(:accessibility, self.accessibility)
       return model if accessibility == :hidden
 
+      overrides.merge!(name: pluralized_name)
+
       nested_model = nested_form.to_virtual_model
 
       model.nested_models[name] = nested_model
@@ -32,32 +34,6 @@ module Fields
       interpret_extra_to model, accessibility, overrides
 
       model
-    end
-
-    protected
-
-    def interpret_validations_to(model, accessibility, overrides = {})
-      validations_overrides = overrides.fetch(:validations) { {} }
-      validations =
-        if validations_overrides.any?
-          self.validations.dup.update(validations_overrides)
-        else
-          self.validations
-        end
-
-      validations.interpret_to(model, pluralized_name, accessibility)
-    end
-
-    def interpret_extra_to(model, accessibility, overrides = {})
-      options_overrides = overrides.fetch(:options) { {} }
-      options =
-        if options_overrides.any?
-          self.options.dup.update(options_overrides)
-        else
-          self.options
-        end
-
-      options.interpret_to(model, pluralized_name, accessibility)
     end
   end
 end
