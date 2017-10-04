@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    form_core (0.0.6)
+    form_core (0.0.7)
       duck_record (~> 0)
       rails (~> 5.0)
 
