@@ -40,3 +40,9 @@ body {
 #alert {
   background: $danger;
 }
+
+.nested-fields {
+  margin-left: 1.5em;
+  border: 1px solid $green;
+  padding: 0.5em;
+}
