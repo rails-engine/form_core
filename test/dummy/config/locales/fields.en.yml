@@ -4,6 +4,8 @@ en:
       fields/text_field: Text field
       fields/decimal_field: Decimal field
       fields/integer_field: Integer field
+      fields/date_field: Date field
+      fields/datetime_field: Datetime field
       fields/select_field: Select field
       fields/multiple_select_field: Multiple select field
       fields/resource_field: Resource field

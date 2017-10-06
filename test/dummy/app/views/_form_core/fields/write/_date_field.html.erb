@@ -1,0 +1,9 @@
+<div class="field">
+  <%= f.label field.name, field.label, class: 'label' %>
+  <p class="control">
+    <%= f.date_field field.name, class: 'input', id: field.id, placeholder: field.prompt %>
+  </p>
+  <% if field.hint.present? %>
+    <p class="help"><%= field.hint %></p>
+  <% end %>
+</div>
