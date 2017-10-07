@@ -2,15 +2,16 @@
 
 module FormCore
   class Coder
+    cattr_accessor :strict
+
     attr_reader :object_class
 
-    def initialize(object_class, strict: false)
+    def initialize(object_class)
       @object_class = object_class
-      @strict = strict
     end
 
     def strict?
-      @strict
+      Coder.strict
     end
 
     def dump(_obj)
