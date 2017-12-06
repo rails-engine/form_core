@@ -46,3 +46,11 @@ body {
   border: 1px solid $green;
   padding: 0.5em;
 }
+
+.nested-forms {
+  margin-bottom: 0.75rem;
+
+  .links {
+    margin-top: 0.75rem;
+  }
+}

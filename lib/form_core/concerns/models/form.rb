@@ -5,10 +5,6 @@ module FormCore::Concerns
     module Form
       extend ActiveSupport::Concern
 
-      included do
-        has_many :fields
-      end
-
       def to_virtual_model(model_name: "Form",
                            fields_scope: proc { |fields| fields },
                            overrides: {})

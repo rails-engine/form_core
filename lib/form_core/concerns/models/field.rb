@@ -6,8 +6,6 @@ module FormCore::Concerns
       extend ActiveSupport::Concern
 
       included do
-        belongs_to :form, touch: true
-
         enum accessibility: {read_and_write: 0, read_only: 1, hidden: 2}
 
         serialize :validations
