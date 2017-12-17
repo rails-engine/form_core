@@ -12,13 +12,34 @@ class FieldOptions < DuckRecord::Base
   end
 
   class << self
-    WHITELIST_CLASSES = [BigDecimal, Date, Time]
+    WHITELIST_CLASSES = [BigDecimal, Date, Time, Symbol]
 
     def dump(obj)
-      YAML.dump(obj&.to_h || {})
+      return YAML.dump({}) unless obj
+
+      data =
+        if obj.respond_to?(:serializable_hash)
+          obj.serializable_hash
+        elsif obj.respond_to?(:to_hash)
+          obj.to_hash
+        else
+          raise ArgumentError, "`obj` required can be cast to `Hash` -- #{obj.class}"
+        end.stringify_keys
+      YAML.dump(data)
     end
 
-    def load(yaml)
+    def load(yaml_or_hash)
+      case yaml_or_hash
+      when Hash
+        load_from_hash(yaml_or_hash)
+      when String
+        load_from_yaml(yaml_or_hash)
+      else
+        new
+      end
+    end
+
+    def load_from_yaml(yaml)
       return new if yaml.blank?
 
       unless yaml.is_a?(String) && /^---/.match?(yaml)
@@ -31,6 +52,11 @@ class FieldOptions < DuckRecord::Base
       end
 
       new decoded.slice(*(attribute_names + reflections.keys))
+    end
+
+    def load_from_hash(hash)
+      return new if hash.blank?
+      new hash.slice(*(attribute_names + reflections.keys))
     end
   end
 end
