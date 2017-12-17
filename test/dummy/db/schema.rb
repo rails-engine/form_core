@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20170613184106) do
     t.string "name", null: false
     t.integer "accessibility", null: false
     t.text "validations"
-    t.text "static_default_value"
     t.text "options"
     t.string "type", null: false
     t.integer "form_id"

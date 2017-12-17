@@ -10,7 +10,6 @@ module FormCore::Concerns
 
         serialize :validations
         serialize :options
-        serialize :static_default_value
 
         validates :name,
                   presence: true,
@@ -40,7 +39,7 @@ module FormCore::Concerns
       end
 
       def default_value
-        ActiveModel::Type.lookup(stored_type).cast(static_default_value)
+        nil
       end
 
       def interpret_to(model, overrides: {})
