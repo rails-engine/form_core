@@ -41,4 +41,3 @@ gem "web-console"
 gem "pry-byebug"
 
 gem "cocoon"
-gem "options_model"

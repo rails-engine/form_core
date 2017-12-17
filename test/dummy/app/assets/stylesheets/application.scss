@@ -47,6 +47,19 @@ body {
   padding: 0.5em;
 }
 
+form {
+  .title {
+    color: $label-color;
+    font-size: $size-normal;
+    font-weight: $label-weight;
+  }
+
+  .subtitle {
+    color: $label-color;
+    font-size: $size-small;
+  }
+}
+
 .nested-forms {
   margin-bottom: 0.75rem;
 

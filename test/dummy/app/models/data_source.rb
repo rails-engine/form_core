@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 class DataSource < FieldOptions
-  include ActiveSupport::DescendantsTracker
-
-  with_unused_attributes!
-
   def type_key
-    self.class.model_name.name.split("::").last.underscore
+    self.class.type_key
   end
 
   def stored_type
@@ -50,6 +46,10 @@ class DataSource < FieldOptions
   end
 
   class << self
+    def type_key
+      model_name.name.split("::").last.underscore
+    end
+
     def scoped_records(_condition)
       raise NotImplementedError
     end
@@ -60,6 +60,4 @@ class DataSource < FieldOptions
   end
 end
 
-%w[empty dictionary].each do |type|
-  require_dependency "data_sources/#{type}"
-end
+require_dependency "data_sources"

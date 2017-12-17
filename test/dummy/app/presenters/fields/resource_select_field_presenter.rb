@@ -3,11 +3,11 @@
 module Fields
   class ResourceSelectFieldPresenter < FieldPresenter
     def include_blank?
-      !@model.validations.presence?
+      !@model.validations.presence
     end
 
     def can_custom_value?
-      !@model.options.strict_select?
+      !@model.options.strict_select
     end
 
     def collection

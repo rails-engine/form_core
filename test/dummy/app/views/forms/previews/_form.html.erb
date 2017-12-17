@@ -17,19 +17,18 @@
   <% end %>
 
   <% form.sections.each do |section| %>
-    <section class="section">
-      <div class="container">
-        <h1 class="title"><%= section.title %></h1>
-        <% section.fields.each do |field| %>
-          <% case field.accessibility %>
-          <% when :read_and_write %>
-            <%= render "_form_core/fields/write/#{field.type_key}", f: f, field: present(field, target: preview) %>
-          <% when :read_only %>
-            <%= render "_form_core/fields/read/#{field.type_key}", f: f, field: present(field, target: preview) %>
-          <% end %>
-        <% end %>
-      </div>
-    </section>
+    <% unless section.headless? %>
+      <h2 class="title"><%= section.title %></h2>
+    <% end %>
+
+    <% section.fields.each do |field| %>
+      <% case field.accessibility %>
+      <% when :read_and_write %>
+        <%= render "_form_core/fields/write/#{field.type_key}", f: f, field: present(field, target: preview) %>
+      <% when :read_only %>
+        <%= render "_form_core/fields/read/#{field.type_key}", f: f, field: present(field, target: preview) %>
+      <% end %>
+    <% end %>
   <% end %>
 
   <div class="field is-grouped">

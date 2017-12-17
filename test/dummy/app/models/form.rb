@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Form < FormCore::Form
+  has_many :sections, dependent: :destroy
+
   validates :title,
             presence: true
-
-  has_many :sections, dependent: :destroy
 end

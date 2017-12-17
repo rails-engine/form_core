@@ -10,7 +10,7 @@ module Concerns::Fields
 
     def interpret_to(model, field_name, _accessibility, _options = {})
       super
-      return unless presence?
+      return unless presence
 
       model.validates field_name, presence: true
     end

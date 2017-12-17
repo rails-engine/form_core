@@ -5,12 +5,17 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      embeds_one :inclusion, anonymous_class: InclusionOptions
+      has_one :inclusion, class_name: "Concerns::Fields::Validations::Inclusion::InclusionOptions"
+      accepts_nested_attributes_for :inclusion
+
+      after_initialize do
+        build_inclusion unless inclusion
+      end
     end
 
     def interpret_to(model, field_name, accessibility, options = {})
       super
-      inclusion.interpret_to model, field_name, accessibility, options
+      inclusion&.interpret_to model, field_name, accessibility, options
     end
 
     class InclusionOptions < FieldOptions

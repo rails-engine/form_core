@@ -17,6 +17,9 @@
   <% validations.class.attribute_names.each do |attribute_name| %>
     <%= render "_form_core/validations/#{attribute_name}", f: f, validations: validations %>
   <% end %>
+  <% validations.class.reflections.keys.each do |attribute_name| %>
+    <%= render "_form_core/validations/#{attribute_name}", f: f, validations: validations %>
+  <% end %>
 
   <div class="field is-grouped">
     <p class="control">

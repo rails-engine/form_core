@@ -5,12 +5,17 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      embeds_one :format, anonymous_class: FormatOptions
+      has_one :format, class_name: "Concerns::Fields::Validations::Format::FormatOptions"
+      accepts_nested_attributes_for :format
+
+      after_initialize do
+        build_format unless format
+      end
     end
 
     def interpret_to(model, field_name, accessibility, options = {})
       super
-      format.interpret_to model, field_name, accessibility, options
+      format&.interpret_to model, field_name, accessibility, options
     end
 
     class FormatOptions < FieldOptions

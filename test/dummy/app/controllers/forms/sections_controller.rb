@@ -52,6 +52,6 @@ class Forms::SectionsController < Forms::ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def section_params
-    params.fetch(:section, {}).permit(:title)
+    params.fetch(:section, {}).permit(:title, :headless)
   end
 end

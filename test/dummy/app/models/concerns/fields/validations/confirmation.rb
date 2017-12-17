@@ -10,7 +10,7 @@ module Concerns::Fields
 
     def interpret_to(model, field_name, _accessibility, _options = {})
       super
-      return unless confirmation?
+      return unless confirmation
 
       model.validates field_name, confirmation: true
     end

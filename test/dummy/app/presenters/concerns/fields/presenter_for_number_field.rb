@@ -5,14 +5,14 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     def min
-      return if @model.validations.numericality.lower_bound == "disabled"
+      return if @model.validations.numericality.lower_bound_disabled?
 
       min = @model.validations.numericality.lower_value
       integer_only? ? min.to_i : min
     end
 
     def max
-      return if @model.validations.numericality.upper_bound == "disabled"
+      return if @model.validations.numericality.upper_bound_disabled?
 
       max = @model.validations.numericality.upper_value
       integer_only? ? max.to_i : max

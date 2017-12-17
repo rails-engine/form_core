@@ -5,7 +5,7 @@ module Fields
     delegate :scoped_records, :value_method, :text_method, to: :data_source
 
     def include_blank?
-      !@model.validations.presence?
+      !@model.validations.presence
     end
 
     def options_for_select

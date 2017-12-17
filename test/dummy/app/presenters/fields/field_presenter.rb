@@ -2,7 +2,7 @@
 
 class Fields::FieldPresenter < ApplicationPresenter
   def required
-    @model.validations.fetch(:presence) { false }
+    @model.validations&.presence
   end
   alias_method :required?, :required
 

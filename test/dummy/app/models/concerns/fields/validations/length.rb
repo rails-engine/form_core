@@ -5,12 +5,17 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      embeds_one :length, anonymous_class: LengthOptions
+      has_one :length, class_name: "Concerns::Fields::Validations::Length::LengthOptions"
+      accepts_nested_attributes_for :length
+
+      after_initialize do
+        build_length unless length
+      end
     end
 
     def interpret_to(model, field_name, accessibility, options = {})
       super
-      length.interpret_to model, field_name, accessibility, options
+      length&.interpret_to model, field_name, accessibility, options
     end
 
     class LengthOptions < FieldOptions

@@ -40,8 +40,8 @@ module Fields
 
     def interpret_extra_to(model, accessibility, overrides = {})
       super
-      return if accessibility != :editable || !options.strict_select?
-      model.validates pluralized_name, inclusion: {in: options.collection}, allow_blank: true
+      return if accessibility != :editable || !options.strict_select
+      model.validates pluralized_name, inclusion: {in: collection}, allow_blank: true
     end
   end
 end

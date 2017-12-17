@@ -9,7 +9,7 @@ module Fields
     end
 
     def can_custom_value?
-      !@model.options.strict_select?
+      !@model.options.strict_select
     end
 
     def collection
