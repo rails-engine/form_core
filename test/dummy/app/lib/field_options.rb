@@ -3,6 +3,8 @@
 class FieldOptions < DuckRecord::Base
   include EnumTranslate
 
+  attr_accessor :_raw_attributes
+
   def interpret_to(_model, _field_name, _accessibility, _options = {})
   end
 
@@ -25,7 +27,7 @@ class FieldOptions < DuckRecord::Base
         else
           raise ArgumentError, "`obj` required can be cast to `Hash` -- #{obj.class}"
         end.stringify_keys
-      YAML.dump(data)
+      YAML.dump(self.to_s => data)
     end
 
     def load(yaml_or_hash)
@@ -51,12 +53,16 @@ class FieldOptions < DuckRecord::Base
         return new
       end
 
-      new decoded.slice(*(attribute_names + reflections.keys))
+      record = new decoded[self.to_s]&.slice(*(attribute_names + reflections.keys))
+      record._raw_attributes = decoded.freeze
+      record
     end
 
     def load_from_hash(hash)
       return new if hash.blank?
-      new hash.slice(*(attribute_names + reflections.keys))
+      record = new hash[self.to_s].slice(*(attribute_names + reflections.keys))
+      record._raw_attributes = hash.freeze
+      record
     end
   end
 end
