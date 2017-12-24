@@ -5,7 +5,7 @@ require "yaml"
 module FormCore
   class HashCoder < FormCore::Coder # :nodoc:
     def dump(obj)
-      obj&.to_h || {}
+      obj&.serializable_hash || {}
     end
 
     def load(hash)

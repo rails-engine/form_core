@@ -5,7 +5,7 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      has_one :numericality, class_name: "Concerns::Fields::Validations::Numericality::NumericalityOptions"
+      embeds_one :numericality, class_name: "Concerns::Fields::Validations::Numericality::NumericalityOptions"
       accepts_nested_attributes_for :numericality
 
       after_initialize do

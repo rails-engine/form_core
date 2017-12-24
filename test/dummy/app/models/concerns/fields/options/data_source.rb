@@ -9,7 +9,7 @@ module Concerns::Fields
 
       ::DataSource.descendants.each do |klass|
         key = :"#{klass.type_key}_data_source"
-        has_one key, class_name: klass.to_s
+        embeds_one key, class_name: klass.to_s
         accepts_nested_attributes_for key
       end
 

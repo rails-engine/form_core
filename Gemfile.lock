@@ -62,7 +62,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.3)
-    duck_record (0.0.16)
+    duck_record (0.0.19)
       activemodel (~> 5.0)
       activesupport (~> 5.0)
     erubi (1.7.0)

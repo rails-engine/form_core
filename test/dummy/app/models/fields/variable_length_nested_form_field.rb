@@ -27,7 +27,7 @@ module Fields
 
       model.nested_models[name] = nested_model
 
-      model.has_many pluralized_name, anonymous_class: nested_model, validate: true
+      model.embeds_many pluralized_name, anonymous_class: nested_model, validate: true
       model.accepts_nested_attributes_for pluralized_name, reject_if: :all_blank
 
       interpret_validations_to model, accessibility, overrides

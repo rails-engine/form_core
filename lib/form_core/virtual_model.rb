@@ -22,6 +22,16 @@ module FormCore
       "#<VirtualModel:#{self.class.name}:#{object_id} #{inspection}>"
     end
 
+    def serializable_hash(options = {})
+      options = (options || {}).reverse_merge include: _embeds_reflections.keys
+      super options
+    end
+
+    def _embeds_reflections
+      _reflections.select { |_, v| v.is_a? DuckRecord::Reflection::EmbedsAssociationReflection }
+    end
+    private :_embeds_reflections
+
     def dump
       self.class.dump(self)
     end

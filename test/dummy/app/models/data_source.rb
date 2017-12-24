@@ -26,7 +26,7 @@ class DataSource < FieldOptions
   end
 
   def scoped_condition
-    self.to_h
+    self.serializable_hash
   end
 
   def scoped_records

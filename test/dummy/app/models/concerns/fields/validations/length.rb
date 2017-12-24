@@ -5,7 +5,7 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      has_one :length, class_name: "Concerns::Fields::Validations::Length::LengthOptions"
+      embeds_one :length, class_name: "Concerns::Fields::Validations::Length::LengthOptions"
       accepts_nested_attributes_for :length
 
       after_initialize do

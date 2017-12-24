@@ -5,7 +5,7 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      has_one :exclusion, class_name: "Concerns::Fields::Validations::Exclusion::ExclusionOptions"
+      embeds_one :exclusion, class_name: "Concerns::Fields::Validations::Exclusion::ExclusionOptions"
       accepts_nested_attributes_for :exclusion
 
       after_initialize do

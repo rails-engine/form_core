@@ -9,9 +9,14 @@ class FieldOptions < DuckRecord::Base
   end
 
   def serializable_hash(options = {})
-    options = (options || {}).reverse_merge include: _reflections.keys
+    options = (options || {}).reverse_merge include: _embeds_reflections.keys
     super options
   end
+
+  def _embeds_reflections
+    _reflections.select { |_, v| v.is_a? DuckRecord::Reflection::EmbedsAssociationReflection }
+  end
+  private :_embeds_reflections
 
   class << self
     WHITELIST_CLASSES = [BigDecimal, Date, Time, Symbol]

@@ -17,7 +17,7 @@ module FormCore
     def dump(obj)
       return YAML.dump({}) unless obj
 
-      YAML.dump obj.to_h
+      YAML.dump obj.serializable_hash
     end
 
     def load(yaml)

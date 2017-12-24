@@ -5,7 +5,7 @@ module Concerns::Fields
     extend ActiveSupport::Concern
 
     included do
-      has_one :format, class_name: "Concerns::Fields::Validations::Format::FormatOptions"
+      embeds_one :format, class_name: "Concerns::Fields::Validations::Format::FormatOptions"
       accepts_nested_attributes_for :format
 
       after_initialize do
