@@ -8,7 +8,7 @@
       </div>
       <div class="message-body">
         <% field.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+          <li><%= message %></li>
         <% end %>
       </div>
     </article>
@@ -18,6 +18,9 @@
     <%= f.label :name, class: 'label' %>
     <p class="control">
       <%= f.text_field :name, class: 'input', placeholder: 'Name' %>
+    </p>
+    <p class="help">
+      The identifier of the field, must be <code>a-z0-9_</code> and conform to Ruby's variable naming rule.
     </p>
   </div>
 
@@ -48,6 +51,9 @@
       <span class="select">
         <%= f.select :section_id, options_from_collection_for_select(form.sections.all, :id, :title, field.section_id) %>
       </span>
+    </p>
+    <p class="help">
+      You may need to <%= link_to 'create one', new_form_section_path(form) %> first.
     </p>
   </div>
 
