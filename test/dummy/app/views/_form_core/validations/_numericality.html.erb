@@ -20,25 +20,25 @@
   <% end %>
 
   <div class="field has-addons">
-    <p class="control">
+    <div class="control">
       <span class="select">
         <%= ff.select :lower_bound, options_for_enum_select(numericality.class, :lower_bound, numericality.lower_bound), {}, class: 'select' %>
       </span>
-    </p>
-    <p class="control">
+    </div>
+    <div class="control">
       <%= ff.number_field :lower_value, step: 0.01, class: 'input' %>
-    </p>
+    </div>
   </div>
 
   <div class="field has-addons">
-    <p class="control">
+    <div class="control">
       <span class="select">
         <%= ff.select :upper_bound, options_for_enum_select(numericality.class, :upper_bound, numericality.upper_bound), {}, class: 'select' %>
       </span>
-    </p>
-    <p class="control">
+    </div>
+    <div class="control">
       <%= ff.number_field :upper_value, step: 0.01, class: 'input' %>
-    </p>
+    </div>
   </div>
 <% end %>
 

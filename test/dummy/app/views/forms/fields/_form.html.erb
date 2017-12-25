@@ -6,19 +6,21 @@
           <%= pluralize(field.errors.count, "error") %> prohibited this form from being saved:
         </p>
       </div>
-      <div class="message-body">
-        <% field.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
+      <div class="message-body content">
+        <ul>
+          <% field.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
     </article>
   <% end %>
 
   <div class="field">
     <%= f.label :name, class: 'label' %>
-    <p class="control">
+    <div class="control">
       <%= f.text_field :name, class: 'input', placeholder: 'Name' %>
-    </p>
+    </div>
     <p class="help">
       The identifier of the field, must be <code>a-z0-9_</code> and conform to Ruby's variable naming rule.
     </p>
@@ -26,32 +28,32 @@
 
   <div class="field">
     <%= f.label :label, class: 'label' %>
-    <p class="control">
+    <div class="control">
       <%= f.text_field :label, class: 'input', placeholder: 'Label' %>
-    </p>
+    </div>
   </div>
 
   <div class="field">
     <%= f.label :hint, class: 'label' %>
-    <p class="control">
+    <div class="control">
       <%= f.text_field :hint, class: 'input', placeholder: 'Hint' %>
-    </p>
+    </div>
   </div>
 
   <div class="field">
     <%= f.label :prompt, class: 'label' %>
-    <p class="control">
+    <div class="control">
       <%= f.text_field :prompt, class: 'input', placeholder: 'Prompt' %>
-    </p>
+    </div>
   </div>
 
   <div class="field">
     <%= f.label :section_id, class: 'label' %>
-    <p class="control">
+    <div class="control">
       <span class="select">
         <%= f.select :section_id, options_from_collection_for_select(form.sections.all, :id, :title, field.section_id) %>
       </span>
-    </p>
+    </div>
     <p class="help">
       You may need to <%= link_to 'create one', new_form_section_path(form) %> first.
     </p>
@@ -59,30 +61,30 @@
 
   <div class="field">
     <%= f.label :type, class: 'label' %>
-    <p class="control">
-    <span class="select">
-      <%= f.select :type, options_for_field_types(selected: field.class.to_s) %>
-    </span>
-    </p>
+    <div class="control">
+      <span class="select">
+        <%= f.select :type, options_for_field_types(selected: field.class.to_s) %>
+      </span>
+    </div>
   </div>
 
   <div class="field">
-    <p class="control">
+    <div class="control">
       <% Field.accessibilities.each do |k, _| %>
         <label class="radio">
           <%= f.radio_button :accessibility, k %>
           <%= Field.human_enum_value :accessibility, k %>
         </label>
       <% end %>
-    </p>
+    </div>
   </div>
 
   <div class="field is-grouped">
-    <p class="control">
+    <div class="control">
       <%= f.submit class: 'button is-primary' %>
-    </p>
-    <p class="control">
+    </div>
+    <div class="control">
       <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
-    </p>
+    </div>
   </div>
 <% end %>

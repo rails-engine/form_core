@@ -1,8 +1,8 @@
 <div class="field">
   <%= f.label field.name, field.label, class: 'label' %>
-  <p class="control">
+  <div class="control">
     <%= f.datetime_field field.name, class: 'input', id: field.id, placeholder: field.prompt, disabled: 'disabled', **field.to_builder_options %>
-  </p>
+  </div>
   <% if field.hint.present? %>
     <p class="help"><%= field.hint %></p>
   <% end %>

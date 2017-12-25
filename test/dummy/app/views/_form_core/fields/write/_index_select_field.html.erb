@@ -1,6 +1,6 @@
 <div class="field">
   <%= f.label field.name, field.label, class: 'label' %>
-  <p class="control">
+  <div class="control">
     <% field.collection.each_with_index do |choice, index| %>
       <label class="radio">
         <%= f.radio_button field.name, index %>
@@ -8,8 +8,7 @@
       </label>
       <br>
     <% end %>
-  </p>
-
+  </div>
   <% if field.hint.present? %>
     <p class="help"><%= field.hint %></p>
   <% end %>

@@ -7,12 +7,16 @@
             <%= pluralize(f.object.errors.count, "error") %> prohibited this form from being submitted:
           </p>
         </div>
-        <div class="message-body">
-          <% f.object.errors.messages.each do |name, messages| %>
-            <% messages.each do |message| %>
-              <li><%= "#{form.fields.select { |field| field.name == name}.first&.label } #{message}" %></li>
+        <div class="message-body content">
+          <ul>
+            <% f.object.errors.messages.each do |name, messages| %>
+              <% messages.each do |message| %>
+                <li>
+                  <%= "#{form.fields.select { |field| field.name == name}.first&.label } #{message}" %>
+                </li>
+              <% end %>
             <% end %>
-          <% end %>
+          </ul>
         </div>
       </article>
     <% end %>
@@ -27,9 +31,9 @@
     <% end %>
 
     <div class="field is-grouped">
-      <p class="control">
+      <div class="control">
         <%= link_to_remove_association "Remove", f, class: "button is-danger" %>
-      </p>
+      </div>
     </div>
   </p>
 </div>

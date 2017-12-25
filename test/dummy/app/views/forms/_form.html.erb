@@ -6,34 +6,36 @@
           <%= pluralize(form.errors.count, "error") %> prohibited this form from being saved:
         </p>
       </div>
-      <div class="message-body">
-        <% form.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
+      <div class="message-body content">
+        <ul>
+          <% form.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
     </article>
   <% end %>
 
   <div class="field">
     <%= f.label :title, class: 'label' %>
-    <p class="control">
+    <div class="control">
       <%= f.text_field :title, class: 'input', placeholder: 'Title' %>
-    </p>
+    </div>
   </div>
 
   <div class="field">
     <%= f.label :description, class: 'label' %>
-    <p class="control">
+    <div class="control">
       <%= f.text_area :description, class: 'textarea', placeholder: 'Description' %>
-    </p>
+    </div>
   </div>
 
   <div class="field is-grouped">
-    <p class="control">
+    <div class="control">
       <%= f.submit class: 'button is-primary' %>
-    </p>
-    <p class="control">
+    </div>
+    <div class="control">
       <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
-    </p>
+    </div>
   </div>
 <% end %>

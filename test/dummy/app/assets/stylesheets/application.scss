@@ -67,3 +67,9 @@ form {
     margin-top: 0.75rem;
   }
 }
+
+.message-body.content {
+  > :first-child {
+    margin-top: 0;
+  }
+}

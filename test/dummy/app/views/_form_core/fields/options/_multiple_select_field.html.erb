@@ -2,18 +2,18 @@
 
 <div class="field">
   <%= f.label :collection, class: 'label' %>
-  <p class="control">
+  <div class="control">
     <%= f.select :collection, options_for_select(options.collection, options.collection), {}, id: 'options_collection', multiple: true %>
-  </p>
+  </div>
 </div>
 
 <div class="field">
-  <p class="control">
+  <div class="control">
     <label class="checkbox">
       <%= f.check_box :strict_select %>
       Can only select from collection
     </label>
-  </p>
+  </div>
 </div>
 
 <hr>

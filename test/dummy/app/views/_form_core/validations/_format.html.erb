@@ -13,7 +13,7 @@
       </div>
       <div class="message-body">
         <% format.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+          <li><%= message %></li>
         <% end %>
       </div>
     </article>
@@ -21,16 +21,16 @@
 
   <div class="field">
     <%= ff.label :with %>
-    <p class="control">
+    <div class="control">
       <%= ff.text_field :with, class: 'input'%>
-    </p>
+    </div>
   </div>
 
   <div class="field">
     <%= ff.label :message %>
-    <p class="control">
+    <div class="control">
       <%= ff.text_field :message, class: 'input'%>
-    </p>
+    </div>
   </div>
 <% end %>
 

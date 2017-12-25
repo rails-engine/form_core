@@ -6,34 +6,36 @@
           <%= pluralize(dictionary.errors.count, "error") %> prohibited this form from being saved:
         </p>
       </div>
-      <div class="message-body">
-        <% dictionary.errors.full_messages.each do |message| %>
+      <div class="message-body content">
+        <ul>
+          <% dictionary.errors.full_messages.each do |message| %>
             <li><%= message %></li>
-        <% end %>
+          <% end %>
+        </ul>
       </div>
     </article>
   <% end %>
 
   <div class="field">
     <%= f.label :scope, class: 'label' %>
-    <p class="control">
+    <div class="control">
       <%= f.text_field :scope, class: 'input', required: true %>
-    </p>
+    </div>
   </div>
 
   <div class="field">
     <%= f.label :value, class: 'label' %>
-    <p class="control">
+    <div class="control">
       <%= f.text_field :value, class: 'input', required: true %>
-    </p>
+    </div>
   </div>
 
   <div class="field is-grouped">
-    <p class="control">
+    <div class="control">
       <%= f.submit class: 'button is-primary' %>
-    </p>
-    <p class="control">
+    </div>
+    <div class="control">
       <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
-    </p>
+    </div>
   </div>
 <% end %>

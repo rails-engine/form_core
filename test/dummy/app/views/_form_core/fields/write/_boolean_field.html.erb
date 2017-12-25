@@ -1,8 +1,11 @@
 <div class="field">
-  <p class="control">
+  <div class="control">
     <label class="checkbox">
       <%= f.check_box field.name, id: field.id %>
       <%= field.label %>
     </label>
-  </p>
+  </div>
+  <% if field.hint.present? %>
+    <p class="help"><%= field.hint %></p>
+  <% end %>
 </div>

@@ -6,12 +6,14 @@
           <%= pluralize(preview.errors.count, "error") %> prohibited this form from being submitted:
         </p>
       </div>
-      <div class="message-body">
-        <% preview.errors.messages.each do |name, messages| %>
-          <% messages.each do |message| %>
-            <li><%= "#{field_label(form, field_name: name)} #{message}" %></li>
+      <div class="message-body content">
+        <ul>
+          <% preview.errors.messages.each do |name, messages| %>
+            <% messages.each do |message| %>
+              <li><%= "#{field_label(form, field_name: name)} #{message}" %></li>
+            <% end %>
           <% end %>
-        <% end %>
+        </ul>
       </div>
     </article>
   <% end %>
@@ -32,11 +34,11 @@
   <% end %>
 
   <div class="field is-grouped">
-    <p class="control">
+    <div class="control">
       <%= f.submit class: 'button is-primary' %>
-    </p>
-    <p class="control">
+    </div>
+    <div class="control">
       <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
-    </p>
+    </div>
   </div>
 <% end %>

@@ -6,10 +6,12 @@
           <%= pluralize(options.errors.count, "error") %> prohibited this form from being saved:
         </p>
       </div>
-      <div class="message-body">
-        <% options.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
+      <div class="message-body content">
+        <ul>
+          <% options.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
     </article>
   <% end %>
@@ -17,11 +19,11 @@
   <%= render "_form_core/data_source_options/#{options.type_key}", f: f %>
 
   <div class="field is-grouped">
-    <p class="control">
+    <div class="control">
       <%= f.submit class: 'button is-primary' %>
-    </p>
-    <p class="control">
+    </div>
+    <div class="control">
       <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
-    </p>
+    </div>
   </div>
 <% end %>

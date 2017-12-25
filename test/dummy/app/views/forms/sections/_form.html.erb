@@ -7,35 +7,37 @@
         </p>
       </div>
       <div class="message-body">
-        <% section.errors.full_messages.each do |message| %>
+        <ul>
+          <% section.errors.full_messages.each do |message| %>
             <li><%= message %></li>
-        <% end %>
+          <% end %>
+        </ul>
       </div>
     </article>
   <% end %>
 
   <div class="field">
     <%= f.label :title, class: 'label' %>
-    <p class="control">
+    <div class="control">
       <%= f.text_field :title, class: 'input', placeholder: 'Title' %>
-    </p>
+    </div>
   </div>
 
   <div class="field">
-    <p class="control">
+    <div class="control">
       <label class="checkbox">
         <%= f.check_box :headless %>
         Hide title
       </label>
-    </p>
+    </div>
   </div>
 
   <div class="field is-grouped">
-    <p class="control">
+    <div class="control">
       <%= f.submit class: 'button is-primary' %>
-    </p>
-    <p class="control">
+    </div>
+    <div class="control">
       <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
-    </p>
+    </div>
   </div>
 <% end %>
