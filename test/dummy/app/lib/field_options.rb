@@ -9,17 +9,24 @@ class FieldOptions < DuckRecord::Base
   end
 
   def serializable_hash(options = {})
-    options = (options || {}).reverse_merge include: _embeds_reflections.keys
+    options = (options || {}).reverse_merge include: self.class._embeds_reflections.keys
     super options
   end
 
-  def _embeds_reflections
-    _reflections.select { |_, v| v.is_a? DuckRecord::Reflection::EmbedsAssociationReflection }
-  end
-  private :_embeds_reflections
-
   class << self
     WHITELIST_CLASSES = [BigDecimal, Date, Time, Symbol]
+
+    def _embeds_reflections
+      _reflections.select { |_, v| v.is_a? DuckRecord::Reflection::EmbedsAssociationReflection }
+    end
+
+    def _model_version
+      1
+    end
+
+    def _serialize_root_key
+      "#{self}.#{_model_version}"
+    end
 
     def dump(obj)
       return YAML.dump({}) unless obj
@@ -32,7 +39,7 @@ class FieldOptions < DuckRecord::Base
         else
           raise ArgumentError, "`obj` required can be cast to `Hash` -- #{obj.class}"
         end.stringify_keys
-      YAML.dump(self.to_s => data)
+      YAML.dump(_serialize_root_key => data)
     end
 
     def load(yaml_or_hash)
@@ -58,14 +65,14 @@ class FieldOptions < DuckRecord::Base
         return new
       end
 
-      record = new decoded[self.to_s]&.slice(*(attribute_names + reflections.keys))
+      record = new decoded[_serialize_root_key]&.slice(*(attribute_names + _embeds_reflections.keys))
       record._raw_attributes = decoded.freeze
       record
     end
 
     def load_from_hash(hash)
       return new if hash.blank?
-      record = new hash[self.to_s].slice(*(attribute_names + reflections.keys))
+      record = new hash[_serialize_root_key].slice(*(attribute_names + _embeds_reflections.keys))
       record._raw_attributes = hash.freeze
       record
     end
