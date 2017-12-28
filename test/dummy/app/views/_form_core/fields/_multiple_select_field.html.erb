@@ -1,7 +1,7 @@
 <div class="field">
   <%= f.label field.name, field.label, class: 'label' %>
   <div class="control">
-    <%= f.select field.name, options_for_select(field.collection, field.value), {include_blank: field.include_blank?}, id: field.id, placeholder: field.prompt %>
+    <%= f.select field.name, options_for_select(field.collection, field.value), {include_blank: field.include_blank?}, id: field.id, placeholder: field.prompt, readonly: field.access_readonly?, multiple: true %>
   </div>
   <% if field.hint.present? %>
     <p class="help"><%= field.hint %></p>
@@ -11,7 +11,8 @@
 <script>
   document.addEventListener("turbolinks:load", function() {
     $('#<%= field.id %>').selectize({
-      create: <%= field.can_custom_value? %>
+      create: <%= field.can_custom_value? %>,
+      maxItems: <%= field.max_items_size %>
     });
   });
 </script>

@@ -16,11 +16,11 @@
     </article>
   <% end %>
 
-  <%= render "_form_core/fields/options/#{field.type_key}", f: f, options: options %>
+  <%= render "_form_core/field_options/#{field.type_key}", f: f, options: options %>
 
   <div class="field is-grouped">
     <div class="control">
-      <%= f.submit class: 'button is-primary' %>
+      <%= f.submit "Update", class: 'button is-primary' %>
     </div>
     <div class="control">
       <%= link_to 'Back', url_for(:back), class: 'button is-link' %>

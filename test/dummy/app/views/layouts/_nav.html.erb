@@ -1,11 +1,11 @@
 <nav class="navbar has-shadow">
   <div class="container">
     <div class="navbar-brand">
-      <%= link_to 'Form Core', root_path, class: 'navbar-item' %>
+      <%= link_to "Form Core", root_path, class: "navbar-item" %>
     </div>
     <div class="navbar-end">
-      <%= link_to 'Dictionaries', dictionaries_path, class: "navbar-item #{"is-active" if controller_name == "dictionaries"}" %>
-      <%= link_to 'Forms', forms_path, class: "navbar-item #{"is-active" if controller.class.to_s.split("::").first =~ /\A(FormsController|Forms)\z/}" %>
+      <%= link_to "Dictionaries", dictionaries_path, class: "navbar-item #{"is-active" if controller_name == "dictionaries"}" %>
+      <%= link_to "Forms", forms_path, class: "navbar-item #{"is-active" if controller.class.to_s.split("::").first =~ /\A(FormsController|Forms)\z/}" %>
     </div>
   </div>
 </nav>

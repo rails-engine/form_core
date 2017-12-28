@@ -18,8 +18,9 @@ module FormCore::Concerns
                                   overrides: {})
         check_model_validity! model
 
+        global_overrides = overrides.fetch(:_global, {})
         fields_scope.call(fields).each do |f|
-          f.interpret_to model, overrides: overrides.fetch(f.name, {})
+          f.interpret_to model, overrides: global_overrides.merge(overrides.fetch(f.name, {}))
         end
 
         model

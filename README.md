@@ -44,7 +44,7 @@ $ bin/rails db:migrate
 Clone the repository.
 
 ```sh
-$ git clone https://github.com/jasl/form_core.git
+$ git clone https://github.com/jasl-lab/form_core.git
 ```
 
 Change directory

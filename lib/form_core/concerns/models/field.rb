@@ -6,7 +6,8 @@ module FormCore::Concerns
       extend ActiveSupport::Concern
 
       included do
-        enum accessibility: {read_and_write: 0, read_only: 1, hidden: 2}
+        enum accessibility: {read_and_write: 0, readonly: 1, hidden: 2},
+             _prefix: :access
 
         serialize :validations
         serialize :options
@@ -51,7 +52,7 @@ module FormCore::Concerns
         default_value = overrides.fetch(:default_value, self.default_value)
         model.attribute name, stored_type, default: default_value
 
-        if accessibility == :read_only
+        if accessibility == :readonly
           model.attr_readonly name
         end
 

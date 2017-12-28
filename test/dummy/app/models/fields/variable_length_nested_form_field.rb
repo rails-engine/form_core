@@ -23,7 +23,7 @@ module Fields
 
       overrides.merge!(name: pluralized_name)
 
-      nested_model = nested_form.to_virtual_model
+      nested_model = nested_form.to_virtual_model(overrides: {_global: {accessibility: accessibility}})
 
       model.nested_models[name] = nested_model
 

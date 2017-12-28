@@ -23,22 +23,17 @@
       <h2 class="title"><%= section.title %></h2>
     <% end %>
 
-    <% section.fields.each do |field| %>
-      <% case field.accessibility %>
-      <% when :read_and_write %>
-        <%= render "_form_core/fields/write/#{field.type_key}", f: f, field: present(field, target: preview) %>
-      <% when :read_only %>
-        <%= render "_form_core/fields/read/#{field.type_key}", f: f, field: present(field, target: preview) %>
-      <% end %>
+    <% section.fields.reject(&:access_hidden?).each do |field| %>
+      <%= render "_form_core/fields/#{field.type_key}", f: f, field: present(field, target: preview) %>
     <% end %>
   <% end %>
 
   <div class="field is-grouped">
     <div class="control">
-      <%= f.submit class: 'button is-primary' %>
+      <%= f.submit "Submit", class: "button is-primary" %>
     </div>
     <div class="control">
-      <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
+      <%= link_to "Back", url_for(:back), class: "button is-link" %>
     </div>
   </div>
 <% end %>

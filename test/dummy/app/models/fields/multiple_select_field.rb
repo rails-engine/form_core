@@ -26,7 +26,7 @@ module Fields
       overrides.merge!(name: pluralized_name)
 
       model.attribute pluralized_name, stored_type, default: [], array_without_blank: true
-      if accessibility == :read_only
+      if accessibility == :readonly
         model.attr_readonly pluralized_name
       end
 

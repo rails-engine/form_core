@@ -26,7 +26,7 @@ module Fields
       default_value = overrides.fetch(:default_value, self.default_value)
       model.attribute foreign_field_name, stored_type, default: default_value
 
-      if accessibility == :read_only
+      if accessibility == :readonly
         model.attr_readonly foreign_field_name
       end
 

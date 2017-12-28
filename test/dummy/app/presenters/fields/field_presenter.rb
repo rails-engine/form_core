@@ -14,6 +14,10 @@ class Fields::FieldPresenter < ApplicationPresenter
     target&.read_attribute(@model.name)
   end
 
+  def access_readonly?
+    target.class.attr_readonly?(@model.name)
+  end
+
   def id
     "form_field_#{@model.id}"
   end

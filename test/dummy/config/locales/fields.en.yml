@@ -1,6 +1,7 @@
 en:
   activerecord:
     models:
+      fields/boolean_field: Boolean field
       fields/text_field: Text field
       fields/decimal_field: Decimal field
       fields/integer_field: Integer field
@@ -20,7 +21,7 @@ en:
         prompt: Prompt
         accessibilities:
           hidden: Hidden
-          read: Read-only
+          readonly: Read-only
           read_and_write: Normal
 
   activemodel:

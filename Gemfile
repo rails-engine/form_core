@@ -2,6 +2,8 @@
 
 source "https://rubygems.org"
 
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+
 # Declare your gem"s dependencies in form_core.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
@@ -27,9 +29,9 @@ gem "sass-rails", "~> 5.0"
 gem "uglifier", ">= 1.3.0"
 
 gem "jquery-rails"
-gem "turbolinks", "~> 5"
+gem "turbolinks"
 gem "selectize-rails"
-gem "bulma-rails", "~> 0.5"
+gem "bulma-rails"
 
 # Use Puma as the app server
 gem "puma"

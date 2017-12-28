@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    form_core (0.0.11)
+    form_core (0.0.12)
       duck_record (~> 0)
       rails (~> 5.0)
 
@@ -85,7 +85,7 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
-    nio4r (2.1.0)
+    nio4r (2.2.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     pry (0.11.3)
@@ -170,7 +170,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bulma-rails (~> 0.5)
+  bulma-rails
   cocoon
   coffee-rails (~> 4.2)
   form_core!
@@ -182,7 +182,7 @@ DEPENDENCIES
   selectize-rails
   sprockets (~> 4.0.0.beta5)
   sqlite3
-  turbolinks (~> 5)
+  turbolinks
   uglifier (>= 1.3.0)
   web-console
 

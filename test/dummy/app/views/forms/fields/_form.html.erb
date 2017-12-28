@@ -17,50 +17,50 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name, class: 'label' %>
+    <%= f.label :name, class: "label" %>
     <div class="control">
-      <%= f.text_field :name, class: 'input', placeholder: 'Name' %>
+      <%= f.text_field :name, class: "input", placeholder: "Name" %>
     </div>
     <p class="help">
-      The identifier of the field, must be <code>a-z0-9_</code> and conform to Ruby's variable naming rule.
+      The identifier of the field, must be <code>a-z0-9_</code> and conform to Ruby"s variable naming rule.
     </p>
   </div>
 
   <div class="field">
-    <%= f.label :label, class: 'label' %>
+    <%= f.label :label, class: "label" %>
     <div class="control">
-      <%= f.text_field :label, class: 'input', placeholder: 'Label' %>
+      <%= f.text_field :label, class: "input", placeholder: "Label" %>
     </div>
   </div>
 
   <div class="field">
-    <%= f.label :hint, class: 'label' %>
+    <%= f.label :hint, class: "label" %>
     <div class="control">
-      <%= f.text_field :hint, class: 'input', placeholder: 'Hint' %>
+      <%= f.text_field :hint, class: "input", placeholder: "Hint" %>
     </div>
   </div>
 
   <div class="field">
-    <%= f.label :prompt, class: 'label' %>
+    <%= f.label :prompt, class: "label" %>
     <div class="control">
-      <%= f.text_field :prompt, class: 'input', placeholder: 'Prompt' %>
+      <%= f.text_field :prompt, class: "input", placeholder: "Prompt" %>
     </div>
   </div>
 
   <div class="field">
-    <%= f.label :section_id, class: 'label' %>
+    <%= f.label :section_id, class: "label" %>
     <div class="control">
       <span class="select">
         <%= f.select :section_id, options_from_collection_for_select(form.sections.all, :id, :title, field.section_id) %>
       </span>
     </div>
     <p class="help">
-      You may need to <%= link_to 'create one', new_form_section_path(form) %> first.
+      You may need to <%= link_to "create one", new_form_section_path(form) %> first.
     </p>
   </div>
 
   <div class="field">
-    <%= f.label :type, class: 'label' %>
+    <%= f.label :type, class: "label" %>
     <div class="control">
       <span class="select">
         <%= f.select :type, options_for_field_types(selected: field.class.to_s) %>
@@ -81,10 +81,10 @@
 
   <div class="field is-grouped">
     <div class="control">
-      <%= f.submit class: 'button is-primary' %>
+      <%= f.submit class: "button is-primary" %>
     </div>
     <div class="control">
-      <%= link_to 'Back', url_for(:back), class: 'button is-link' %>
+      <%= link_to "Back", url_for(:back), class: "button is-link" %>
     </div>
   </div>
 <% end %>
