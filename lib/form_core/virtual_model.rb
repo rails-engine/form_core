@@ -23,14 +23,9 @@ module FormCore
     end
 
     def serializable_hash(options = {})
-      options = (options || {}).reverse_merge include: _embeds_reflections.keys
+      options = (options || {}).reverse_merge include: self.class._embeds_reflections.keys
       super options
     end
-
-    def _embeds_reflections
-      _reflections.select { |_, v| v.is_a? DuckRecord::Reflection::EmbedsAssociationReflection }
-    end
-    private :_embeds_reflections
 
     def dump
       self.class.dump(self)
@@ -73,6 +68,10 @@ module FormCore
       def inspect
         attr_list = attribute_types.map { |name, type| "#{name}: #{type.type}" } * ", "
         "#<VirtualModel:#{name}:#{object_id} #{attr_list}>"
+      end
+
+      def _embeds_reflections
+        _reflections.select { |_, v| v.is_a? DuckRecord::Reflection::EmbedsAssociationReflection }
       end
     end
   end

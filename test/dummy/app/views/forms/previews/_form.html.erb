@@ -23,8 +23,11 @@
       <h2 class="title"><%= section.title %></h2>
     <% end %>
 
-    <% section.fields.reject(&:access_hidden?).each do |field| %>
-      <%= render "_form_core/fields/#{field.type_key}", f: f, field: present(field, target: preview) %>
+    <% section.fields.each do |field| %>
+      <% field = present(field, target: preview) %>
+      <% unless field.access_hidden? %>
+        <%= render "_form_core/fields/#{field.type_key}", f: f, field: field %>
+      <% end %>
     <% end %>
   <% end %>
 

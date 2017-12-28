@@ -18,6 +18,14 @@ class Fields::FieldPresenter < ApplicationPresenter
     target.class.attr_readonly?(@model.name)
   end
 
+  def access_hidden?
+    target.class.attribute_names.exclude?(@model.name.to_s) && target.class._reflections.keys.exclude?(@model.name.to_s)
+  end
+
+  def access_read_and_write
+    target.class.attribute_names.include?(@model.name.to_s) || target.class._reflections.keys.include?(@model.name.to_s)
+  end
+
   def id
     "form_field_#{@model.id}"
   end

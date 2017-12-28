@@ -13,7 +13,7 @@ module FormCore
         return new_or_raise_decoding_error
       end
 
-      object_class.new hash.to_h
+      object_class.new valid_attributes(hash)
     end
   end
 end

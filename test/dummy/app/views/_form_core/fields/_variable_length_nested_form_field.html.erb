@@ -12,7 +12,8 @@
     <div class="links">
       <%= link_to_add_association "Add", f, field.name,
                                   class: "button is-link",
-                                  partial: "_form_core/fields/nested_form_fields", render_options: {locals: {form: field.nested_form}} %>
+                                  partial: "_form_core/fields/nested_form_fields", render_options:
+                                    {locals: {field: field, form: field.nested_form}} %>
     </div>
   <% end %>
 <% end %>

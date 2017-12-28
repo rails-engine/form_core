@@ -37,7 +37,7 @@ module FormCore
         return new_or_raise_decoding_error
       end
 
-      object_class.new decoded
+      object_class.new valid_attributes(decoded)
     end
   end
 end
