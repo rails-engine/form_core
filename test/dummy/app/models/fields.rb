@@ -5,7 +5,7 @@ module Fields
   text boolean decimal integer resource
   date datetime
   resource_select select multiple_select index_select
-  variable_length_nested_form
+  variable_length_nested_form nested_form
   ].each do |type|
     require_dependency "fields/#{type}_field"
   end

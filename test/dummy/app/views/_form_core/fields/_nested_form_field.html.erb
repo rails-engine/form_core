@@ -9,6 +9,7 @@
     <div class="links">
       <% if field.access_read_and_write? %>
         <%= link_to_add_association "Add", f, field.name,
+                                    force_non_association_create: true,
                                     class: "button is-small",
                                     partial: "_form_core/fields/nested_form",
                                     render_options: {
@@ -21,3 +22,17 @@
     </div>
   <% end %>
 </div>
+
+<% if field.access_read_and_write? %>
+  <script>
+    document.addEventListener("turbolinks:load", function() {
+      $('<%= "##{field.name}" %>')
+        .on('cocoon:before-insert', function() {
+          $('<%= "##{field.name}" %> .links a.add_fields').hide();
+        })
+        .on("cocoon:before-remove", function() {
+          $('<%= "##{field.name}" %> .links a.add_fields').show();
+        });
+    });
+  </script>
+<% end %>

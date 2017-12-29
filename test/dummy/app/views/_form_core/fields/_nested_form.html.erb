@@ -1,4 +1,4 @@
-<div class="nested-fields">
+<div class="nested_form">
   <% if f.object.errors.any? %>
     <article class="message is-danger">
       <div class="message-header">
@@ -30,7 +30,7 @@
   <% if field.access_read_and_write? %>
     <div class="field is-grouped">
       <div class="control">
-        <%= link_to_remove_association "Remove", f, class: "button is-danger" %>
+        <%= link_to_remove_association "Remove", f, class: "button is-small is-danger", wrapper_class: "nested_form" %>
       </div>
     </div>
   <% end %>

@@ -12,6 +12,7 @@ en:
       fields/multiple_select_field: Multiple select field
       fields/resource_field: Resource field
       fields/resource_select_field: Resource select field
+      fields/nested_form_field: Nested form field
       fields/variable_length_nested_form_field: Variable length nested form field
     attributes:
       field:

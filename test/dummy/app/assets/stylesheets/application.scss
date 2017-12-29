@@ -40,30 +40,14 @@ body {
   background: $danger;
 }
 
-.nested-fields {
-  margin-left: 1.5em;
-  border: 1px solid $green;
-  padding: 0.5em;
-}
-
-form {
-  .title {
-    color: $label-color;
-    font-size: $size-normal;
-    font-weight: $label-weight;
-  }
-
-  .subtitle {
-    color: $label-color;
-    font-size: $size-small;
-  }
-}
-
-.nested-forms {
-  margin-bottom: 0.75rem;
-
-  .links {
-    margin-top: 0.75rem;
+.nested_form_field {
+  .collection {
+    .nested_form {
+      border: 1px solid $green;
+      padding: 0.5em;
+      margin-left: 0.75em;
+      margin-bottom: 0.75rem;
+    }
   }
 }
 
