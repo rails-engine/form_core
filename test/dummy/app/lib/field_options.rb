@@ -3,7 +3,9 @@
 class FieldOptions < DuckRecord::Base
   include EnumTranslate
 
-  attr_accessor :_raw_attributes
+  class_attribute :keeping_old_serialization
+
+  attr_accessor :raw_attributes
 
   def interpret_to(_model, _field_name, _accessibility, _options = {})
   end
@@ -14,24 +16,26 @@ class FieldOptions < DuckRecord::Base
   end
 
   class << self
-    WHITELIST_CLASSES = [BigDecimal, Date, Time, Symbol]
-
     def _embeds_reflections
       _reflections.select { |_, v| v.is_a? DuckRecord::Reflection::EmbedsAssociationReflection }
     end
 
-    def _model_version
+    def attribute_names_for_serialization
+      attribute_names + _embeds_reflections.keys
+    end
+
+    def model_version
       1
     end
 
-    def _serialize_root_key
-      "#{self}.#{_model_version}"
+    def root_key_for_serialization
+      "#{self}.#{model_version}"
     end
 
     def dump(obj)
       return YAML.dump({}) unless obj
 
-      data =
+      serializable_hash =
         if obj.respond_to?(:serializable_hash)
           obj.serializable_hash
         elsif obj.respond_to?(:to_hash)
@@ -39,7 +43,13 @@ class FieldOptions < DuckRecord::Base
         else
           raise ArgumentError, "`obj` required can be cast to `Hash` -- #{obj.class}"
         end.stringify_keys
-      YAML.dump(_serialize_root_key => data)
+
+      data = {root_key_for_serialization => serializable_hash}
+      if keeping_old_serialization
+        data.reverse_merge! obj.raw_attributes
+      end
+
+      YAML.dump(data)
     end
 
     def load(yaml_or_hash)
@@ -53,6 +63,7 @@ class FieldOptions < DuckRecord::Base
       end
     end
 
+    WHITELIST_CLASSES = [BigDecimal, Date, Time, Symbol]
     def load_from_yaml(yaml)
       return new if yaml.blank?
 
@@ -65,15 +76,15 @@ class FieldOptions < DuckRecord::Base
         return new
       end
 
-      record = new decoded[_serialize_root_key]&.slice(*(attribute_names + _embeds_reflections.keys))
-      record._raw_attributes = decoded.freeze
+      record = new decoded[root_key_for_serialization]&.slice(*attribute_names_for_serialization)
+      record.raw_attributes = decoded.freeze
       record
     end
 
     def load_from_hash(hash)
       return new if hash.blank?
-      record = new hash[_serialize_root_key].slice(*(attribute_names + _embeds_reflections.keys))
-      record._raw_attributes = hash.freeze
+      record = new hash[root_key_for_serialization].slice(*attribute_names_for_serialization)
+      record.raw_attributes = hash.freeze
       record
     end
   end
