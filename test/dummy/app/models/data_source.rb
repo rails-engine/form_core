@@ -5,6 +5,10 @@ class DataSource < FieldOptions
     self.class.type_key
   end
 
+  def source_class
+    raise NotImplementedError
+  end
+
   def stored_type
     :integer
   end
@@ -34,14 +38,9 @@ class DataSource < FieldOptions
   end
 
   def interpret_to(model, field_name, accessibility, _options = {})
-    klass = self.class
-    scoped_condition = self.scoped_condition
-    foreign_field_name = foreign_field_name(field_name)
-    primary_key = self.value_method
-
-    model.define_method field_name do
-      find_condition = {primary_key => send(foreign_field_name)}
-      klass.find_record find_condition, scoped_condition
+    if source_class
+      where_condition = scoped_condition.dup
+      model.belongs_to field_name, -> { where(where_condition) }, class_name: source_class.to_s, optional: true
     end
   end
 
@@ -52,10 +51,6 @@ class DataSource < FieldOptions
 
     def scoped_records(_condition)
       raise NotImplementedError
-    end
-
-    def find_record(find_condition, scoped_condition = {})
-      scoped_records(scoped_condition).where(find_condition).first
     end
   end
 end

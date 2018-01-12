@@ -2,6 +2,10 @@
 
 module DataSources
   class Empty < DataSource
+    def source_class
+      nil
+    end
+
     def foreign_field_name_suffix
       ""
     end

@@ -20,6 +20,18 @@ module Fields
       target&.read_attribute(foreign_field_name)
     end
 
+    def access_readonly?
+      target.class.attr_readonly?(name)
+    end
+
+    def access_hidden?
+      target.class.attribute_names.exclude?(name.to_s) && target.class._reflections.keys.exclude?(name.to_s)
+    end
+
+    def access_read_and_write
+      target.class.attribute_names.include?(name.to_s) || target.class._reflections.keys.include?(name.to_s)
+    end
+
     private
 
     def data_source

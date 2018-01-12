@@ -8,6 +8,10 @@ module DataSources
 
     attribute :scope, :string, default: ""
 
+    def source_class
+      ::Dictionary
+    end
+
     class << self
       def scoped_records(condition)
         return ::Dictionary.none if condition.blank?
