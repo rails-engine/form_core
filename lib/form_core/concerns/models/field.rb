@@ -5,6 +5,8 @@ module FormCore::Concerns
     module Field
       extend ActiveSupport::Concern
 
+      NAME_REGEX = /\A[a-z0-9_]+\z/
+
       included do
         enum accessibility: {read_and_write: 0, readonly: 1, hidden: 2},
              _prefix: :access
@@ -16,7 +18,7 @@ module FormCore::Concerns
                   presence: true,
                   uniqueness: {scope: :form},
                   exclusion: {in: FormCore.reserved_names},
-                  format: {with: /\A[a-z0-9_]+\z/}
+                  format: {with: NAME_REGEX}
         validates :accessibility,
                   inclusion: {in: self.accessibilities.keys.map(&:to_sym)}
 

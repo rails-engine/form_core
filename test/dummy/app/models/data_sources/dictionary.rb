@@ -8,6 +8,10 @@ module DataSources
 
     attribute :scope, :string, default: ""
 
+    validates :scope,
+              format: {with: ::Dictionary::SCOPE_REGEX},
+              allow_blank: true
+
     def source_class
       ::Dictionary
     end

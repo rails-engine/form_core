@@ -22,7 +22,7 @@
       <%= f.text_field :name, class: "input", placeholder: "Name" %>
     </div>
     <p class="help">
-      The identifier of the field, must be <code>a-z0-9_</code> and conform to Ruby"s variable naming rule.
+      The identifier of the field, the value must follow the pattern <code><%= Field::NAME_REGEX.source %></code> and Ruby's variable naming rule.
     </p>
   </div>
 

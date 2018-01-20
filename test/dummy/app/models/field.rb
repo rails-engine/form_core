@@ -5,6 +5,8 @@ class Field < FormCore::Field
 
   belongs_to :section, touch: true, optional: true
 
+  acts_as_list scope: [:section_id]
+
   validates :label,
             presence: true
   validates :type,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613184106) do
+ActiveRecord::Schema.define(version: 20180120201200) do
 
   create_table "dictionaries", force: :cascade do |t|
     t.string "value", default: "", null: false
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20170613184106) do
     t.string "hint", default: ""
     t.string "prompt", default: ""
     t.integer "section_id"
+    t.integer "position"
     t.index ["form_id"], name: "index_form_core_fields_on_form_id"
     t.index ["section_id"], name: "index_form_core_fields_on_section_id"
     t.index ["type"], name: "index_form_core_fields_on_type"
@@ -57,6 +58,7 @@ ActiveRecord::Schema.define(version: 20170613184106) do
     t.integer "form_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["form_id"], name: "index_sections_on_form_id"
   end
 

@@ -21,6 +21,9 @@
     <div class="control">
       <%= f.text_field :scope, class: 'input', required: true %>
     </div>
+    <p class="help">
+      The value must follow the pattern <code><%= Dictionary::SCOPE_REGEX.source %></code>.
+    </p>
   </div>
 
   <div class="field">

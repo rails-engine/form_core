@@ -43,3 +43,4 @@ gem "web-console"
 gem "pry-byebug"
 
 gem "cocoon"
+gem "acts_as_list"
