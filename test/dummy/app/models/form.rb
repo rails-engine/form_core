@@ -11,6 +11,6 @@ class Form < FormCore::Form
   private
 
   def auto_create_default_section
-    sections.create! title: I18n.t("default.section.title"), headless: true
+    sections.create! title: I18n.t("defaults.section.title"), headless: true
   end
 end

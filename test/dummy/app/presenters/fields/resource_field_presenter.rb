@@ -2,7 +2,7 @@
 
 module Fields
   class ResourceFieldPresenter < FieldPresenter
-    delegate :scoped_records, :value_method, :text_method, to: :data_source
+    delegate :scoped_records, :value_method, :text_method, :value_for_preview_method, to: :data_source
 
     def include_blank?
       !@model.validations.presence
@@ -18,6 +18,10 @@ module Fields
 
     def value
       target&.read_attribute(foreign_field_name)
+    end
+
+    def value_for_preview
+      target.send(@model.name)&.read_attribute(value_for_preview_method.to_s)
     end
 
     def access_readonly?

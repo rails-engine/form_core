@@ -1,5 +1,13 @@
 <div class="section">
   <div class="container">
+    <div class="content">
+      <%= render "_form_core/preview/form", form: @form, instance: @instance %>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
     <h1 class="title">Serialized result</h1>
     <h2 class="subtitle">
       You can copy the YAML and paste into <%= link_to 'load page', form_load_path(@form) %> to validate deserialization.

@@ -6,6 +6,10 @@ module DataSources
       :value
     end
 
+    def value_for_preview_method
+      :value
+    end
+
     attribute :scope, :string, default: ""
 
     validates :scope,

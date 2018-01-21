@@ -14,6 +14,10 @@ class Fields::FieldPresenter < ApplicationPresenter
     target&.read_attribute(@model.name)
   end
 
+  def value_for_preview
+    target&.read_attribute(@model.name)
+  end
+
   def access_readonly?
     target.class.attr_readonly?(@model.name)
   end
@@ -28,5 +32,13 @@ class Fields::FieldPresenter < ApplicationPresenter
 
   def id
     "form_field_#{@model.id}"
+  end
+
+  def nested_form_field?
+    false
+  end
+
+  def variable_length_nested_form?
+    false
   end
 end

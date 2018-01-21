@@ -29,6 +29,10 @@ class DataSource < FieldOptions
     raise NotImplementedError
   end
 
+  def value_for_preview_method
+    raise NotImplementedError
+  end
+
   def scoped_condition
     self.serializable_hash
   end

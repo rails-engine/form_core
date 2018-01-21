@@ -1,0 +1,22 @@
+<% fields = form.fields.map { |field| present(field, target: instance) }.reject(&:access_hidden?) %>
+<% return if fields.empty? %>
+
+<div class="nested-content">
+  <% fields.each do |field| %>
+    <% if field.nested_form_field? %>
+      <% next unless field.value_for_preview %>
+
+      <p><%= field.label %>:</p>
+      <%= render "_form_core/preview/nested_form", form: field.nested_form, instance: field.value_for_preview %>
+    <% elsif field.variable_length_nested_form? %>
+      <% next if field.value_for_preview.empty? %>
+
+      <p><%= field.label %>:</p>
+      <%= field.value_for_preview.map do |nested_instance| %>
+        <% render "_form_core/preview/nested_form", form: field.nested_form, instance: nested_instance %>
+      <% end.join("<hr>").html_safe %>
+    <% else %>
+      <p><%= field.label %>: <%= field.value_for_preview %></p>
+    <% end %>
+  <% end %>
+</div>

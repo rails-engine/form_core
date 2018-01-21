@@ -30,6 +30,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  default:
+  defaults:
     section:
       title: Default
+  values:
+    'true': 'Yes'
+    'false': 'No'

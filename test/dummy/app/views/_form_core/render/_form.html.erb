@@ -1,14 +1,15 @@
-<%= form_with(model: preview, scope: :preview, url: form_preview_path(form), local: true) do |f| %>
-  <% if preview.errors.any? %>
+<% options ||= {} %>
+<%= form_with(model: instance, **options) do |f| %>
+  <% if instance.errors.any? %>
     <article class="message is-danger">
       <div class="message-header">
         <p>
-          <%= pluralize(preview.errors.count, "error") %> prohibited this form from being submitted:
+          <%= pluralize(instance.errors.count, "error") %> prohibited this form from being submitted:
         </p>
       </div>
       <div class="message-body content">
         <ul>
-          <% preview.errors.messages.each do |name, messages| %>
+          <% instance.errors.messages.each do |name, messages| %>
             <% messages.each do |message| %>
               <li><%= "#{field_label(form, field_name: name)} #{message}" %></li>
             <% end %>
@@ -19,15 +20,15 @@
   <% end %>
 
   <% form.sections.each do |section| %>
+    <% fields = section.fields.map { |field| present(field, target: instance) }.reject(&:access_hidden?) %>
+    <% next if fields.empty? %>
+
     <% unless section.headless? %>
       <h2 class="title"><%= section.title %></h2>
     <% end %>
 
-    <% section.fields.each do |field| %>
-      <% field = present(field, target: preview) %>
-      <% unless field.access_hidden? %>
-        <%= render "_form_core/fields/#{field.type_key}", f: f, field: field %>
-      <% end %>
+    <% fields.each do |field| %>
+      <%= render "_form_core/fields/#{field.type_key}", f: f, field: field %>
     <% end %>
   <% end %>
 

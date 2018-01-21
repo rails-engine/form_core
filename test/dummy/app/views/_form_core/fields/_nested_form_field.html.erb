@@ -26,6 +26,10 @@
 <% if field.access_read_and_write? %>
   <script>
     document.addEventListener("turbolinks:load", function() {
+      if($('<%= "##{field.name}" %> > .nested_form').length > 0) {
+        $('<%= "##{field.name}" %> .links a.add_fields').hide();
+      }
+
       $('<%= "##{field.name}" %>')
         .on('cocoon:before-insert', function() {
           $('<%= "##{field.name}" %> .links a.add_fields').hide();

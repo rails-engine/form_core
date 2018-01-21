@@ -51,6 +51,13 @@ body {
   }
 }
 
+.content {
+  .nested-content {
+    margin-left: 0.75em;
+    margin-bottom: 1em;
+  }
+}
+
 .message-body.content {
   > :first-child {
     margin-top: 0;
