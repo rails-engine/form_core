@@ -1,7 +1,14 @@
 <div class="section">
   <div class="container">
-    <code>
-      <%= @instance.dump.gsub("\n", "<br>").gsub(" ", "&nbsp;").html_safe %>
-    </code>
+    <h1 class="title">Serialized result</h1>
+    <h2 class="subtitle">
+      You can copy the YAML and paste into <%= link_to 'load page', form_load_path(@form) %> to validate deserialization.
+    </h2>
+
+    <div class="message-body">
+      <code>
+        <%= @instance.dump.gsub("\n", "<br>").gsub(" ", "&nbsp;").html_safe %>
+      </code>
+    </div>
   </div>
 </div>
