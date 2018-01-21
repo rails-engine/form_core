@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20180120201200) do
     t.index ["value"], name: "index_dictionaries_on_value"
   end
 
-  create_table "form_core_fields", force: :cascade do |t|
+  create_table "fields", force: :cascade do |t|
     t.string "name", null: false
     t.integer "accessibility", null: false
     t.text "validations"
@@ -35,12 +35,12 @@ ActiveRecord::Schema.define(version: 20180120201200) do
     t.string "prompt", default: ""
     t.integer "section_id"
     t.integer "position"
-    t.index ["form_id"], name: "index_form_core_fields_on_form_id"
-    t.index ["section_id"], name: "index_form_core_fields_on_section_id"
-    t.index ["type"], name: "index_form_core_fields_on_type"
+    t.index ["form_id"], name: "index_fields_on_form_id"
+    t.index ["section_id"], name: "index_fields_on_section_id"
+    t.index ["type"], name: "index_fields_on_type"
   end
 
-  create_table "form_core_forms", force: :cascade do |t|
+  create_table "forms", force: :cascade do |t|
     t.string "type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 20180120201200) do
     t.text "description", default: ""
     t.string "attachable_type"
     t.integer "attachable_id"
-    t.index ["attachable_type", "attachable_id"], name: "index_form_core_forms_on_attachable_type_and_attachable_id"
-    t.index ["type"], name: "index_form_core_forms_on_type"
+    t.index ["attachable_type", "attachable_id"], name: "index_forms_on_attachable_type_and_attachable_id"
+    t.index ["type"], name: "index_forms_on_type"
   end
 
   create_table "sections", force: :cascade do |t|

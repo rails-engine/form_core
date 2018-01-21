@@ -1,6 +1,6 @@
 class CreateForms < ActiveRecord::Migration[5.1]
   def change
-    create_table :form_core_forms do |t|
+    create_table :forms do |t|
       t.string :type, null: false, index: true
 
       t.timestamps

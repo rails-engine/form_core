@@ -1,12 +1,12 @@
 class CreateFields < ActiveRecord::Migration[5.1]
   def change
-    create_table :form_core_fields do |t|
+    create_table :fields do |t|
       t.string :name, null: false
       t.integer :accessibility, null: false
       t.text :validations
       t.text :options
       t.string :type, null: false, index: true
-      t.references :form, foreign_key: {to_table: :form_core_forms}
+      t.references :form, foreign_key: true
 
       t.timestamps
     end
