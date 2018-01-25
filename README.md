@@ -3,6 +3,11 @@ Form Core
 
 A Rails engine providing ability to generate dynamic form.
 
+## Requirements
+
+- MRI 2.3+
+- Rails 5.0+
+
 ## Usage
 
 See demo for now.
