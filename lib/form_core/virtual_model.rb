@@ -31,7 +31,6 @@ module FormCore
       self.class.dump(self)
     end
 
-    public_class_method :define_method
     class << self
       def name
         @_name ||= "Form"
