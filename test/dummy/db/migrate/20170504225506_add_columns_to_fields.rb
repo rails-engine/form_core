@@ -5,7 +5,6 @@ class AddColumnsToFields < ActiveRecord::Migration[5.1]
     change_table :fields do |t|
       t.string :label, default: ""
       t.string :hint, default: ""
-      t.string :prompt, default: ""
       t.references :section, foreign_key: true
     end
   end

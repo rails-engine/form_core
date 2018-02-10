@@ -17,5 +17,9 @@ module Fields
         @model.collection
       end
     end
+
+    def options_for_select
+      @view.options_for_select(collection, value)
+    end
   end
 end

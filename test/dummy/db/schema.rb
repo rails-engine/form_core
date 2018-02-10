@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20180120201200) do
     t.datetime "updated_at", null: false
     t.string "label", default: ""
     t.string "hint", default: ""
-    t.string "prompt", default: ""
     t.integer "section_id"
     t.integer "position"
     t.index ["form_id"], name: "index_fields_on_form_id"

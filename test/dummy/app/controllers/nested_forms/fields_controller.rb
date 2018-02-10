@@ -46,6 +46,6 @@ class NestedForms::FieldsController < NestedForms::ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def field_params
-    params.fetch(:field, {}).permit(:name, :label, :hint, :prompt, :accessibility, :type)
+    params.fetch(:field, {}).permit(:name, :label, :hint, :accessibility, :type)
   end
 end

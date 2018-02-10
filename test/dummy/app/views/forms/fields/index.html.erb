@@ -23,8 +23,12 @@
             <td><%= field.section&.title %></td>
             <td><%= Field.human_enum_value(:accessibility, field.accessibility) %></td>
             <td>
-              <%= link_to "Validations", edit_field_validations_path(field) %> |
-              <%= link_to "Options", edit_field_options_path(field) %> |
+              <% if field.validations_configurable? %>
+                <%= link_to "Validations", edit_field_validations_path(field) %> |
+              <% end %>
+              <% if field.options_configurable? %>
+                <%= link_to "Options", edit_field_options_path(field) %> |
+              <% end %>
               <% if data_source_attached_field?(field) %>
                 <%= link_to "Data source", edit_field_data_source_options_path(field) %> |
               <% end %>

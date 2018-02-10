@@ -18,6 +18,14 @@ class Field < FormCore::Field
     self.class.type_key
   end
 
+  def options_configurable?
+    options.is_a?(FieldOptions) && options.attributes.any?
+  end
+
+  def validations_configurable?
+    validations.is_a?(FieldOptions) && validations.attributes.any?
+  end
+
   protected
 
   def interpret_validations_to(model, accessibility, overrides = {})

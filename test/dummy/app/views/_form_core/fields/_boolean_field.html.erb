@@ -1,7 +1,7 @@
 <div class="field">
   <div class="control">
     <label class="checkbox">
-      <%= f.check_box field.name, id: field.id, disabled: field.access_readonly? %>
+      <%= f.check_box field.name, id: field.id, required: field.required, disabled: field.access_readonly? %>
       <%= field.label %>
     </label>
   </div>

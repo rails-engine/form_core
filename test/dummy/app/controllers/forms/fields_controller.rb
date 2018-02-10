@@ -52,6 +52,6 @@ class Forms::FieldsController < Forms::ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def field_params
-    params.fetch(:field, {}).permit(:name, :label, :hint, :prompt, :section_id, :accessibility, :type)
+    params.fetch(:field, {}).permit(:name, :label, :hint, :section_id, :accessibility, :type)
   end
 end

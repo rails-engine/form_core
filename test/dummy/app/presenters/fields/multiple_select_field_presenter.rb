@@ -24,6 +24,10 @@ module Fields
       end
     end
 
+    def options_for_select
+      @view.options_for_select(collection, value)
+    end
+
     def max_items_size
       size = @model.validations.length.maximum
       size > 0 ? size : MAX_HARD_CODE_ITEMS_SIZE
