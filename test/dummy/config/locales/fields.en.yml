@@ -23,8 +23,7 @@ en:
           hidden: Hidden
           readonly: Read-only
           read_and_write: Normal
-
-  activemodel:
+  duck_record:
     attributes:
       field_options:
         presence: Required
@@ -38,15 +37,15 @@ en:
         message: Message
         with: Regexp
         in: In
-        minimax: Minimum
+        minimum: Minimum
         maximum: Maximum
         is: Equal
         lower_bounds:
-          disabled: off
+          disabled: 'Off'
           greater_than: '>'
           greater_than_or_equal_to: '>='
         upper_bounds:
-          disabled: off
+          disabled: 'Off'
           less_than: '<'
           less_than_or_equal_to: '<='
 
