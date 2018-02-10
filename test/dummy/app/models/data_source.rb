@@ -37,8 +37,9 @@ class DataSource < FieldOptions
     self.serializable_hash
   end
 
-  def scoped_records
-    self.class.scoped_records(scoped_condition)
+  def scoped_records(**additional_condition)
+    condition = scoped_condition.merge(additional_condition)
+    self.class.scoped_records(condition)
   end
 
   def interpret_to(model, field_name, accessibility, _options = {})
