@@ -14,6 +14,10 @@ class Field < FormCore::Field
               in: ->(_) { Field.descendants.map(&:to_s) }
             }
 
+  def self.type_key
+    model_name.name.split("::").last.underscore
+  end
+
   def type_key
     self.class.type_key
   end
@@ -56,10 +60,6 @@ class Field < FormCore::Field
       end
 
     options.interpret_to(model, name, accessibility)
-  end
-
-  def self.type_key
-    model_name.name.split("::").last.underscore
   end
 end
 

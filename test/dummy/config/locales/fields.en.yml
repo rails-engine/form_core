@@ -8,7 +8,7 @@ en:
       fields/date_field: Date field
       fields/datetime_field: Datetime field
       fields/select_field: Select field
-      fields/index_selection_field: Index selection field
+      fields/index_select_field: Index select field
       fields/multiple_select_field: Multiple select field
       fields/resource_field: Resource field
       fields/resource_select_field: Resource select field

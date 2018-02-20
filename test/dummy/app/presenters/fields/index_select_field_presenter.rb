@@ -6,7 +6,7 @@ module Fields
 
     def value_for_preview
       index = super
-      collection[super] if index
+      collection[index] if index
     end
   end
 end
