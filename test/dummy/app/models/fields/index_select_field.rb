@@ -17,7 +17,7 @@ module Fields
 
     def interpret_extra_to(model, accessibility, overrides = {})
       super
-      return if accessibility != :editable || collection.empty?
+      return if accessibility != :read_and_write || collection.empty?
       model.validates name, inclusion: {in: 0..(collection.size - 1)}, allow_blank: true
     end
   end
