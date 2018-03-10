@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.version     = FormCore::VERSION
   s.authors     = ["jasl"]
   s.email       = ["jasl9187@hotmail.com"]
-  s.homepage    = "https://github.com/jasl-lab/form_core"
+  s.homepage    = "https://github.com/rails-engine/form_core"
   s.summary     = "A Rails engine providing ability to generate dynamic form."
   s.description = <<-TEXT.lstrip
   A Rails engine providing ability to generate dynamic form.
