@@ -23,7 +23,7 @@ gem 'form_core'
 Or you may want to include the gem directly from GitHub:
 
 ```ruby
-gem 'form_core', github: 'jasl-lab/form_core'
+gem 'form_core', github: 'rails-engine/form_core'
 ```
 
 And then execute:
@@ -49,7 +49,7 @@ $ bin/rails db:migrate
 Clone the repository.
 
 ```sh
-$ git clone https://github.com/jasl-lab/form_core.git
+$ git clone https://github.com/rails-engine/form_core.git
 ```
 
 Change directory
