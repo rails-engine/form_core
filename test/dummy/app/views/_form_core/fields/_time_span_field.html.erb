@@ -1,0 +1,15 @@
+<% f.object.send("build_#{field.name}") unless f.object.send(field.name) %>
+
+<div class="field">
+  <%= f.label field.name, field.label, class: 'label' %>
+  <div class="control">
+    <%= f.fields_for field.name do |ff| %>
+      <%= ff.datetime_field :start_time, class: 'input', id: "#{field.id}_start_time", required: field.required, disabled: field.access_readonly? %>
+      ~
+      <%= ff.datetime_field :end_time, class: 'input', id: "#{field.id}_start_time", required: field.required, disabled: field.access_readonly? %>
+    <% end %>
+  </div>
+  <% if field.hint.present? %>
+    <p class="help"><%= field.hint %></p>
+  <% end %>
+</div>

@@ -4,6 +4,7 @@ module Fields
   %w[
   text boolean decimal integer resource
   date datetime
+  time_span
   resource_select select multiple_select index_select
   variable_length_nested_form nested_form
   ].each do |type|
