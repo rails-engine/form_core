@@ -3,7 +3,7 @@
 module Fields
   class SelectFieldPresenter < FieldPresenter
     def include_blank?
-      !@model.validations.presence
+      required?
     end
 
     def can_custom_value?
