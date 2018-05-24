@@ -36,11 +36,19 @@ module Fields
                 allow_blank: true
 
       def start_time=(val)
-        super val.try(:in_time_zone)
+        super(val.try(:in_time_zone))
       end
 
       def end_time=(val)
-        super val.try(:in_time_zone)
+        super(val.try(:in_time_zone))
+      end
+
+      def start_time
+        super&.to_time
+      end
+
+      def end_time
+        super&.to_time
       end
     end
   end

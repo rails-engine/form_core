@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Fields::Options
-  class SelectField < FieldOptions
+  class MultipleSelectField < FieldOptions
     attribute :strict_select, :boolean, default: true
   end
 end

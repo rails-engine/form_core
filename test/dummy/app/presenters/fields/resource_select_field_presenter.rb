@@ -3,7 +3,7 @@
 module Fields
   class ResourceSelectFieldPresenter < FieldPresenter
     def include_blank?
-      !@model.validations.presence
+      required?
     end
 
     def can_custom_value?
@@ -11,7 +11,7 @@ module Fields
     end
 
     def collection
-      values = @model.collection.map(&@model.data_source.text_method)
+      values = @model.collection
 
       if can_custom_value? && value.present?
         ([value] + values).uniq

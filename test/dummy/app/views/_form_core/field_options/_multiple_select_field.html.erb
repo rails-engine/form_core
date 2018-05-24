@@ -1,13 +1,6 @@
 <h3 class="title">Select field</h3>
 
 <div class="field">
-  <%= f.label :collection, class: "label" %>
-  <div class="control">
-    <%= f.select :collection, options_for_select(options.collection, options.collection), {}, id: "options_collection", multiple: true %>
-  </div>
-</div>
-
-<div class="field">
   <div class="control">
     <label class="checkbox">
       <%= f.check_box :strict_select %>
@@ -17,12 +10,3 @@
 </div>
 
 <hr>
-
-<script>
-  document.addEventListener("turbolinks:load", function() {
-    $('#options_collection').selectize({
-      maxItems: null,
-      create: true
-    });
-  });
-</script>

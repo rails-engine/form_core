@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-module EnumTranslate
+module EnumAttributeLocalizable
   extend ActiveSupport::Concern
 
   module ClassMethods
     def human_enum_value(attribute, value, options = {})
       parts     = attribute.to_s.split(".")
       attribute = parts.pop.pluralize
-      namespace = parts.join("/") unless parts.empty?
       attributes_scope = "#{i18n_scope}.attributes"
 
-      if namespace
+      if parts.any?
+        namespace = parts.join("/")
         defaults = lookup_ancestors.map do |klass|
           :"#{attributes_scope}.#{klass.model_name.i18n_key}/#{namespace}.#{attribute}.#{value}"
         end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module Fields::Options
-  class VariableLengthNestedFormField < FieldOptions
+  class MultipleChoiceField < FieldOptions
   end
 end

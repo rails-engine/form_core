@@ -23,6 +23,9 @@
             <td><%= field.section&.title %></td>
             <td><%= Field.human_enum_value(:accessibility, field.accessibility) %></td>
             <td>
+              <% if field.attach_choices? %>
+                <%= link_to "Choices", field_choices_path(field) %> |
+              <% end %>
               <% if field.validations_configurable? %>
                 <%= link_to "Validations", edit_field_validations_path(field) %> |
               <% end %>

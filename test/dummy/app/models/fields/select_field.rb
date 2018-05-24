@@ -9,8 +9,8 @@ module Fields
       :string
     end
 
-    def collection
-      options.collection
+    def attach_choices?
+      true
     end
 
     protected
@@ -18,7 +18,7 @@ module Fields
     def interpret_extra_to(model, accessibility, overrides = {})
       super
       return if accessibility != :read_and_write || !options.strict_select
-      model.validates name, inclusion: {in: collection}, allow_blank: true
+      model.validates name, inclusion: {in: choices.map(&:label)}, allow_blank: true
     end
   end
 end

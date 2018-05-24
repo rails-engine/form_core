@@ -12,9 +12,8 @@ class Forms::ApplicationController < ApplicationController
     @form = Form.find(params[:form_id])
   end
 
-  def eager_load_fields_and_sections
-    @form.fields.find_all
-    @form.sections.find_all
+  def set_form_with_eager_load_fields_and_sections
+    @form = Form.includes(:sections, fields: [:choices]).find(params[:form_id])
 
     grouped_fields = @form.fields.group_by(&:section_id)
     @form.sections.each do |section|

@@ -8,7 +8,7 @@
 
       <p><%= field.label %>:</p>
       <%= render "_form_core/preview/nested_form", form: field.nested_form, instance: field.value_for_preview %>
-    <% elsif field.variable_length_nested_form? %>
+    <% elsif field.multiple_nested_form? %>
       <% next if field.value_for_preview.empty? %>
 
       <p><%= field.label %>:</p>

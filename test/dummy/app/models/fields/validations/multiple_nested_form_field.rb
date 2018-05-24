@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Fields::Validations
-  class VariableLengthNestedFormField < FieldOptions
+  class MultipleNestedFormField < FieldOptions
     prepend Concerns::Fields::Validations::Presence
     prepend Concerns::Fields::Validations::Length
   end

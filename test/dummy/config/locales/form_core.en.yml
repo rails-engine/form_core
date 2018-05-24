@@ -7,18 +7,25 @@ en:
       fields/integer_field: Integer field
       fields/date_field: Date field
       fields/datetime_field: Datetime field
+      fields/choice_field: Choice field
+      fields/multiple_choice_field: Multiple choice field
       fields/select_field: Select field
-      fields/index_select_field: Index select field
       fields/multiple_select_field: Multiple select field
-      fields/resource_field: Resource field
       fields/resource_select_field: Resource select field
+      fields/multiple_resource_select_field: Multiple resource select field
       fields/nested_form_field: Nested form field
-      fields/variable_length_nested_form_field: Variable length nested form field
+      fields/multiple_nested_form_field: Multiple nested form field
+      fields/time_span_field: Timespan field
     attributes:
+      form:
+        name: Name
+        description: Description
+        type: Type
       field:
         name: Name
         label: Label
         hint: Hint
+        type: Type
         accessibilities:
           hidden: Hidden
           readonly: Read-only

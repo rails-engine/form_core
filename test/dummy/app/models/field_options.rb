@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class FieldOptions < DuckRecord::Base
-  include EnumTranslate
+  include ActsAsDefaultValue
+  include EnumAttributeLocalizable
 
   class_attribute :keeping_old_serialization
 

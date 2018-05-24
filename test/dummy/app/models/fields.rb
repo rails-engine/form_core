@@ -2,11 +2,13 @@
 
 module Fields
   %w[
-  text boolean decimal integer resource
+  text boolean decimal integer
   date datetime
   time_span
-  resource_select select multiple_select index_select
-  variable_length_nested_form nested_form
+  choice multiple_choice
+  resource_select multiple_resource_select
+  select multiple_select
+  nested_form multiple_nested_form
   ].each do |type|
     require_dependency "fields/#{type}_field"
   end

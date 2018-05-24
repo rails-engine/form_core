@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Fields
-  class MultipleSelectFieldPresenter < FieldPresenter
+  class MultipleResourceSelectFieldPresenter < FieldPresenter
     MAX_HARD_CODE_ITEMS_SIZE = 20
 
     def include_blank?
@@ -17,11 +17,12 @@ module Fields
     end
 
     def collection
-      collection = @model.choices.map(&:label)
+      values = @model.collection
+
       if can_custom_value? && value.present?
-        (value + collection).uniq
+        ([value] + values).uniq
       else
-        collection
+        values
       end
     end
 

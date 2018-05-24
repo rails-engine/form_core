@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
 module Fields
-  class VariableLengthNestedFormFieldPresenter < FieldPresenter
-    def name
-      @model.pluralized_name
-    end
-
-    def variable_length_nested_form?
+  class MultipleNestedFormFieldPresenter < FieldPresenter
+    def multiple_nested_form?
       true
     end
 

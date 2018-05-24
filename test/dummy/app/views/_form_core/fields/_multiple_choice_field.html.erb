@@ -1,12 +1,11 @@
 <div class="field">
   <%= f.label field.name, field.label, class: 'label' %>
   <div class="control">
-    <% field.collection.each_with_index do |choice, index| %>
-      <label class="radio">
-        <%= f.radio_button field.name, index, disabled: field.access_readonly? %>
-        <%= choice %>
+    <%= f.collection_check_boxes field.name, field.choices, :id, :label do |m| %>
+      <label class="checkbox">
+        <%= m.check_box disabled: field.access_readonly? %>
+        <%= m.text %>
       </label>
-      <br>
     <% end %>
   </div>
   <% if field.hint.present? %>

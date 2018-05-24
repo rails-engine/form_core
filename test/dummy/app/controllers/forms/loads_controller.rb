@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Forms::LoadsController < Forms::ApplicationController
-  before_action :eager_load_fields_and_sections, except: [:show]
+  skip_before_action :set_form, except: [:show]
+  before_action :set_form_with_eager_load_fields_and_sections, except: [:show]
   before_action :set_preview, except: [:show]
 
   def show

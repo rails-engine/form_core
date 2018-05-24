@@ -2,7 +2,7 @@
 
 module Fields::Options
   class DecimalField < FieldOptions
-    attribute :step, :decimal, default: 0
+    attribute :step, :decimal, default: 0.01
 
     validates :step,
               numericality: {

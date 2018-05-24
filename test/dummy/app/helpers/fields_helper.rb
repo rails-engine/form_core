@@ -21,11 +21,20 @@ module FieldsHelper
     field_name = field_name.to_s.split(".").first.to_sym
 
     form.fields.select do |field|
-      if field.is_a? Fields::VariableLengthNestedFormField
-        field.pluralized_name == field_name
-      else
-        field.name == field_name
-      end
+      field.name == field_name
     end.first&.label
+  end
+
+  def fields_path
+    form = @field.form
+
+    case form
+    when Form
+      form_fields_path(form)
+    when NestedForm
+      nested_form_fields_path(form)
+    else
+      raise "Unknown form: #{form.class}"
+    end
   end
 end

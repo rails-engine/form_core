@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       resource :validations, only: %i[edit update]
       resource :options, only: %i[edit update]
       resource :data_source_options, only: %i[edit update]
+      resources :choices, except: %i[show]
     end
   end
 

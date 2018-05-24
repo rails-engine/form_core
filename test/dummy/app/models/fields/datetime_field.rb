@@ -16,7 +16,11 @@ module Fields
 
       model.class_eval <<-CODE, __FILE__, __LINE__ + 1
         def #{name}=(val)
-          super val.try(:in_time_zone)
+          super(val.try(:in_time_zone))
+        end
+
+        def #{name}
+          super&.to_time
         end
       CODE
     end

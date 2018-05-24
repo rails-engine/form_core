@@ -38,7 +38,7 @@ class Fields::FieldPresenter < ApplicationPresenter
     false
   end
 
-  def variable_length_nested_form?
+  def multiple_nested_form?
     false
   end
 end

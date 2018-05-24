@@ -2,14 +2,18 @@
 
 module Fields
   class NestedFormField < Field
-    has_one :nested_form, as: :attachable, dependent: :destroy
+    has_one :nested_form,  -> { includes(fields: [:choices]) }, as: :attachable, dependent: :destroy
 
     after_create do
-      create_nested_form
+      build_nested_form.save!
     end
 
     serialize :validations, Validations::NestedFormField
     serialize :options, Options::NestedFormField
+
+    def entry_item_type
+      :nested_form
+    end
 
     def interpret_to(model, overrides: {})
       check_model_validity!(model)

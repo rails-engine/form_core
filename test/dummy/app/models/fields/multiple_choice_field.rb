@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 module Fields
-  class MultipleSelectField < Field
-    serialize :validations, Validations::MultipleSelectField
-    serialize :options, Options::MultipleSelectField
+  class MultipleChoiceField < Field
+    serialize :validations, Validations::MultipleChoiceField
+    serialize :options, Options::MultipleChoiceField
 
     def stored_type
-      :string
+      :integer
     end
 
     def attach_choices?
@@ -34,8 +34,11 @@ module Fields
 
     def interpret_extra_to(model, accessibility, overrides = {})
       super
-      return if accessibility != :read_and_write || !options.strict_select
-      model.validates name, subset: {in: choices.map(&:label)}, allow_blank: true
+      return if accessibility != :read_and_write
+
+      choice_ids = choices.map(&:id)
+      return if choice_ids.empty?
+      model.validates name, subset: {in: choice_ids}, allow_blank: true
     end
   end
 end

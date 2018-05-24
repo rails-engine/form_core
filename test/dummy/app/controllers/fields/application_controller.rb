@@ -7,7 +7,7 @@ class Fields::ApplicationController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_field
-    @field = FormCore::Field.find(params[:field_id])
+    @field = Field.find(params[:field_id])
   end
 
   def fields_url

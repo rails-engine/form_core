@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
-class Field < FormCore::Field
-  include EnumTranslate
+class Field < ApplicationRecord
+  include FormCore::Concerns::Models::Field
+
+  self.table_name = "fields"
+
+  belongs_to :form, class_name: "MetalForm", foreign_key: "form_id", touch: true
 
   belongs_to :section, touch: true, optional: true
+
+  has_many :choices, -> { order(position: :asc) }, dependent: :destroy, autosave: true
 
   acts_as_list scope: [:section_id]
 
@@ -12,7 +18,12 @@ class Field < FormCore::Field
   validates :type,
             inclusion: {
               in: ->(_) { Field.descendants.map(&:to_s) }
-            }
+            },
+            allow_blank: false
+
+  default_value_for :name,
+                    -> (_) { "field_#{SecureRandom.hex(3)}" },
+                    allow_nil: false
 
   def self.type_key
     model_name.name.split("::").last.underscore
@@ -28,6 +39,10 @@ class Field < FormCore::Field
 
   def validations_configurable?
     validations.is_a?(FieldOptions) && validations.attributes.any?
+  end
+
+  def attach_choices?
+    false
   end
 
   protected

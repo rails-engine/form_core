@@ -11,10 +11,11 @@ module Fields
     end
 
     def collection
+      collection = @model.choices.map(&:label)
       if can_custom_value? && value.present?
-        ([value] + @model.collection).uniq
+        ([value] + collection).uniq
       else
-        @model.collection
+        collection
       end
     end
 

@@ -1,0 +1,27 @@
+<div class="section">
+  <div class="container">
+    <p content="content">
+      <%= link_to "New choice", new_field_choice_path(@field), class: "button is-primary" %>
+      <%= link_to "Back", fields_path, class: "button is-link" %>
+    </p>
+    <table class="table is-fullwidth">
+      <thead>
+      <tr>
+        <th>Label</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @field.choices.each do |choice| %>
+        <tr>
+          <td><%= choice.label %></td>
+          <td>
+            <%= link_to "Edit", edit_field_choice_path(@field, choice) %> |
+            <%= link_to "Destroy", field_choice_path(@field, choice), method: :delete, data: {confirm: "Are you sure?"} %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
