@@ -16,10 +16,6 @@ module DataSources
               format: {with: ::Dictionary::SCOPE_REGEX},
               allow_blank: true
 
-    def source_class
-      ::Dictionary
-    end
-
     class << self
       def scoped_records(condition)
         return ::Dictionary.none if condition.blank?

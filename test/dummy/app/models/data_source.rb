@@ -5,10 +5,6 @@ class DataSource < FieldOptions
     self.class.type_key
   end
 
-  def source_class
-    raise NotImplementedError
-  end
-
   def stored_type
     :integer
   end
@@ -43,10 +39,6 @@ class DataSource < FieldOptions
   end
 
   def interpret_to(model, field_name, accessibility, _options = {})
-    if source_class
-      where_condition = scoped_condition.dup
-      model.belongs_to field_name, -> { where(where_condition) }, class_name: source_class.to_s, optional: true
-    end
   end
 
   class << self
