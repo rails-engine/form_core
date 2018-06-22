@@ -1,0 +1,9 @@
+<div class="field">
+  <%= f.label field.name, field.label, class: 'label' %>
+  <div class="control">
+    <%= f.file_field field.name, direct_upload: true %>
+  </div>
+  <% if field.hint.present? %>
+    <p class="help"><%= field.hint %></p>
+  <% end %>
+</div>

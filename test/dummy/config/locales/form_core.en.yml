@@ -7,6 +7,8 @@ en:
       fields/integer_field: Integer field
       fields/date_field: Date field
       fields/datetime_field: Datetime field
+      fields/attachment_field: Attachment field
+      fields/multiple_attachment_field: Multiple attachment field
       fields/choice_field: Choice field
       fields/multiple_choice_field: Multiple choice field
       fields/select_field: Select field

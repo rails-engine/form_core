@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class VirtualModel < FormCore::VirtualModel
+  extend FormCore::ActiveStorageBridge::Attached::Macros
+
   class << self
     def nested_models
       @nested_models ||= {}

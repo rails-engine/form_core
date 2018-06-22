@@ -5,7 +5,7 @@ module FormCore::Concerns
     module Field
       extend ActiveSupport::Concern
 
-      NAME_REGEX = /\A[a-z_][a-z_0-9]*\z/
+      NAME_REGEX = /\A[a-z][a-z_0-9]*\z/
 
       included do
         enum accessibility: {read_and_write: 0, readonly: 1, hidden: 2},
