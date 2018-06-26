@@ -4,8 +4,8 @@ module Fields
   %w[
   text boolean decimal integer
   date datetime
+  datetime_range
   attachment multiple_attachment
-  time_span
   choice multiple_choice
   resource_select multiple_resource_select
   select multiple_select

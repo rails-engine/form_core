@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module Fields
-  class TimeSpanField < Field
-    serialize :validations, Validations::TimeSpanField
-    serialize :options, Options::TimeSpanField
+  class DatetimeRangeField < Field
+    serialize :validations, Validations::DatetimeRangeField
+    serialize :options, Options::DatetimeRangeField
 
     def interpret_to(model, overrides: {})
       check_model_validity!(model)
@@ -11,7 +11,7 @@ module Fields
       accessibility = overrides.fetch(:accessibility, self.accessibility)
       return model if accessibility == :hidden
 
-      nested_model = Class.new(::Fields::TimeSpanField::TimeSpan)
+      nested_model = Class.new(::Fields::DatetimeRangeField::DatetimeRange)
 
       model.nested_models[name] = nested_model
 
@@ -24,22 +24,25 @@ module Fields
       model
     end
 
-    class TimeSpan < VirtualModel
+    class DatetimeRange < VirtualModel
       attribute :start_time, :datetime
-      attribute :end_time, :datetime
+      attribute :finish_time, :datetime
 
-      validates :end_time,
+      validates :start_time, :finish_time,
+                presence: true
+
+      validates :finish_time,
                 timeliness: {
                   after: :start_time,
                   type: :datetime
                 },
-                allow_blank: true
+                allow_blank: false
 
       def start_time=(val)
         super(val.try(:in_time_zone))
       end
 
-      def end_time=(val)
+      def finish_time=(val)
         super(val.try(:in_time_zone))
       end
 
@@ -47,7 +50,7 @@ module Fields
         super&.to_time
       end
 
-      def end_time
+      def finish_time
         super&.to_time
       end
     end

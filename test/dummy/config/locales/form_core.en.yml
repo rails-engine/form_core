@@ -17,7 +17,7 @@ en:
       fields/multiple_resource_select_field: Multiple resource select field
       fields/nested_form_field: Nested form field
       fields/multiple_nested_form_field: Multiple nested form field
-      fields/time_span_field: Timespan field
+      fields/datetime_range_field: Datetime range field
     attributes:
       form:
         name: Name

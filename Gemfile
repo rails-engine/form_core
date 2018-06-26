@@ -47,7 +47,7 @@ gem "listen", ">= 3.0.5", "< 3.2"
 gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 gem "pry-byebug"
 
-gem "validates_timeliness"
+gem "validates_timeliness", "~> 5.0.0.alpha1"
 gem "timeliness-i18n"
 
 gem "cocoon"
