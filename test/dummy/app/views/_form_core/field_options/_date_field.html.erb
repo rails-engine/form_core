@@ -1,4 +1,4 @@
-<h3 class="title">Datetime field</h3>
+<h3 class="title">Date field</h3>
 
 <div class="field">
   <%= f.label :start_from, class: "label" %>
@@ -14,34 +14,34 @@
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :start_from, "now" %>
-          Now with offset
+          <%= f.radio_button :start_from, "today" %>
+          Today with offset
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :start_from_now_minutes_offset, class: "input", step: 1 %>
+        <%= f.number_field :start_from_today_days_offset, class: "input", step: 1 %>
       </p>
     </div>
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :start_from, "time" %>
-          Time
+          <%= f.radio_button :start_from, "date" %>
+          Date
         </label>
       </p>
       <p class="control">
-        <%= f.datetime_field :start_time, class: "input" %>
+        <%= f.date_field :start_date, class: "input" %>
       </p>
     </div>
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :start_from, "minutes_before_finish" %>
-          Minutes before finish
+          <%= f.radio_button :start_from, "days_before_finish" %>
+          Days before finish
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :minutes_before_finish, class: "input", min: 1, step: 1 %>
+        <%= f.number_field :days_before_finish, class: "input", min: 1, step: 1 %>
       </p>
     </div>
   </div>
@@ -61,34 +61,34 @@
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :finish_to, "now" %>
-          Now with offset
+          <%= f.radio_button :finish_to, "today" %>
+          Today with offset
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :finish_to_now_minutes_offset, class: "input", step: 1 %>
+        <%= f.number_field :finish_to_today_days_offset, class: "input", step: 1 %>
       </p>
     </div>
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :finish_to, "time" %>
-          Time
+          <%= f.radio_button :finish_to, "date" %>
+          Date
         </label>
       </p>
       <p class="control">
-        <%= f.datetime_field :finish_time, class: "input" %>
+        <%= f.date_field :finish_date, class: "input" %>
       </p>
     </div>
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :finish_to, "minutes_since_start" %>
-          Minutes since start
+          <%= f.radio_button :finish_to, "days_since_start" %>
+          Days since start
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :minutes_since_start, class: "input", min: 1, step: 1 %>
+        <%= f.number_field :days_since_start, class: "input", min: 1, step: 1 %>
       </p>
     </div>
   </div>
