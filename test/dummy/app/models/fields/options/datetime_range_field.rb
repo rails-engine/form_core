@@ -102,11 +102,11 @@ module Fields::Options
 
     validates :fixed_start_time,
               absence: true,
-              if: [:start_from_minutes_before_finish?]
+              if: ->(r) { r.start_from_minutes_before_finish? || r.start_from_unlimited? }
 
     validates :fixed_finish_time,
               absence: true,
-              if: [:finish_to_minutes_since_start?]
+              if: ->(r) { r.finish_to_minutes_since_start? || r.finish_to_unlimited? }
 
     validates :minimum_distance,
               numericality: {
@@ -123,13 +123,14 @@ module Fields::Options
               allow_blank: false,
               unless: -> (r) { r.maximum_distance.to_i == 0 }
 
-    def interpret_to(model, field_name, _accessibility, _options = {})
+    def interpret_to(model, field_name, accessibility, _options = {})
+      return unless accessibility == :read_and_write
+
       klass = model.nested_models[field_name]
 
-      start_time_minutes_offset = self.start_from_now_minutes_offset.minutes.to_i
-      finish_time_minutes_offset = self.finish_to_now_minutes_offset.minutes.to_i
-
       if start_from_now?
+        start_time_minutes_offset = self.start_from_now_minutes_offset.minutes.to_i
+
         klass.validates :start_time,
                         timeliness: {
                           on_or_after: -> { Time.zone.now.change(sec: 0, usec: 0) + start_time_minutes_offset },
@@ -166,6 +167,8 @@ module Fields::Options
       end
 
       if finish_to_now?
+        finish_time_minutes_offset = self.finish_to_now_minutes_offset.minutes.to_i
+
         klass.validates :finish_time,
                         timeliness: {
                           on_or_before: -> { Time.zone.now.change(sec: 0, usec: 0) + finish_time_minutes_offset },

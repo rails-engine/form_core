@@ -1,4 +1,4 @@
-<h3 class="title">Datetime range field</h3>
+<h3 class="title">Datetime field</h3>
 
 <div class="field">
   <%= f.label :start_from, class: "label" %>
@@ -48,15 +48,6 @@
 </div>
 
 <div class="field">
-  <div class="control">
-    <label class="checkbox">
-      <%= f.check_box :fixed_start_time %>
-      Fixed start time?
-    </label>
-  </div>
-</div>
-
-<div class="field">
   <%= f.label :finish_to, class: "label" %>
   <div class="control">
     <div class="field has-addons">
@@ -82,7 +73,7 @@
       <p class="control">
         <label class="radio button">
           <%= f.radio_button :finish_to, "time" %>
-          time
+          Fixed time
         </label>
       </p>
       <p class="control">
@@ -99,33 +90,6 @@
       <p class="control">
         <%= f.number_field :minutes_since_start, class: "input", min: 1, step: 1 %>
       </p>
-    </div>
-  </div>
-</div>
-
-<div class="field">
-  <div class="control">
-    <label class="checkbox">
-      <%= f.check_box :fixed_finish_time %>
-      Fixed finish time?
-    </label>
-  </div>
-</div>
-
-<div class="field">
-  <div class="field">
-    <%= f.label :minimum_distance, class: "label" %>
-    <div class="control">
-      <%= f.number_field :minimum_distance, class: "input", min: 0, step: 1 %>
-    </div>
-  </div>
-</div>
-
-<div class="field">
-  <div class="field">
-    <%= f.label :maximum_distance, class: "label" %>
-    <div class="control">
-      <%= f.number_field :maximum_distance, class: "input", min: 0, step: 1 %>
     </div>
   </div>
 </div>
