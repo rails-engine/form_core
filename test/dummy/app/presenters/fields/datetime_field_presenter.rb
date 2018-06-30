@@ -2,9 +2,13 @@
 
 module Fields
   class DatetimeFieldPresenter < FieldPresenter
+    def value
+      super&.in_time_zone
+    end
+
     def value_for_preview
-      value = super
-      value.to_formatted_s if value
+      value = self.value
+      I18n.l(value) if value
     end
 
     def field_options

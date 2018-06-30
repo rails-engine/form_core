@@ -2,8 +2,12 @@
 
 module Fields
   class DateFieldPresenter < FieldPresenter
+    def value
+      super&.in_time_zone&.to_date
+    end
+
     def value_for_preview
-      value = super
+      value = self.value
       I18n.l(value) if value
     end
 

@@ -6,7 +6,7 @@ module Fields
       record = value
       return unless record
 
-      "#{record.start_time&.to_formatted_s} ~ #{record.finish_time&.to_formatted_s}"
+      "#{I18n.l(record.start_time.in_time_zone) if record.start_time} ~ #{I18n.l(record.finish_time.in_time_zone) if record.finish_time}"
     end
 
     def start_time_options

@@ -37,6 +37,14 @@ module Fields
                   type: :date
                 },
                 allow_blank: false
+
+      def start_date=(val)
+        super(val.try(:in_time_zone)&.utc)
+      end
+
+      def finish_date=(val)
+        super(val.try(:in_time_zone)&.utc)
+      end
     end
   end
 end
