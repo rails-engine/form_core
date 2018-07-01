@@ -1,0 +1,15 @@
+<% f.object.send("build_#{field.name}") unless f.object.send(field.name) %>
+
+<div class="field">
+  <%= f.label field.name, field.label, class: 'label' %>
+  <div class="control">
+    <%= f.fields_for field.name do |ff| %>
+      <%= ff.date_field :start_date, field.start_date_options.merge(class: 'input', id: "#{field.id}_start_date", required: field.required) %>
+      ~
+      <%= ff.date_field :finish_date, field.finish_date_options.merge(class: 'input', id: "#{field.id}_finish_date", required: field.required) %>
+    <% end %>
+  </div>
+  <% if field.hint.present? %>
+    <p class="help"><%= field.hint %></p>
+  <% end %>
+</div>
