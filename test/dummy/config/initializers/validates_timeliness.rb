@@ -24,7 +24,7 @@ ValidatesTimeliness.setup do |config|
   # )
   #
   # Use the plugin date/time parser which is stricter and extendable
-  config.use_plugin_parser = true
+  # config.use_plugin_parser = false
   #
   # Add one or more formats making them valid. e.g. add_formats(:date, 'd(st|rd|th) of mmm, yyyy')
   # config.parser.add_formats()
