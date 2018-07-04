@@ -8,7 +8,7 @@
       <tr>
         <th>Title</th>
         <th>Description</th>
-        <th></th>
+        <th>Updated at</th>
       </tr>
       </thead>
       <tbody>
@@ -16,6 +16,7 @@
         <tr>
           <td><%= form.title %></td>
           <td><%= form.description %></td>
+          <td><%= form.updated_at %></td>
           <td>
             <%= link_to "Show", form_fields_path(form) %> |
             <%= link_to "Edit", edit_form_path(form) %> |

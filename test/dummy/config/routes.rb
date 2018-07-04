@@ -29,4 +29,6 @@ Rails.application.routes.draw do
   end
 
   root to: "forms#index"
+
+  resource :time_zone, only: [:update]
 end

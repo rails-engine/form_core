@@ -3,6 +3,28 @@
     <div class="navbar-brand">
       <%= link_to "Form Core", root_path, class: "navbar-item" %>
     </div>
+
+    <div class="navbar-start">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" href="#">
+          Time zone: <%= current_time_zone.name %>
+        </a>
+        <div id="time_zone-dropdown" class="navbar-dropdown">
+          <% time_zones = {
+            "UTC" => "+00:00",
+            "Central Time (US & Canada)" => "-06:00",
+            "Beijing" => "+08:00",
+            "Tokyo" => "+09:00"
+          } %>
+          <% time_zones.each do |k, v| %>
+            <%= link_to time_zone_path(time_zone: k), method: :patch, class: "navbar-item" do %>
+              <%= k %> (<%= v %>)
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
     <div class="navbar-end">
       <%= link_to "Dictionaries", dictionaries_path, class: "navbar-item #{"is-active" if controller_name == "dictionaries"}" %>
       <%= link_to "Forms", forms_path, class: "navbar-item #{"is-active" if controller.class.to_s.split("::").first =~ /\A(FormsController|Forms)\z/}" %>
