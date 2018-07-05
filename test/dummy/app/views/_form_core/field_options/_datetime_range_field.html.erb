@@ -30,7 +30,7 @@
         </label>
       </p>
       <p class="control">
-        <%= f.datetime_field :start_time, class: "input" %>
+        <%= f.datetime_field :start, class: "input" %>
       </p>
     </div>
     <div class="field has-addons">
@@ -50,7 +50,7 @@
 <div class="field">
   <div class="control">
     <label class="checkbox">
-      <%= f.check_box :fixed_start_time %>
+      <%= f.check_box :fixed_start %>
       Fixed start time?
     </label>
   </div>
@@ -86,7 +86,7 @@
         </label>
       </p>
       <p class="control">
-        <%= f.datetime_field :finish_time, class: "input" %>
+        <%= f.datetime_field :finish, class: "input" %>
       </p>
     </div>
     <div class="field has-addons">
@@ -106,7 +106,7 @@
 <div class="field">
   <div class="control">
     <label class="checkbox">
-      <%= f.check_box :fixed_finish_time %>
+      <%= f.check_box :fixed_finish %>
       Fixed finish time?
     </label>
   </div>

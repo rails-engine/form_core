@@ -10,8 +10,8 @@ module Fields::Options
       days_before_finish: "days_before_finish"
     }, _prefix: :start_from
 
-    attribute :start_date, :date
-    attribute :fixed_start_date, :boolean, default: false
+    attribute :start, :date
+    attribute :fixed_start, :boolean, default: false
     attribute :start_from_today_days_offset, :integer, default: 0
     attribute :days_before_finish, :integer, default: 1
 
@@ -23,8 +23,8 @@ module Fields::Options
       days_since_start: "days_since_start"
     }, _prefix: :finish_to
 
-    attribute :finish_date, :date
-    attribute :fixed_finish_date, :boolean, default: false
+    attribute :finish, :date
+    attribute :fixed_finish, :boolean, default: false
     attribute :finish_to_today_days_offset, :integer, default: 0
     attribute :days_since_start, :integer, default: 1
 
@@ -34,11 +34,11 @@ module Fields::Options
     validates :start_from, :finish_to,
               presence: true
 
-    validates :start_date,
+    validates :start,
               presence: true,
               if: :start_from_date?
 
-    validates :finish_date,
+    validates :finish,
               presence: true,
               if: :finish_to_date?
 
@@ -64,7 +64,7 @@ module Fields::Options
                 only_integer: true
               }
 
-    validates :start_date,
+    validates :start,
               timeliness: {
                 before: ->(r) { Time.zone.today + r.finish_to_today_days_offset.days },
                 type: :date
@@ -72,7 +72,7 @@ module Fields::Options
               allow_blank: false,
               if: [:start_from_date?, :finish_to_today?]
 
-    validates :finish_date,
+    validates :finish,
               timeliness: {
                 after: -> { Time.zone.today + r.start_from_today_days_offset.days },
                 type: :date
@@ -80,9 +80,9 @@ module Fields::Options
               allow_blank: false,
               if: [:start_from_today?, :finish_to_date?]
 
-    validates :finish_date,
+    validates :finish,
               timeliness: {
-                after: :start_date,
+                after: :start,
                 type: :date
               },
               allow_blank: false,
@@ -96,15 +96,15 @@ module Fields::Options
               exclusion: {in: %w[days_since_start]},
               if: [:start_from_days_before_finish?]
 
-    validates :fixed_finish_date,
+    validates :fixed_finish,
               absence: true,
-              if: [:fixed_start_date]
+              if: [:fixed_start]
 
-    validates :fixed_start_date,
+    validates :fixed_start,
               absence: true,
               if: ->(r) { r.start_from_days_before_finish? || r.start_from_unlimited? }
 
-    validates :fixed_finish_date,
+    validates :fixed_finish,
               absence: true,
               if: ->(r) { r.finish_to_days_since_start? || r.finish_to_unlimited? }
 
@@ -129,76 +129,76 @@ module Fields::Options
       klass = model.nested_models[field_name]
 
       if start_from_today?
-        start_date_days_offset = self.start_from_today_days_offset.days.to_i
+        start_days_offset = self.start_from_today_days_offset.days.to_i
 
-        klass.validates :start_date,
+        klass.validates :start,
                         timeliness: {
-                          on_or_after: -> { Time.zone.today + start_date_days_offset },
+                          on_or_after: -> { Time.zone.today + start_days_offset },
                           type: :date
                         },
                         allow_blank: true
-        klass.default_value_for :start_date,
-                                -> (_) { Time.zone.today + start_date_days_offset },
+        klass.default_value_for :start,
+                                -> (_) { Time.zone.today + start_days_offset },
                                 allow_nil: false
-        if fixed_start_date
-          klass.attr_readonly :start_date
+        if fixed_start
+          klass.attr_readonly :start
         end
       elsif start_from_date?
-        klass.validates :start_date,
+        klass.validates :start,
                         timeliness: {
-                          on_or_after: start_date,
+                          on_or_after: start,
                           type: :date
                         },
                         allow_blank: true
-        klass.default_value_for :start_date,
-                                start_date,
+        klass.default_value_for :start,
+                                start,
                                 allow_nil: false
-        if fixed_start_date
-          klass.attr_readonly :start_date
+        if fixed_start
+          klass.attr_readonly :start
         end
       elsif start_from_days_before_finish?
         days_before_finish = self.days_before_finish.days.to_i
-        klass.validates :start_date,
+        klass.validates :start,
                         timeliness: {
-                          on_or_after: ->(r) { r.finish_date - days_before_finish },
+                          on_or_after: ->(r) { r.finish - days_before_finish },
                           type: :date
                         },
                         allow_blank: true
       end
 
       if finish_to_today?
-        finish_date_days_offset = self.finish_to_today_days_offset.days.to_i
+        finish_days_offset = self.finish_to_today_days_offset.days.to_i
 
-        klass.validates :finish_date,
+        klass.validates :finish,
                         timeliness: {
-                          on_or_before: -> { Time.zone.today + finish_date_days_offset },
+                          on_or_before: -> { Time.zone.today + finish_days_offset },
                           type: :date
                         },
                         allow_blank: true
-        klass.default_value_for :finish_date,
-                                -> (_) { Time.zone.today + finish_date_days_offset },
+        klass.default_value_for :finish,
+                                -> (_) { Time.zone.today + finish_days_offset },
                                 allow_nil: false
-        if fixed_finish_date
-          klass.attr_readonly :finish_date
+        if fixed_finish
+          klass.attr_readonly :finish
         end
       elsif finish_to_date?
-        klass.validates :finish_date,
+        klass.validates :finish,
                         timeliness: {
-                          on_or_before: finish_date,
+                          on_or_before: finish,
                           type: :date
                         },
                         allow_blank: true
-        klass.default_value_for :finish_date,
-                                finish_date,
+        klass.default_value_for :finish,
+                                finish,
                                 allow_nil: false
-        if fixed_finish_date
-          klass.attr_readonly :finish_date
+        if fixed_finish
+          klass.attr_readonly :finish
         end
       elsif finish_to_days_since_start?
         days_since_start = self.days_since_start.days.to_i
-        klass.validates :finish_date,
+        klass.validates :finish,
                         timeliness: {
-                          on_or_before: ->(r) { r.start_date + days_since_start },
+                          on_or_before: ->(r) { r.start + days_since_start },
                           type: :date
                         },
                         allow_blank: true
@@ -206,24 +206,24 @@ module Fields::Options
 
       if minimum_distance > 0
         minimum_distance_days = minimum_distance.days
-        if fixed_start_date || start_from_today? || start_from_date? || finish_to_days_since_start?
-          klass.validates :finish_date,
+        if fixed_start || start_from_today? || start_from_date? || finish_to_days_since_start?
+          klass.validates :finish,
                           timeliness: {
-                            on_or_after: ->(r) { r.start_date + minimum_distance_days },
+                            on_or_after: ->(r) { r.start + minimum_distance_days },
                             type: :date
                           },
                           allow_blank: false
-        elsif fixed_finish_date || finish_to_today? || finish_to_date? || start_from_days_before_finish?
-          klass.validates :start_date,
+        elsif fixed_finish || finish_to_today? || finish_to_date? || start_from_days_before_finish?
+          klass.validates :start,
                           timeliness: {
-                            on_or_before: ->(r) { r.finish_date - minimum_distance_days },
+                            on_or_before: ->(r) { r.finish - minimum_distance_days },
                             type: :date
                           },
                           allow_blank: false
         else
-          klass.validates :finish_date,
+          klass.validates :finish,
                           timeliness: {
-                            on_or_after: ->(r) { r.start_date + minimum_distance_days },
+                            on_or_after: ->(r) { r.start + minimum_distance_days },
                             type: :date
                           },
                           allow_blank: false
@@ -232,24 +232,24 @@ module Fields::Options
 
       if maximum_distance > 0
         maximum_distance_days = maximum_distance.days
-        if fixed_start_date || start_from_today? || start_from_date? || finish_to_days_since_start?
-          klass.validates :finish_date,
+        if fixed_start || start_from_today? || start_from_date? || finish_to_days_since_start?
+          klass.validates :finish,
                           timeliness: {
-                            on_or_before: ->(r) { r.start_date + maximum_distance_days },
+                            on_or_before: ->(r) { r.start + maximum_distance_days },
                             type: :date
                           },
                           allow_blank: false
-        elsif fixed_finish_date || finish_to_today? || finish_to_date? || start_from_days_before_finish?
-          klass.validates :finish_date,
+        elsif fixed_finish || finish_to_today? || finish_to_date? || start_from_days_before_finish?
+          klass.validates :finish,
                           timeliness: {
-                            on_or_after: ->(r) { r.finish_date - maximum_distance_days },
+                            on_or_after: ->(r) { r.finish - maximum_distance_days },
                             type: :date
                           },
                           allow_blank: false
         else
-          klass.validates :finish_date,
+          klass.validates :finish,
                           timeliness: {
-                            on_or_before: ->(r) { r.start_date + maximum_distance_days },
+                            on_or_before: ->(r) { r.start + maximum_distance_days },
                             type: :date
                           },
                           allow_blank: false

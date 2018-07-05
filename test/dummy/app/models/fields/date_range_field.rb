@@ -25,24 +25,24 @@ module Fields
     end
 
     class DateRange < VirtualModel
-      attribute :start_date, :datetime
-      attribute :finish_date, :datetime
+      attribute :start, :datetime
+      attribute :finish, :datetime
 
-      validates :start_date, :finish_date,
+      validates :start, :finish,
                 presence: true
 
-      validates :finish_date,
+      validates :finish,
                 timeliness: {
-                  after: :start_date,
+                  after: :start,
                   type: :date
                 },
                 allow_blank: false
 
-      def start_date=(val)
+      def start=(val)
         super(val.try(:in_time_zone)&.utc)
       end
 
-      def finish_date=(val)
+      def finish=(val)
         super(val.try(:in_time_zone)&.utc)
       end
     end

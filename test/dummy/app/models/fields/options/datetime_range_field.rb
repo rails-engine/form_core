@@ -10,8 +10,8 @@ module Fields::Options
       minutes_before_finish: "minutes_before_finish"
     }, _prefix: :start_from
 
-    attribute :start_time, :datetime
-    attribute :fixed_start_time, :boolean, default: false
+    attribute :start, :datetime
+    attribute :fixed_start, :boolean, default: false
     attribute :start_from_now_minutes_offset, :integer, default: 0
     attribute :minutes_before_finish, :integer, default: 1
 
@@ -23,8 +23,8 @@ module Fields::Options
       minutes_since_start: "minutes_since_start"
     }, _prefix: :finish_to
 
-    attribute :finish_time, :datetime
-    attribute :fixed_finish_time, :boolean, default: false
+    attribute :finish, :datetime
+    attribute :fixed_finish, :boolean, default: false
     attribute :finish_to_now_minutes_offset, :integer, default: 0
     attribute :minutes_since_start, :integer, default: 1
 
@@ -34,11 +34,11 @@ module Fields::Options
     validates :start_from, :finish_to,
               presence: true
 
-    validates :start_time,
+    validates :start,
               presence: true,
               if: :start_from_time?
 
-    validates :finish_time,
+    validates :finish,
               presence: true,
               if: :finish_to_time?
 
@@ -64,7 +64,7 @@ module Fields::Options
                 only_integer: true
               }
 
-    validates :start_time,
+    validates :start,
               timeliness: {
                 before: ->(r) { Time.zone.now.change(sec: 0, usec: 0) + r.finish_to_now_minutes_offset.minutes },
                 type: :datetime
@@ -72,7 +72,7 @@ module Fields::Options
               allow_blank: false,
               if: [:start_from_time?, :finish_to_now?]
 
-    validates :finish_time,
+    validates :finish,
               timeliness: {
                 after: -> { Time.zone.now.change(sec: 0, usec: 0) + r.start_from_now_minutes_offset.minutes },
                 type: :datetime
@@ -80,9 +80,9 @@ module Fields::Options
               allow_blank: false,
               if: [:start_from_now?, :finish_to_time?]
 
-    validates :finish_time,
+    validates :finish,
               timeliness: {
-                after: :start_time,
+                after: :start,
                 type: :datetime
               },
               allow_blank: false,
@@ -96,15 +96,15 @@ module Fields::Options
               exclusion: {in: %w[minutes_since_start]},
               if: [:start_from_minutes_before_finish?]
 
-    validates :fixed_finish_time,
+    validates :fixed_finish,
               absence: true,
-              if: [:fixed_start_time]
+              if: [:fixed_start]
 
-    validates :fixed_start_time,
+    validates :fixed_start,
               absence: true,
               if: ->(r) { r.start_from_minutes_before_finish? || r.start_from_unlimited? }
 
-    validates :fixed_finish_time,
+    validates :fixed_finish,
               absence: true,
               if: ->(r) { r.finish_to_minutes_since_start? || r.finish_to_unlimited? }
 
@@ -129,76 +129,76 @@ module Fields::Options
       klass = model.nested_models[field_name]
 
       if start_from_now?
-        start_time_minutes_offset = self.start_from_now_minutes_offset.minutes.to_i
+        start_minutes_offset = self.start_from_now_minutes_offset.minutes.to_i
 
-        klass.validates :start_time,
+        klass.validates :start,
                         timeliness: {
-                          on_or_after: -> { Time.zone.now.change(sec: 0, usec: 0) + start_time_minutes_offset },
+                          on_or_after: -> { Time.zone.now.change(sec: 0, usec: 0) + start_minutes_offset },
                           type: :datetime
                         },
                         allow_blank: true
-        klass.default_value_for :start_time,
-                                -> (_) { Time.zone.now.change(sec: 0, usec: 0) + start_time_minutes_offset },
+        klass.default_value_for :start,
+                                -> (_) { Time.zone.now.change(sec: 0, usec: 0) + start_minutes_offset },
                                 allow_nil: false
-        if fixed_start_time
-          klass.attr_readonly :start_time
+        if fixed_start
+          klass.attr_readonly :start
         end
       elsif start_from_time?
-        klass.validates :start_time,
+        klass.validates :start,
                         timeliness: {
-                          on_or_after: start_time,
+                          on_or_after: start,
                           type: :datetime
                         },
                         allow_blank: true
-        klass.default_value_for :start_time,
-                                start_time,
+        klass.default_value_for :start,
+                                start,
                                 allow_nil: false
-        if fixed_start_time
-          klass.attr_readonly :start_time
+        if fixed_start
+          klass.attr_readonly :start
         end
       elsif start_from_minutes_before_finish?
         minutes_before_finish = self.minutes_before_finish.minutes.to_i
-        klass.validates :start_time,
+        klass.validates :start,
                         timeliness: {
-                          on_or_after: ->(r) { r.finish_time - minutes_before_finish },
+                          on_or_after: ->(r) { r.finish - minutes_before_finish },
                           type: :datetime
                         },
                         allow_blank: true
       end
 
       if finish_to_now?
-        finish_time_minutes_offset = self.finish_to_now_minutes_offset.minutes.to_i
+        finish_minutes_offset = self.finish_to_now_minutes_offset.minutes.to_i
 
-        klass.validates :finish_time,
+        klass.validates :finish,
                         timeliness: {
-                          on_or_before: -> { Time.zone.now.change(sec: 0, usec: 0) + finish_time_minutes_offset },
+                          on_or_before: -> { Time.zone.now.change(sec: 0, usec: 0) + finish_minutes_offset },
                           type: :datetime
                         },
                         allow_blank: true
-        klass.default_value_for :finish_time,
-                                -> (_) { Time.zone.now.change(sec: 0, usec: 0) + finish_time_minutes_offset },
+        klass.default_value_for :finish,
+                                -> (_) { Time.zone.now.change(sec: 0, usec: 0) + finish_minutes_offset },
                                 allow_nil: false
-        if fixed_finish_time
-          klass.attr_readonly :finish_time
+        if fixed_finish
+          klass.attr_readonly :finish
         end
       elsif finish_to_time?
-        klass.validates :finish_time,
+        klass.validates :finish,
                         timeliness: {
-                          on_or_before: finish_time,
+                          on_or_before: finish,
                           type: :datetime
                         },
                         allow_blank: true
-        klass.default_value_for :finish_time,
-                                finish_time,
+        klass.default_value_for :finish,
+                                finish,
                                 allow_nil: false
-        if fixed_finish_time
-          klass.attr_readonly :finish_time
+        if fixed_finish
+          klass.attr_readonly :finish
         end
       elsif finish_to_minutes_since_start?
         minutes_since_start = self.minutes_since_start.minutes.to_i
-        klass.validates :finish_time,
+        klass.validates :finish,
                         timeliness: {
-                          on_or_before: ->(r) { r.start_time + minutes_since_start },
+                          on_or_before: ->(r) { r.start + minutes_since_start },
                           type: :datetime
                         },
                         allow_blank: true
@@ -206,24 +206,24 @@ module Fields::Options
 
       if minimum_distance > 0
         minimum_distance_minutes = minimum_distance.minutes
-        if fixed_start_time || start_from_now? || start_from_time? || finish_to_minutes_since_start?
-          klass.validates :finish_time,
+        if fixed_start || start_from_now? || start_from_time? || finish_to_minutes_since_start?
+          klass.validates :finish,
                           timeliness: {
-                            on_or_after: ->(r) { r.start_time + minimum_distance_minutes },
+                            on_or_after: ->(r) { r.start + minimum_distance_minutes },
                             type: :datetime
                           },
                           allow_blank: false
-        elsif fixed_finish_time || finish_to_now? || finish_to_time? || start_from_minutes_before_finish?
-          klass.validates :start_time,
+        elsif fixed_finish || finish_to_now? || finish_to_time? || start_from_minutes_before_finish?
+          klass.validates :start,
                           timeliness: {
-                            on_or_before: ->(r) { r.finish_time - minimum_distance_minutes },
+                            on_or_before: ->(r) { r.finish - minimum_distance_minutes },
                             type: :datetime
                           },
                           allow_blank: false
         else
-          klass.validates :finish_time,
+          klass.validates :finish,
                           timeliness: {
-                            on_or_after: ->(r) { r.start_time + minimum_distance_minutes },
+                            on_or_after: ->(r) { r.start + minimum_distance_minutes },
                             type: :datetime
                           },
                           allow_blank: false
@@ -232,24 +232,24 @@ module Fields::Options
 
       if maximum_distance > 0
         maximum_distance_minutes = maximum_distance.minutes
-        if fixed_start_time || start_from_now? || start_from_time? || finish_to_minutes_since_start?
-          klass.validates :finish_time,
+        if fixed_start || start_from_now? || start_from_time? || finish_to_minutes_since_start?
+          klass.validates :finish,
                           timeliness: {
-                            on_or_before: ->(r) { r.start_time + maximum_distance_minutes },
+                            on_or_before: ->(r) { r.start + maximum_distance_minutes },
                             type: :datetime
                           },
                           allow_blank: false
-        elsif fixed_finish_time || finish_to_now? || finish_to_time? || start_from_minutes_before_finish?
-          klass.validates :finish_time,
+        elsif fixed_finish || finish_to_now? || finish_to_time? || start_from_minutes_before_finish?
+          klass.validates :finish,
                           timeliness: {
-                            on_or_after: ->(r) { r.finish_time - maximum_distance_minutes },
+                            on_or_after: ->(r) { r.finish - maximum_distance_minutes },
                             type: :datetime
                           },
                           allow_blank: false
         else
-          klass.validates :finish_time,
+          klass.validates :finish,
                           timeliness: {
-                            on_or_before: ->(r) { r.start_time + maximum_distance_minutes },
+                            on_or_before: ->(r) { r.start + maximum_distance_minutes },
                             type: :datetime
                           },
                           allow_blank: false
