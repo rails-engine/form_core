@@ -50,12 +50,11 @@ en:
         minimum: Minimum
         maximum: Maximum
         is: Equal
-        lower_bounds:
+        lower_bound_checks:
           disabled: 'Off'
           greater_than: '>'
           greater_than_or_equal_to: '>='
-        upper_bounds:
+        upper_bound_checks:
           disabled: 'Off'
           less_than: '<'
           less_than_or_equal_to: '<='
-

@@ -19,55 +19,36 @@ module Concerns::Fields
     end
 
     class NumericalityOptions < FieldOptions
-      attribute :lower_value, :float, default: 0.0
-      attribute :upper_value, :float, default: 0.0
+      attribute :lower_bound_check, :string, default: "disabled"
+      attribute :upper_bound_check, :string, default: "disabled"
 
-      enum lower_bound: {
+      attribute :lower_bound_value, :float, default: 0.0
+      attribute :upper_bound_value, :float, default: 0.0
+
+      enum lower_bound_check: {
         disabled: "disabled",
         greater_than: "greater_than",
         greater_than_or_equal_to: "greater_than_or_equal_to"
-      }, _prefix: :lower_bound
-      enum upper_bound: {
+      }, _prefix: :lower_bound_check
+      enum upper_bound_check: {
         disabled: "disabled",
         less_than: "less_than",
         less_than_or_equal_to: "less_than_or_equal_to"
-      }, _prefix: :upper_bound
+      }, _prefix: :upper_bound_check
 
-      attribute :lower_bound, :string, default: "disabled"
-      attribute :upper_bound, :string, default: "disabled"
-
-      def greater_than=(value)
-        self.lower_bound = "greater_than"
-        self.lower_value = value
-      end
-
-      def greater_than_or_equal_to=(value)
-        self.lower_bound = "greater_than_or_equal_to"
-        self.lower_value = value
-      end
-
-      def less_than=(value)
-        self.upper_bound = "less_than"
-        self.upper_value = value
-      end
-
-      def less_than_or_equal_to=(value)
-        self.upper_bound = "less_than_or_equal_to"
-        self.upper_value = value
-      end
-
-      validates :upper_value,
+      validates :upper_bound_value,
                 numericality: {
-                  greater_than: :lower_value
+                  greater_than: :lower_bound_value
                 },
-                if: proc { upper_bound != "disabled" && lower_bound != "disabled" }
+                if: proc { upper_bound_check != "disabled" && lower_bound_check != "disabled" }
 
       def interpret_to(model, field_name, _accessibility, _options = {})
         options = {}
-        options[lower_bound] = lower_value unless lower_bound_disabled?
-        options[upper_bound] = upper_value unless upper_bound_disabled?
+        options[lower_bound_check] = lower_bound_value unless lower_bound_check_disabled?
+        options[upper_bound_check] = upper_bound_value unless upper_bound_check_disabled?
         return if options.empty?
 
+        options.symbolize_keys!
         model.validates field_name, numericality: options, allow_blank: true
       end
     end
