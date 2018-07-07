@@ -50,8 +50,6 @@ class Field < ApplicationRecord
   def interpret_validations_to(model, accessibility, overrides = {})
     return unless accessibility == :read_and_write
 
-    name = overrides.fetch(:name, self.name)
-
     validations_overrides = overrides.fetch(:validations) { {} }
     validations =
       if validations_overrides.any?
@@ -64,8 +62,6 @@ class Field < ApplicationRecord
   end
 
   def interpret_extra_to(model, accessibility, overrides = {})
-    name = overrides.fetch(:name, self.name)
-
     options_overrides = overrides.fetch(:options) { {} }
     options =
       if options_overrides.any?
