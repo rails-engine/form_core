@@ -16,13 +16,16 @@ class FieldOptions < DuckRecord::Base
     super options
   end
 
+  private
+
+  def _assign_attribute(k, v)
+    return unless respond_to?("#{k}=")
+    public_send("#{k}=", v)
+  end
+
   class << self
     def _embeds_reflections
       _reflections.select { |_, v| v.is_a? DuckRecord::Reflection::EmbedsAssociationReflection }
-    end
-
-    def attribute_names_for_serialization
-      attribute_names + _embeds_reflections.keys
     end
 
     def model_version
@@ -77,14 +80,14 @@ class FieldOptions < DuckRecord::Base
         return new
       end
 
-      record = new decoded[root_key_for_serialization]&.slice(*attribute_names_for_serialization)
+      record = new decoded[root_key_for_serialization]
       record.raw_attributes = decoded.freeze
       record
     end
 
     def load_from_hash(hash)
       return new if hash.blank?
-      record = new hash[root_key_for_serialization].slice(*attribute_names_for_serialization)
+      record = new hash[root_key_for_serialization]
       record.raw_attributes = hash.freeze
       record
     end
