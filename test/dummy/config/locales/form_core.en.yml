@@ -58,3 +58,11 @@ en:
           disabled: 'Off'
           less_than: '<'
           less_than_or_equal_to: '<='
+        minimum_gap_checks:
+          unrestricted: 'unrestricted'
+          greater_than: '>'
+          greater_than_or_equal_to: '>='
+        maximum_gap_checks:
+          unrestricted: 'unrestricted'
+          less_than: '<'
+          less_than_or_equal_to: '<='

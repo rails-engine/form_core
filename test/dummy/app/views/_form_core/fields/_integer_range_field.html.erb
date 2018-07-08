@@ -1,0 +1,15 @@
+<% f.object.send("build_#{field.name}") unless f.object.send(field.name) %>
+
+<div class="field">
+  <%= f.label field.name, field.label, class: 'label' %>
+  <div class="control">
+    <%= f.fields_for field.name do |ff| %>
+      <%= ff.number_field :start, class: 'input', id: "#{field.id}_start", required: field.required, **field.start_options %>
+      ~
+      <%= ff.number_field :finish, class: 'input', id: "#{field.id}_finish", required: field.required, **field.finish_options %>
+    <% end %>
+  </div>
+  <% if field.hint.present? %>
+    <p class="help"><%= field.hint %></p>
+  <% end %>
+</div>

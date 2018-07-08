@@ -1,0 +1,125 @@
+<h3 class="title">Integer range field</h3>
+
+<div class="field">
+  <%= f.label :start_from, class: "label" %>
+  <div class="control">
+    <div class="field has-addons">
+      <p class="control">
+        <label class="radio button">
+          <%= f.radio_button :start_from, "unrestricted" %>
+          Unrestricted
+        </label>
+      </p>
+    </div>
+    <div class="field has-addons">
+      <p class="control">
+        <label class="radio button">
+          <%= f.radio_button :start_from, "value" %>
+          Value
+        </label>
+      </p>
+      <p class="control">
+        <%= f.number_field :start_value, class: "input", step: 1 %>
+      </p>
+    </div>
+    <div class="field has-addons">
+      <p class="control">
+        <label class="radio button">
+          <%= f.radio_button :start_from, "offsets_before_finish" %>
+          Offsets before finish
+        </label>
+      </p>
+      <p class="control">
+        <%= f.number_field :offsets_before_finish, class: "input", min: 1, step: 1 %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <label class="checkbox">
+      <%= f.check_box :fixed_start %>
+      Fixed start value?
+    </label>
+  </div>
+</div>
+
+<div class="field">
+  <%= f.label :finish_to, class: "label" %>
+  <div class="control">
+    <div class="field has-addons">
+      <p class="control">
+        <label class="radio button">
+          <%= f.radio_button :finish_to, "unrestricted" %>
+          Unrestricted
+        </label>
+      </p>
+    </div>
+    <div class="field has-addons">
+      <p class="control">
+        <label class="radio button">
+          <%= f.radio_button :finish_to, "value" %>
+          Value
+        </label>
+      </p>
+      <p class="control">
+        <%= f.number_field :finish_value, class: "input", step: 1 %>
+      </p>
+    </div>
+    <div class="field has-addons">
+      <p class="control">
+        <label class="radio button">
+          <%= f.radio_button :finish_to, "offsets_since_start" %>
+          Offsets since start
+        </label>
+      </p>
+      <p class="control">
+        <%= f.number_field :offsets_since_start, class: "input", min: 1, step: 1 %>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <div class="control">
+    <label class="checkbox">
+      <%= f.check_box :fixed_finish %>
+      Fixed finish value?
+    </label>
+  </div>
+</div>
+
+<div class="field">
+  <%= f.label :minimum_gap_check, class: "label" %>
+  <div class="control">
+    <div class="field has-addons">
+      <div class="control">
+    <span class="select">
+      <%= f.select :minimum_gap_check, options_for_enum_select(options.class, :minimum_gap_check, options.minimum_gap_check), {}, class: "select" %>
+    </span>
+      </div>
+      <div class="control">
+        <%= f.number_field :minimum_gap_value, step: 1, min: 0, class: "input" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <%= f.label :maximum_gap_check, class: "label" %>
+  <div class="control">
+    <div class="field has-addons">
+      <div class="control">
+    <span class="select">
+      <%= f.select :maximum_gap_check, options_for_enum_select(options.class, :maximum_gap_check, options.maximum_gap_check), {}, class: "select" %>
+    </span>
+      </div>
+      <div class="control">
+        <%= f.number_field :maximum_gap_value, step: 1, min: 0, class: "input" %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
