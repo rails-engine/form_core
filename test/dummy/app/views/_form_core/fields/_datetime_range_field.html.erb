@@ -4,9 +4,19 @@
   <%= f.label field.name, field.label, class: 'label' %>
   <div class="control">
     <%= f.fields_for field.name do |ff| %>
-      <%= ff.datetime_field :start, field.start_options.merge(class: 'input', id: "#{field.id}_start", required: field.required) %>
-      ~
-      <%= ff.datetime_field :finish, field.finish_options.merge(class: 'input', id: "#{field.id}_finish", required: field.required) %>
+      <div class="field has-addons">
+        <p class="control is-expanded">
+          <%= ff.datetime_field :start, class: 'input', id: "#{field.id}_start", required: field.required, **field.start_options %>
+        </p>
+        <p class="control">
+          <a class="button is-static">
+            ~
+          </a>
+        </p>
+        <p class="control is-expanded">
+          <%= ff.datetime_field :finish, class: 'input', id: "#{field.id}_finish", required: field.required, **field.finish_options %>
+        </p>
+      </div>
     <% end %>
   </div>
   <% if field.hint.present? %>
