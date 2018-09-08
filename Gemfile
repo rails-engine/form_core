@@ -52,3 +52,6 @@ gem "timeliness-i18n"
 
 gem "cocoon"
 gem "acts_as_list"
+
+gem "rubocop"
+gem "rubocop-rails_config"

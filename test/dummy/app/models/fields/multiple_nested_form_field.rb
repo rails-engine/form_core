@@ -17,7 +17,7 @@ module Fields
       accessibility = overrides.fetch(:accessibility, self.accessibility)
       return model if accessibility == :hidden
 
-      overrides.merge!(name: name)
+      overrides[:name] = name
 
       nested_model = nested_form.to_virtual_model(overrides: {_global: {accessibility: accessibility}})
 

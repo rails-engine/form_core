@@ -34,7 +34,7 @@ module FormCore
                 else
                   nil
                 end
-    
+
               super(blob&.id)
             end
           CODE
@@ -70,7 +70,7 @@ module FormCore
                   nil
                 end
               end
-    
+
               super blobs.map(&:id).concat(ActiveStorage::Blob.where(id: ids).pluck(:id))
             end
           CODE

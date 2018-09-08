@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   resources :dictionaries, except: %i[show]
 
   resources :forms, except: %i[show] do
