@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class FormsController < ApplicationController
-  layout "application", only: %i[index new create edit update]
-  before_action :set_form, only: %i[:show edit update destroy]
+  layout "application"
+
+  before_action :set_form, only: %i[edit update destroy]
 
   # GET /forms
   def index
