@@ -70,7 +70,7 @@ module Fields::Options
                 type: :date
               },
               allow_blank: false,
-              if: [:start_from_date?, :finish_to_today?]
+              if: %i[start_from_date? finish_to_today?]
 
     validates :finish,
               timeliness: {
@@ -78,7 +78,7 @@ module Fields::Options
                 type: :date
               },
               allow_blank: false,
-              if: [:start_from_today?, :finish_to_date?]
+              if: %i[start_from_today? finish_to_date?]
 
     validates :finish,
               timeliness: {
@@ -86,7 +86,7 @@ module Fields::Options
                 type: :date
               },
               allow_blank: false,
-              if: [:start_from_date?, :finish_to_date?]
+              if: %i[start_from_date? finish_to_date?]
 
     validates :finish_to,
               exclusion: {in: %w[today]},
@@ -121,7 +121,7 @@ module Fields::Options
                 greater_than_or_equal_to: :minimum_distance
               },
               allow_blank: false,
-              unless: -> (r) { r.maximum_distance.to_i == 0 }
+              unless: ->(r) { r.maximum_distance.to_i == 0 }
 
     def interpret_to(model, field_name, accessibility, _options = {})
       return unless accessibility == :read_and_write
@@ -129,7 +129,7 @@ module Fields::Options
       klass = model.nested_models[field_name]
 
       if start_from_today?
-        start_days_offset = self.start_from_today_days_offset.days.to_i
+        start_days_offset = start_from_today_days_offset.days.to_i
 
         klass.validates :start,
                         timeliness: {
@@ -138,7 +138,7 @@ module Fields::Options
                         },
                         allow_blank: true
         klass.default_value_for :start,
-                                -> (_) { Time.zone.today + start_days_offset },
+                                ->(_) { Time.zone.today + start_days_offset },
                                 allow_nil: false
         if fixed_start
           klass.attr_readonly :start
@@ -167,7 +167,7 @@ module Fields::Options
       end
 
       if finish_to_today?
-        finish_days_offset = self.finish_to_today_days_offset.days.to_i
+        finish_days_offset = finish_to_today_days_offset.days.to_i
 
         klass.validates :finish,
                         timeliness: {
@@ -176,7 +176,7 @@ module Fields::Options
                         },
                         allow_blank: true
         klass.default_value_for :finish,
-                                -> (_) { Time.zone.today + finish_days_offset },
+                                ->(_) { Time.zone.today + finish_days_offset },
                                 allow_nil: false
         if fixed_finish
           klass.attr_readonly :finish

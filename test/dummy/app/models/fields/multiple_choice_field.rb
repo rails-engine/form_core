@@ -9,7 +9,7 @@ module Fields
       :integer
     end
 
-    def attach_choices?
+    def attached_choices?
       true
     end
 
@@ -38,6 +38,7 @@ module Fields
 
       choice_ids = choices.map(&:id)
       return if choice_ids.empty?
+
       model.validates name, subset: {in: choice_ids}, allow_blank: true
     end
   end

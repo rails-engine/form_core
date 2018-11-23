@@ -11,8 +11,7 @@ class NestedForms::FieldsController < NestedForms::ApplicationController
     @field = @nested_form.fields.build
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @field = @nested_form.fields.build(field_params)

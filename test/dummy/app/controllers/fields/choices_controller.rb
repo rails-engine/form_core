@@ -17,8 +17,7 @@ class Fields::ChoicesController < Fields::ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @choice.update choice_params
@@ -36,7 +35,7 @@ class Fields::ChoicesController < Fields::ApplicationController
   private
 
   def require_attach_choices!
-    unless @field.attach_choices?
+    unless @field.attached_choices?
       redirect_to fields_url
     end
   end

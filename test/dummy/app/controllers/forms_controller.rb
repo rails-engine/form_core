@@ -16,8 +16,7 @@ class FormsController < ApplicationController
   end
 
   # GET /forms/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /forms
   def create

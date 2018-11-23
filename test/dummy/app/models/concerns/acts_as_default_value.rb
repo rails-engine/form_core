@@ -79,14 +79,14 @@ module ActsAsDefaultValue
 
       # allow explicitly setting nil through allow nil option
       next if @initialization_attributes.is_a?(Hash) &&
-        (
-        @initialization_attributes.has_key?(attribute) ||
-          (
-          @initialization_attributes.has_key?("#{attribute}_attributes") &&
-            nested_attributes_options.stringify_keys[attribute]
-          )
-        ) &&
-        !self.class._all_default_attribute_values_not_allowing_nil.include?(attribute)
+              (
+              @initialization_attributes.key?(attribute) ||
+                (
+                @initialization_attributes.key?("#{attribute}_attributes") &&
+                  nested_attributes_options.stringify_keys[attribute]
+              )
+            ) &&
+              !self.class._all_default_attribute_values_not_allowing_nil.include?(attribute)
 
       send("#{attribute}=", container.evaluate(self))
 

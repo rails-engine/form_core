@@ -14,8 +14,7 @@ module DataSources
       nil
     end
 
-    def interpret_to(_model, _field_name, _accessibility, _options = {})
-    end
+    def interpret_to(_model, _field_name, _accessibility, _options = {}); end
 
     class << self
       def scoped_records(*)

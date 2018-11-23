@@ -65,7 +65,7 @@ module Fields::Options
                 type: :date
               },
               allow_blank: false,
-              if: [:start_from_date?, :finish_to_today?]
+              if: %i[start_from_date? finish_to_today?]
 
     validates :finish,
               timeliness: {
@@ -73,7 +73,7 @@ module Fields::Options
                 type: :date
               },
               allow_blank: false,
-              if: [:start_from_today?, :finish_to_date?]
+              if: %i[start_from_today? finish_to_date?]
 
     validates :finish,
               timeliness: {
@@ -81,7 +81,7 @@ module Fields::Options
                 type: :date
               },
               allow_blank: false,
-              if: [:start_from_date?, :finish_to_date?]
+              if: %i[start_from_date? finish_to_date?]
 
     validates :finish_to,
               exclusion: {in: %w[today]},
@@ -97,14 +97,14 @@ module Fields::Options
       timeliness = {type: :date}
 
       if start_from_today?
-        start_days_offset = self.start_from_today_days_offset.days
+        start_days_offset = start_from_today_days_offset.days
         timeliness[:on_or_after] = -> { Time.zone.today + start_days_offset }
       elsif start_from_date?
         timeliness[:on_or_after] = start
       elsif start_from_days_before_finish?
         days_before_finish = self.days_before_finish.days
         if finish_to_today?
-          finish_days_offset = self.finish_to_today_days_offset.days
+          finish_days_offset = finish_to_today_days_offset.days
           timeliness[:on_or_after] = -> {
             Time.zone.today + finish_days_offset - days_before_finish
           }
@@ -114,14 +114,14 @@ module Fields::Options
       end
 
       if finish_to_today?
-        finish_days_offset = self.finish_to_today_date_offset.days
+        finish_days_offset = finish_to_today_date_offset.days
         timeliness[:on_or_before] = -> { Time.zone.today + finish_days_offset }
       elsif finish_to_date?
         timeliness[:on_or_before] = finish
       elsif finish_to_days_since_start?
         days_since_start = self.days_since_start.days
         if start_from_today?
-          start_days_offset = self.start_from_today_days_offset.days
+          start_days_offset = start_from_today_days_offset.days
           timeliness[:on_or_before] = -> {
             Time.zone.today + start_days_offset + days_since_start
           }

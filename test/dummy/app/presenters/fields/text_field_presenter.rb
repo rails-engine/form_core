@@ -5,6 +5,6 @@ module Fields
     def multiline
       @model.options.multiline
     end
-    alias_method :multiline?, :multiline
+    alias multiline? multiline
   end
 end

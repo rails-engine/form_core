@@ -5,7 +5,7 @@ module FormCore::Concerns
     module Field
       extend ActiveSupport::Concern
 
-      NAME_REGEX = /\A[a-z][a-z_0-9]*\z/
+      NAME_REGEX = /\A[a-z][a-z_0-9]*\z/.freeze
 
       included do
         enum accessibility: {read_and_write: 0, readonly: 1, hidden: 2},
@@ -20,7 +20,7 @@ module FormCore::Concerns
                   exclusion: {in: FormCore.reserved_names},
                   format: {with: NAME_REGEX}
         validates :accessibility,
-                  inclusion: {in: self.accessibilities.keys.map(&:to_sym)}
+                  inclusion: {in: accessibilities.keys.map(&:to_sym)}
 
         after_initialize do
           self.validations ||= {}
@@ -75,8 +75,7 @@ module FormCore::Concerns
         end
       end
 
-      def interpret_extra_to(_model, _accessibility, _overrides = {})
-      end
+      def interpret_extra_to(_model, _accessibility, _overrides = {}); end
 
       def check_model_validity!(model)
         unless model.is_a?(Class) && model < ::FormCore::VirtualModel

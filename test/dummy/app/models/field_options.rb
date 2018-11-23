@@ -8,8 +8,7 @@ class FieldOptions < DuckRecord::Base
 
   attr_accessor :raw_attributes
 
-  def interpret_to(_model, _field_name, _accessibility, _options = {})
-  end
+  def interpret_to(_model, _field_name, _accessibility, _options = {}); end
 
   def serializable_hash(options = {})
     options = (options || {}).reverse_merge include: self.class._embeds_reflections.keys
@@ -20,6 +19,7 @@ class FieldOptions < DuckRecord::Base
 
   def _assign_attribute(k, v)
     return unless respond_to?("#{k}=")
+
     public_send("#{k}=", v)
   end
 
@@ -67,7 +67,7 @@ class FieldOptions < DuckRecord::Base
       end
     end
 
-    WHITELIST_CLASSES = [BigDecimal, Date, Time, Symbol]
+    WHITELIST_CLASSES = [BigDecimal, Date, Time, Symbol].freeze
     def load_from_yaml(yaml)
       return new if yaml.blank?
 
@@ -87,6 +87,7 @@ class FieldOptions < DuckRecord::Base
 
     def load_from_hash(hash)
       return new if hash.blank?
+
       record = new hash[root_key_for_serialization]
       record.raw_attributes = hash.freeze
       record

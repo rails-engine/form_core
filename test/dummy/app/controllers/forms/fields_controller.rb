@@ -14,8 +14,7 @@ class Forms::FieldsController < Forms::ApplicationController
   end
 
   # GET /forms/1/fields/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /forms/1/fields
   def create

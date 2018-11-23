@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-$:.push File.expand_path("../lib", __FILE__)
+$LOAD_PATH.push File.expand_path("lib", __dir__)
 
 # Maintain your gem's version:
 require "form_core/version"
@@ -21,6 +21,6 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  s.add_dependency "rails", "~> 5.0"
   s.add_dependency "duck_record", ">= 0.0.26", "< 1.0"
+  s.add_dependency "rails", "~> 5.0"
 end

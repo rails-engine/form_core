@@ -23,7 +23,7 @@
             <td><%= field.section&.title %></td>
             <td><%= Field.human_enum_value(:accessibility, field.accessibility) %></td>
             <td>
-              <% if field.attach_choices? %>
+              <% if field.attached_choices? %>
                 <%= link_to "Choices", field_choices_path(field) %> |
               <% end %>
               <% if field.validations_configurable? %>
@@ -32,10 +32,10 @@
               <% if field.options_configurable? %>
                 <%= link_to "Options", edit_field_options_path(field) %> |
               <% end %>
-              <% if data_source_attached_field?(field) %>
+              <% if field.attached_data_source? %>
                 <%= link_to "Data source", edit_field_data_source_options_path(field) %> |
               <% end %>
-              <% if nested_form_attached_field?(field) %>
+              <% if field.attached_nested_form? %>
                 <%= link_to "Fields", nested_form_fields_path(field.nested_form) %> |
               <% end %>
               <%= link_to "Edit", edit_form_field_path(@form, field) %> |

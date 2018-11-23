@@ -28,7 +28,7 @@ module FormCore
 
     def reserved_names
       @reserved_names ||= Set.new(
-        %i(def class module private public protected allocate new parent superclass) +
+        %i[def class module private public protected allocate new parent superclass] +
           virtual_model_class.instance_methods(true)
       )
     end

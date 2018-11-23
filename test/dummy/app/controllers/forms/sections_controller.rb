@@ -14,8 +14,7 @@ class Forms::SectionsController < Forms::ApplicationController
   end
 
   # GET /forms/1/sections/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /forms/1/sections
   def create

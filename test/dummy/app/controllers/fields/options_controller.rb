@@ -3,8 +3,7 @@
 class Fields::OptionsController < Fields::ApplicationController
   before_action :set_options
 
-  def edit
-  end
+  def edit; end
 
   def update
     @options.assign_attributes(options_params)

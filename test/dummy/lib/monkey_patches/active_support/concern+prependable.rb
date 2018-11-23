@@ -10,6 +10,7 @@ module Prependable
       false
     else
       return false if base < self
+
       super
       base.singleton_class.send(:prepend, const_get("ClassMethods")) if const_defined?(:ClassMethods)
       @_dependencies.each { |dep| base.send(:prepend, dep) }
@@ -22,6 +23,6 @@ module ActiveSupport
   module Concern
     prepend Prependable
 
-    alias_method :prepended, :included
+    alias prepended included
   end
 end

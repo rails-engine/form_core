@@ -14,8 +14,7 @@ class DictionariesController < ApplicationController
   end
 
   # GET /dictionaries/dictionaries/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /dictionaries/dictionaries
   def create
@@ -44,6 +43,7 @@ class DictionariesController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_dictionary
     @dictionary = Dictionary.find(params[:id])

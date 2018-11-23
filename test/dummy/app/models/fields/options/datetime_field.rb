@@ -65,7 +65,7 @@ module Fields::Options
                 type: :datetime
               },
               allow_blank: false,
-              if: [:start_from_time?, :finish_to_now?]
+              if: %i[start_from_time? finish_to_now?]
 
     validates :finish,
               timeliness: {
@@ -73,7 +73,7 @@ module Fields::Options
                 type: :datetime
               },
               allow_blank: false,
-              if: [:start_from_now?, :finish_to_time?]
+              if: %i[start_from_now? finish_to_time?]
 
     validates :finish,
               timeliness: {
@@ -81,7 +81,7 @@ module Fields::Options
                 type: :datetime
               },
               allow_blank: false,
-              if: [:start_from_time?, :finish_to_time?]
+              if: %i[start_from_time? finish_to_time?]
 
     validates :finish_to,
               exclusion: {in: %w[now]},
@@ -97,14 +97,14 @@ module Fields::Options
       timeliness = {type: :datetime}
 
       if start_from_now?
-        start_minutes_offset = self.start_from_now_minutes_offset.minutes.to_i
+        start_minutes_offset = start_from_now_minutes_offset.minutes.to_i
         timeliness[:on_or_after] = -> { Time.zone.now.change(sec: 0, usec: 0) + start_minutes_offset }
       elsif start_from_time?
         timeliness[:on_or_after] = start
       elsif start_from_minutes_before_finish?
         minutes_before_finish = self.minutes_before_finish.minutes
         if finish_to_now?
-          finish_minutes_offset = self.finish_to_now_minutes_offset.minutes.to_i
+          finish_minutes_offset = finish_to_now_minutes_offset.minutes.to_i
           timeliness[:on_or_after] = -> {
             Time.zone.now.change(sec: 0, usec: 0) + finish_minutes_offset - minutes_before_finish
           }
@@ -114,14 +114,14 @@ module Fields::Options
       end
 
       if finish_to_now?
-        finish_minutes_offset = self.finish_to_now_minutes_offset.minutes.to_i
+        finish_minutes_offset = finish_to_now_minutes_offset.minutes.to_i
         timeliness[:on_or_before] = -> { Time.zone.now.change(sec: 0, usec: 0) + finish_minutes_offset }
       elsif finish_to_time?
         timeliness[:on_or_before] = finish
       elsif finish_to_minutes_since_start?
         minutes_since_start = self.minutes_since_start.minutes.to_i
         if start_from_now?
-          start_minutes_offset = self.start_from_now_minutes_offset.minutes.to_i
+          start_minutes_offset = start_from_now_minutes_offset.minutes.to_i
           timeliness[:on_or_before] = -> {
             Time.zone.now.change(sec: 0, usec: 0) + start_minutes_offset + minutes_since_start
           }

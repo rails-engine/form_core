@@ -30,7 +30,7 @@ class DataSource < FieldOptions
   end
 
   def scoped_condition
-    self.serializable_hash
+    serializable_hash
   end
 
   def scoped_records(**additional_condition)
@@ -38,8 +38,7 @@ class DataSource < FieldOptions
     self.class.scoped_records(condition)
   end
 
-  def interpret_to(model, field_name, accessibility, _options = {})
-  end
+  def interpret_to(model, field_name, accessibility, _options = {}); end
 
   class << self
     def type_key

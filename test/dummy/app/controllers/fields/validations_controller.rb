@@ -3,8 +3,7 @@
 class Fields::ValidationsController < Fields::ApplicationController
   before_action :set_validations
 
-  def edit
-  end
+  def edit; end
 
   def update
     @validations.assign_attributes(validations_params)

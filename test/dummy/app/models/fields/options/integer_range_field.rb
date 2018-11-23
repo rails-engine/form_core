@@ -74,7 +74,7 @@ module Fields::Options
                 greater_than: :start_value
               },
               allow_blank: false,
-              if: [:start_from_value?, :finish_to_value?]
+              if: %i[start_from_value? finish_to_value?]
 
     validates :finish_to,
               exclusion: {in: %w[offsets_since_start]},

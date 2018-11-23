@@ -22,7 +22,7 @@ class Field < ApplicationRecord
             allow_blank: false
 
   default_value_for :name,
-                    -> (_) { "field_#{SecureRandom.hex(3)}" },
+                    ->(_) { "field_#{SecureRandom.hex(3)}" },
                     allow_nil: false
 
   def self.type_key
@@ -41,7 +41,15 @@ class Field < ApplicationRecord
     validations.is_a?(FieldOptions) && validations.attributes.any?
   end
 
-  def attach_choices?
+  def attached_choices?
+    false
+  end
+
+  def attached_data_source?
+    false
+  end
+
+  def attached_nested_form?
     false
   end
 

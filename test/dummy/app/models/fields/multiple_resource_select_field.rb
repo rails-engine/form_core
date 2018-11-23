@@ -17,6 +17,10 @@ module Fields
       data_source.scoped_records.map(&data_source.text_method)
     end
 
+    def attached_data_source?
+      true
+    end
+
     def interpret_to(model, overrides: {})
       check_model_validity!(model)
 
@@ -39,6 +43,7 @@ module Fields
     def interpret_extra_to(model, accessibility, overrides = {})
       super
       return if accessibility != :read_and_write || !options.strict_select
+
       model.validates name, subset: {in: collection}, allow_blank: true
     end
   end

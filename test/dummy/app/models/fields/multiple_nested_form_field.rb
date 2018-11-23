@@ -11,6 +11,10 @@ module Fields
     serialize :validations, Validations::MultipleNestedFormField
     serialize :options, Options::MultipleNestedFormField
 
+    def attached_nested_form?
+      true
+    end
+
     def interpret_to(model, overrides: {})
       check_model_validity!(model)
 

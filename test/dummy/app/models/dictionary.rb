@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Dictionary < ApplicationRecord
-  SCOPE_REGEX = /\A([a-z_][a-z_0-9]*\.)*[a-z_][a-z_0-9]*\z/
+  SCOPE_REGEX = /\A([a-z_][a-z_0-9]*\.)*[a-z_][a-z_0-9]*\z/.freeze
 
   attribute :value, :string
   validates :value,
