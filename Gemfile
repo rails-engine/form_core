@@ -13,7 +13,7 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-gem "sqlite3"
+gem "sqlite3", "~> 1.3.6"
 
 # To use a debugger
 # gem "byebug", group: [:development, :test]
@@ -54,3 +54,4 @@ gem "cocoon"
 
 gem "rubocop"
 gem "rubocop-rails_config"
+gem "rubocop-performance"
