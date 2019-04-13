@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module Concerns::Fields
+module Fields
   module Validations::Numericality
     extend ActiveSupport::Concern
 
     included do
-      embeds_one :numericality, class_name: "Concerns::Fields::Validations::Numericality::NumericalityOptions"
+      embeds_one :numericality, class_name: "Fields::Validations::Numericality::NumericalityOptions"
       accepts_nested_attributes_for :numericality
 
       after_initialize do

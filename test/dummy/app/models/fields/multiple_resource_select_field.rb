@@ -14,7 +14,7 @@ module Fields
     end
 
     def collection
-      data_source.scoped_records.map(&data_source.text_method)
+      data_source.scoped_records
     end
 
     def attached_data_source?
@@ -44,7 +44,8 @@ module Fields
       super
       return if accessibility != :read_and_write || !options.strict_select
 
-      model.validates name, subset: {in: collection}, allow_blank: true
+      # TODO: performance
+      # model.validates name, subset: {in: collection}, allow_blank: true
     end
   end
 end

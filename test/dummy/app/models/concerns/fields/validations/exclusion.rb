@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module Concerns::Fields
+module Fields
   module Validations::Exclusion
     extend ActiveSupport::Concern
 
     included do
-      embeds_one :exclusion, class_name: "Concerns::Fields::Validations::Exclusion::ExclusionOptions"
+      embeds_one :exclusion, class_name: "Fields::Validations::Exclusion::ExclusionOptions"
       accepts_nested_attributes_for :exclusion
 
       after_initialize do

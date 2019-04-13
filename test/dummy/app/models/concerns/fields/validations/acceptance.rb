@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Concerns::Fields
+module Fields
   module Validations::Acceptance
     extend ActiveSupport::Concern
 

@@ -2,14 +2,12 @@
 
 module Fields
   class MultipleNestedFormField < Field
-    has_one :nested_form, as: :attachable, dependent: :destroy
-
     after_create do
       build_nested_form.save!
     end
 
     serialize :validations, Validations::MultipleNestedFormField
-    serialize :options, Options::MultipleNestedFormField
+    serialize :options, NonConfigurable
 
     def attached_nested_form?
       true

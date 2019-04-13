@@ -11,7 +11,7 @@ module Fields
       accessibility = overrides.fetch(:accessibility, self.accessibility)
       return model if accessibility == :hidden
 
-      nested_model = Class.new(::Fields::DatetimeRangeField::DatetimeRange)
+      nested_model = Class.new(::Fields::Embeds::DatetimeRange)
 
       model.nested_models[name] = nested_model
 
@@ -22,29 +22,6 @@ module Fields
       interpret_extra_to model, accessibility, overrides
 
       model
-    end
-
-    class DatetimeRange < VirtualModel
-      attribute :start, :datetime
-      attribute :finish, :datetime
-
-      validates :start, :finish,
-                presence: true
-
-      validates :finish,
-                timeliness: {
-                  after: :start,
-                  type: :datetime
-                },
-                allow_blank: false
-
-      def start=(val)
-        super(val.try(:in_time_zone)&.utc)
-      end
-
-      def finish=(val)
-        super(val.try(:in_time_zone)&.utc)
-      end
     end
   end
 end

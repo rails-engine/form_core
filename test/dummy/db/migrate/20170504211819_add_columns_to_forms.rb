@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddColumnsToForms < ActiveRecord::Migration[5.1]
+class AddColumnsToForms < ActiveRecord::Migration[6.0]
   def change
     change_table :forms do |t|
       t.string :title, default: ""

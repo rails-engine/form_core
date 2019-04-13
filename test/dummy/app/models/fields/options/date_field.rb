@@ -2,131 +2,131 @@
 
 module Fields::Options
   class DateField < FieldOptions
-    attribute :start_from, :string, default: "unlimited"
-    enum start_from: {
+    attribute :begin_from, :string, default: "unlimited"
+    enum begin_from: {
       unlimited: "unlimited",
       today: "today",
       date: "date",
-      days_before_finish: "days_before_finish"
-    }, _prefix: :start_from
+      days_before_end: "days_before_end"
+    }, _prefix: :begin_from
 
-    attribute :start, :date
-    attribute :start_from_today_days_offset, :integer, default: 0
-    attribute :days_before_finish, :integer, default: 1
+    attribute :begin, :date
+    attribute :begin_from_today_days_offset, :integer, default: 0
+    attribute :days_before_end, :integer, default: 1
 
-    attribute :finish_to, :string, default: "unlimited"
-    enum finish_to: {
+    attribute :end_to, :string, default: "unlimited"
+    enum end_to: {
       unlimited: "unlimited",
       today: "today",
       date: "date",
-      days_since_start: "days_since_start"
-    }, _prefix: :finish_to
+      days_since_begin: "days_since_begin"
+    }, _prefix: :end_to
 
-    attribute :finish, :date
-    attribute :finish_to_today_days_offset, :integer, default: 0
-    attribute :days_since_start, :integer, default: 1
+    attribute :end, :date
+    attribute :end_to_today_days_offset, :integer, default: 0
+    attribute :days_since_begin, :integer, default: 1
 
-    validates :start_from, :finish_to,
+    validates :begin_from, :end_to,
               presence: true
 
-    validates :start,
+    validates :begin,
               presence: true,
-              if: :start_from_date?
+              if: :begin_from_date?
 
-    validates :finish,
+    validates :end,
               presence: true,
-              if: :finish_to_date?
+              if: :end_to_date?
 
-    validates :days_before_finish,
+    validates :days_before_end,
               numericality: {
                 only_integer: true,
                 greater_than: 0
               },
               allow_blank: false,
-              if: :start_from_days_before_finish?
+              if: :begin_from_days_before_end?
 
-    validates :days_since_start,
+    validates :days_since_begin,
               numericality: {
                 only_integer: true,
                 greater_than: 0
               },
               allow_blank: false,
-              if: :finish_to_days_since_start?
+              if: :end_to_days_since_begin?
 
-    validates :start_from_today_days_offset, :finish_to_today_days_offset,
+    validates :begin_from_today_days_offset, :end_to_today_days_offset,
               presence: true,
               numericality: {
                 only_integer: true
               }
 
-    validates :start,
+    validates :begin,
               timeliness: {
-                before: ->(r) { Time.zone.today + r.finish_to_today_days_offset.days },
+                before: ->(r) { Time.zone.today + r.end_to_today_days_offset.days },
                 type: :date
               },
               allow_blank: false,
-              if: %i[start_from_date? finish_to_today?]
+              if: %i[begin_from_date? end_to_today?]
 
-    validates :finish,
+    validates :end,
               timeliness: {
-                after: -> { Time.zone.today + r.start_from_today_days_offset.days },
+                after: -> { Time.zone.today + r.begin_from_today_days_offset.days },
                 type: :date
               },
               allow_blank: false,
-              if: %i[start_from_today? finish_to_date?]
+              if: %i[begin_from_today? end_to_date?]
 
-    validates :finish,
+    validates :end,
               timeliness: {
-                after: :start,
+                after: :begin,
                 type: :date
               },
               allow_blank: false,
-              if: %i[start_from_date? finish_to_date?]
+              if: %i[begin_from_date? end_to_date?]
 
-    validates :finish_to,
+    validates :end_to,
               exclusion: {in: %w[today]},
-              if: [:start_from_today?]
+              if: [:begin_from_today?]
 
-    validates :finish_to,
-              exclusion: {in: %w[days_since_start]},
-              if: [:start_from_days_before_finish?]
+    validates :end_to,
+              exclusion: {in: %w[days_since_begin]},
+              if: [:begin_from_days_before_end?]
 
     def interpret_to(model, field_name, accessibility, _options = {})
       return unless accessibility == :read_and_write
 
       timeliness = {type: :date}
 
-      if start_from_today?
-        start_days_offset = start_from_today_days_offset.days
-        timeliness[:on_or_after] = -> { Time.zone.today + start_days_offset }
-      elsif start_from_date?
-        timeliness[:on_or_after] = start
-      elsif start_from_days_before_finish?
-        days_before_finish = self.days_before_finish.days
-        if finish_to_today?
-          finish_days_offset = finish_to_today_days_offset.days
+      if begin_from_today?
+        begin_days_offset = begin_from_today_days_offset.days
+        timeliness[:on_or_after] = -> { Time.zone.today + begin_days_offset }
+      elsif begin_from_date?
+        timeliness[:on_or_after] = self.begin
+      elsif begin_from_days_before_end?
+        days_before_end = self.days_before_end.days
+        if end_to_today?
+          end_days_offset = end_to_today_days_offset.days
           timeliness[:on_or_after] = -> {
-            Time.zone.today + finish_days_offset - days_before_finish
+            Time.zone.today + end_days_offset - days_before_end
           }
-        elsif finish_to_date?
-          timeliness[:on_or_after] = finish - days_before_finish
+        elsif end_to_date?
+          timeliness[:on_or_after] = self.end - days_before_end
         end
       end
 
-      if finish_to_today?
-        finish_days_offset = finish_to_today_date_offset.days
-        timeliness[:on_or_before] = -> { Time.zone.today + finish_days_offset }
-      elsif finish_to_date?
-        timeliness[:on_or_before] = finish
-      elsif finish_to_days_since_start?
-        days_since_start = self.days_since_start.days
-        if start_from_today?
-          start_days_offset = start_from_today_days_offset.days
+      if end_to_today?
+        end_days_offset = end_to_today_date_offset.days
+        timeliness[:on_or_before] = -> { Time.zone.today + end_days_offset }
+      elsif end_to_date?
+        timeliness[:on_or_before] = self.end
+      elsif end_to_days_since_begin?
+        days_since_begin = self.days_since_begin.days
+        if begin_from_today?
+          begin_days_offset = begin_from_today_days_offset.days
           timeliness[:on_or_before] = -> {
-            Time.zone.today + start_days_offset + days_since_start
+            Time.zone.today + begin_days_offset + days_since_begin
           }
-        elsif start_from_date?
-          timeliness[:on_or_before] = start + days_since_start
+        elsif begin_from_date?
+          timeliness[:on_or_before] = self.begin + days_since_begin
         end
       end
 

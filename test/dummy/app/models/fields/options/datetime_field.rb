@@ -2,131 +2,131 @@
 
 module Fields::Options
   class DatetimeField < FieldOptions
-    attribute :start_from, :string, default: "unlimited"
-    enum start_from: {
+    attribute :begin_from, :string, default: "unlimited"
+    enum begin_from: {
       unlimited: "unlimited",
       now: "now",
       time: "time",
-      minutes_before_finish: "minutes_before_finish"
-    }, _prefix: :start_from
+      minutes_before_end: "minutes_before_end"
+    }, _prefix: :begin_from
 
-    attribute :start, :datetime
-    attribute :start_from_now_minutes_offset, :integer, default: 0
-    attribute :minutes_before_finish, :integer, default: 1
+    attribute :begin, :datetime
+    attribute :begin_from_now_minutes_offset, :integer, default: 0
+    attribute :minutes_before_end, :integer, default: 1
 
-    attribute :finish_to, :string, default: "unlimited"
-    enum finish_to: {
+    attribute :end_to, :string, default: "unlimited"
+    enum end_to: {
       unlimited: "unlimited",
       now: "now",
       time: "time",
-      minutes_since_start: "minutes_since_start"
-    }, _prefix: :finish_to
+      minutes_since_begin: "minutes_since_begin"
+    }, _prefix: :end_to
 
-    attribute :finish, :datetime
-    attribute :finish_to_now_minutes_offset, :integer, default: 0
-    attribute :minutes_since_start, :integer, default: 1
+    attribute :end, :datetime
+    attribute :end_to_now_minutes_offset, :integer, default: 0
+    attribute :minutes_since_begin, :integer, default: 1
 
-    validates :start_from, :finish_to,
+    validates :begin_from, :end_to,
               presence: true
 
-    validates :start,
+    validates :begin,
               presence: true,
-              if: :start_from_time?
+              if: :begin_from_time?
 
-    validates :finish,
+    validates :end,
               presence: true,
-              if: :finish_to_time?
+              if: :end_to_time?
 
-    validates :minutes_before_finish,
+    validates :minutes_before_end,
               numericality: {
                 only_integer: true,
                 greater_than: 0
               },
               allow_blank: false,
-              if: :start_from_minutes_before_finish?
+              if: :begin_from_minutes_before_end?
 
-    validates :minutes_since_start,
+    validates :minutes_since_begin,
               numericality: {
                 only_integer: true,
                 greater_than: 0
               },
               allow_blank: false,
-              if: :finish_to_minutes_since_start?
+              if: :end_to_minutes_since_begin?
 
-    validates :start_from_now_minutes_offset, :finish_to_now_minutes_offset,
+    validates :begin_from_now_minutes_offset, :end_to_now_minutes_offset,
               presence: true,
               numericality: {
                 only_integer: true
               }
 
-    validates :start,
+    validates :begin,
               timeliness: {
-                before: ->(r) { Time.zone.now.change(sec: 0, usec: 0) + r.finish_to_now_minutes_offset.minutes },
+                before: ->(r) { Time.zone.now.change(sec: 0, usec: 0) + r.end_to_now_minutes_offset.minutes },
                 type: :datetime
               },
               allow_blank: false,
-              if: %i[start_from_time? finish_to_now?]
+              if: %i[begin_from_time? end_to_now?]
 
-    validates :finish,
+    validates :end,
               timeliness: {
-                after: -> { Time.zone.now.change(sec: 0, usec: 0) + r.start_from_now_minutes_offset.minutes },
+                after: -> { Time.zone.now.change(sec: 0, usec: 0) + r.begin_from_now_minutes_offset.minutes },
                 type: :datetime
               },
               allow_blank: false,
-              if: %i[start_from_now? finish_to_time?]
+              if: %i[begin_from_now? end_to_time?]
 
-    validates :finish,
+    validates :end,
               timeliness: {
-                after: :start,
+                after: :begin,
                 type: :datetime
               },
               allow_blank: false,
-              if: %i[start_from_time? finish_to_time?]
+              if: %i[begin_from_time? end_to_time?]
 
-    validates :finish_to,
+    validates :end_to,
               exclusion: {in: %w[now]},
-              if: [:start_from_now?]
+              if: [:begin_from_now?]
 
-    validates :finish_to,
-              exclusion: {in: %w[minutes_since_start]},
-              if: [:start_from_minutes_before_finish?]
+    validates :end_to,
+              exclusion: {in: %w[minutes_since_begin]},
+              if: [:begin_from_minutes_before_end?]
 
     def interpret_to(model, field_name, accessibility, _options = {})
       return unless accessibility == :read_and_write
 
       timeliness = {type: :datetime}
 
-      if start_from_now?
-        start_minutes_offset = start_from_now_minutes_offset.minutes.to_i
-        timeliness[:on_or_after] = -> { Time.zone.now.change(sec: 0, usec: 0) + start_minutes_offset }
-      elsif start_from_time?
-        timeliness[:on_or_after] = start
-      elsif start_from_minutes_before_finish?
-        minutes_before_finish = self.minutes_before_finish.minutes
-        if finish_to_now?
-          finish_minutes_offset = finish_to_now_minutes_offset.minutes.to_i
+      if begin_from_now?
+        begin_minutes_offset = begin_from_now_minutes_offset.minutes.to_i
+        timeliness[:on_or_after] = -> { Time.zone.now.change(sec: 0, usec: 0) + begin_minutes_offset }
+      elsif begin_from_time?
+        timeliness[:on_or_after] = self.begin
+      elsif begin_from_minutes_before_end?
+        minutes_before_end = self.minutes_before_end.minutes
+        if end_to_now?
+          end_minutes_offset = end_to_now_minutes_offset.minutes.to_i
           timeliness[:on_or_after] = -> {
-            Time.zone.now.change(sec: 0, usec: 0) + finish_minutes_offset - minutes_before_finish
+            Time.zone.now.change(sec: 0, usec: 0) + end_minutes_offset - minutes_before_end
           }
-        elsif finish_to_time?
-          timeliness[:on_or_after] = finish - minutes_before_finish
+        elsif end_to_time?
+          timeliness[:on_or_after] = self.end - minutes_before_end
         end
       end
 
-      if finish_to_now?
-        finish_minutes_offset = finish_to_now_minutes_offset.minutes.to_i
-        timeliness[:on_or_before] = -> { Time.zone.now.change(sec: 0, usec: 0) + finish_minutes_offset }
-      elsif finish_to_time?
-        timeliness[:on_or_before] = finish
-      elsif finish_to_minutes_since_start?
-        minutes_since_start = self.minutes_since_start.minutes.to_i
-        if start_from_now?
-          start_minutes_offset = start_from_now_minutes_offset.minutes.to_i
+      if end_to_now?
+        end_minutes_offset = end_to_now_minutes_offset.minutes.to_i
+        timeliness[:on_or_before] = -> { Time.zone.now.change(sec: 0, usec: 0) + end_minutes_offset }
+      elsif end_to_time?
+        timeliness[:on_or_before] = self.end
+      elsif end_to_minutes_since_begin?
+        minutes_since_begin = self.minutes_since_begin.minutes.to_i
+        if begin_from_now?
+          begin_minutes_offset = begin_from_now_minutes_offset.minutes.to_i
           timeliness[:on_or_before] = -> {
-            Time.zone.now.change(sec: 0, usec: 0) + start_minutes_offset + minutes_since_start
+            Time.zone.now.change(sec: 0, usec: 0) + begin_minutes_offset + minutes_since_begin
           }
-        elsif start_from_time?
-          timeliness[:on_or_before] = start + minutes_since_start
+        elsif begin_from_time?
+          timeliness[:on_or_before] = self.begin + minutes_since_begin
         end
       end
 

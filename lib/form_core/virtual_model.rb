@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "duck_record"
+require "active_entity"
 
 module FormCore
-  class VirtualModel < ::DuckRecord::Base
+  class VirtualModel < ::ActiveEntity::Base
     # Returns the contents of the record as a nicely formatted string.
     def inspect
       # We check defined?(@attributes) not to issue warnings if the object is
@@ -27,8 +27,11 @@ module FormCore
       super options
     end
 
+    # Hack
+    ARRAY_WITHOUT_BLANK_PATTERN = "!ruby/array:ArrayWithoutBlank"
+
     def dump
-      self.class.dump(self)
+      self.class.dump(self).gsub(ARRAY_WITHOUT_BLANK_PATTERN, "")
     end
 
     class << self
@@ -70,7 +73,7 @@ module FormCore
       end
 
       def _embeds_reflections
-        _reflections.select { |_, v| v.is_a? DuckRecord::Reflection::EmbedsAssociationReflection }
+        _reflections.select { |_, v| v.is_a? ::ActiveEntity::Reflection::EmbeddedAssociationReflection }
       end
     end
   end

@@ -36,7 +36,7 @@ module Fields
       super
       return if accessibility != :read_and_write || !options.strict_select
 
-      model.validates name, subset: {in: choices.map(&:label)}, allow_blank: true
+      model.validates name, subset: {in: choices.pluck(:label)}, allow_blank: true
     end
   end
 end

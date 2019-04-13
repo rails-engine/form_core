@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module Concerns::Fields
+module Fields
   module Validations::Length
     extend ActiveSupport::Concern
 
     included do
-      embeds_one :length, class_name: "Concerns::Fields::Validations::Length::LengthOptions"
+      embeds_one :length, class_name: "Fields::Validations::Length::LengthOptions"
       accepts_nested_attributes_for :length
 
       after_initialize do

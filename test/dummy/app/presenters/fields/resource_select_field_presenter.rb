@@ -11,7 +11,13 @@ module Fields
     end
 
     def collection
-      values = @model.collection
+      values =
+        if @model.collection
+          # TODO: limit 100 for performance
+          @model.collection.limit(100).map(&@model.data_source.text_method)
+        else
+          []
+        end
 
       if can_custom_value? && value.present?
         ([value] + values).uniq

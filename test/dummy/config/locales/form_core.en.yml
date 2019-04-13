@@ -33,7 +33,7 @@ en:
           hidden: Hidden
           readonly: Read-only
           read_and_write: Normal
-  duck_record:
+  active_entity:
     attributes:
       field_options:
         presence: Required

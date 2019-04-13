@@ -2,6 +2,6 @@
 
 module Fields
   class DecimalFieldPresenter < FieldPresenter
-    include Concerns::Fields::PresenterForNumberField
+    include Fields::PresenterForNumberField
   end
 end

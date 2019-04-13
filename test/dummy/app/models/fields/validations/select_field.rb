@@ -2,6 +2,6 @@
 
 module Fields::Validations
   class SelectField < FieldOptions
-    prepend Concerns::Fields::Validations::Presence
+    prepend Fields::Validations::Presence
   end
 end
