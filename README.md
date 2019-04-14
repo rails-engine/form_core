@@ -5,6 +5,13 @@ A Rails engine providing ability to generate dynamic form.
 
 ## Requirements
 
+### 0.1 branch
+
+- MRI 2.5+
+- Rails 6.0+
+
+### 0.0.1 branch
+
 - MRI 2.3+
 - Rails 5.0+
 
