@@ -23,11 +23,9 @@ module Fields
       attribute :message, :string, default: ""
 
       validate do
-        begin
-          Regexp.new(with) if with.present?
-        rescue RegexpError
-          errors.add :with, :invalid
-        end
+        Regexp.new(with) if with.present?
+      rescue RegexpError
+        errors.add :with, :invalid
       end
 
       def interpret_to(model, field_name, _accessibility, _options = {})

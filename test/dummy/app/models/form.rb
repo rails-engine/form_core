@@ -10,7 +10,7 @@ class Form < MetalForm
 
   private
 
-    def auto_create_default_section
-      sections.create! title: I18n.t("defaults.section.title"), headless: true
-    end
+  def auto_create_default_section
+    sections.create! title: I18n.t("defaults.section.title"), headless: true
+  end
 end
