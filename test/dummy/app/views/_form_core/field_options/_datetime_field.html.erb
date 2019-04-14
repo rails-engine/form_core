@@ -1,12 +1,12 @@
 <h3 class="title">Datetime field</h3>
 
 <div class="field">
-  <%= f.label :start_from, class: "label" %>
+  <%= f.label :begin_from, class: "label" %>
   <div class="control">
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :start_from, "unlimited" %>
+          <%= f.radio_button :begin_from, "unlimited" %>
           Unlimited
         </label>
       </p>
@@ -14,46 +14,46 @@
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :start_from, "now" %>
+          <%= f.radio_button :begin_from, "now" %>
           Now with offset
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :start_from_now_minutes_offset, class: "input", step: 1 %>
+        <%= f.number_field :begin_from_now_minutes_offset, class: "input", step: 1 %>
       </p>
     </div>
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :start_from, "time" %>
+          <%= f.radio_button :begin_from, "time" %>
           Time
         </label>
       </p>
       <p class="control">
-        <%= f.datetime_field :start, class: "input" %>
+        <%= f.datetime_field :begin, class: "input" %>
       </p>
     </div>
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :start_from, "minutes_before_finish" %>
-          Minutes before finish
+          <%= f.radio_button :begin_from, "minutes_before_end" %>
+          Minutes before end
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :minutes_before_finish, class: "input", min: 1, step: 1 %>
+        <%= f.number_field :minutes_before_end, class: "input", min: 1, step: 1 %>
       </p>
     </div>
   </div>
 </div>
 
 <div class="field">
-  <%= f.label :finish_to, class: "label" %>
+  <%= f.label :end_to, class: "label" %>
   <div class="control">
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :finish_to, "unlimited" %>
+          <%= f.radio_button :end_to, "unlimited" %>
           Unlimited
         </label>
       </p>
@@ -61,34 +61,34 @@
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :finish_to, "now" %>
+          <%= f.radio_button :end_to, "now" %>
           Now with offset
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :finish_to_now_minutes_offset, class: "input", step: 1 %>
+        <%= f.number_field :end_to_now_minutes_offset, class: "input", step: 1 %>
       </p>
     </div>
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :finish_to, "time" %>
+          <%= f.radio_button :end_to, "time" %>
           Time
         </label>
       </p>
       <p class="control">
-        <%= f.datetime_field :finish, class: "input" %>
+        <%= f.datetime_field :end, class: "input" %>
       </p>
     </div>
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :finish_to, "minutes_since_start" %>
-          Minutes since start
+          <%= f.radio_button :end_to, "minutes_since_begin" %>
+          Minutes since begin
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :minutes_since_start, class: "input", min: 1, step: 1 %>
+        <%= f.number_field :minutes_since_begin, class: "input", min: 1, step: 1 %>
       </p>
     </div>
   </div>

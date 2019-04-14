@@ -2,7 +2,7 @@
 
 module Fields
   class IntegerFieldPresenter < FieldPresenter
-    include Concerns::Fields::PresenterForNumberField
+    include Fields::PresenterForNumberField
 
     def integer_only?
       true

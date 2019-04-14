@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module Concerns::Fields
+module Fields
   module Validations::Inclusion
     extend ActiveSupport::Concern
 
     included do
-      embeds_one :inclusion, class_name: "Concerns::Fields::Validations::Inclusion::InclusionOptions"
+      embeds_one :inclusion, class_name: "Fields::Validations::Inclusion::InclusionOptions"
       accepts_nested_attributes_for :inclusion
 
       after_initialize do

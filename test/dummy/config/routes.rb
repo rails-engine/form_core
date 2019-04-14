@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   resources :dictionaries, except: %i[show]
 
   resources :forms, except: %i[show] do
+    collection do
+      post "random"
+    end
+
     scope module: :forms do
       resource :preview, only: %i[show create]
       resource :load, only: %i[show create]

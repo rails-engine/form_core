@@ -5,6 +5,16 @@ module FormCore::Concerns
     module Form
       extend ActiveSupport::Concern
 
+      NAME_REGEX = /\A[a-z][a-z_0-9]*\z/.freeze
+
+      included do
+        validates :name,
+                  presence: true,
+                  uniqueness: true,
+                  exclusion: {in: FormCore.reserved_names},
+                  format: {with: NAME_REGEX}
+      end
+
       def to_virtual_model(model_name: "Form",
                            fields_scope: proc { |fields| fields },
                            overrides: {})

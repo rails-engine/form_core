@@ -1,12 +1,12 @@
 <h3 class="title">Integer range field</h3>
 
 <div class="field">
-  <%= f.label :start_from, class: "label" %>
+  <%= f.label :begin_from, class: "label" %>
   <div class="control">
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :start_from, "unrestricted" %>
+          <%= f.radio_button :begin_from, "unrestricted" %>
           Unrestricted
         </label>
       </p>
@@ -14,23 +14,23 @@
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :start_from, "value" %>
+          <%= f.radio_button :begin_from, "value" %>
           Value
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :start_value, class: "input", step: 1 %>
+        <%= f.number_field :begin_value, class: "input", step: 1 %>
       </p>
     </div>
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :start_from, "offsets_before_finish" %>
-          Offsets before finish
+          <%= f.radio_button :begin_from, "offsets_before_end" %>
+          Offsets before end
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :offsets_before_finish, class: "input", min: 1, step: 1 %>
+        <%= f.number_field :offsets_before_end, class: "input", min: 1, step: 1 %>
       </p>
     </div>
   </div>
@@ -39,19 +39,19 @@
 <div class="field">
   <div class="control">
     <label class="checkbox">
-      <%= f.check_box :fixed_start %>
-      Fixed start value?
+      <%= f.check_box :fixed_begin %>
+      Fixed begin value?
     </label>
   </div>
 </div>
 
 <div class="field">
-  <%= f.label :finish_to, class: "label" %>
+  <%= f.label :end_to, class: "label" %>
   <div class="control">
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :finish_to, "unrestricted" %>
+          <%= f.radio_button :end_to, "unrestricted" %>
           Unrestricted
         </label>
       </p>
@@ -59,23 +59,23 @@
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :finish_to, "value" %>
+          <%= f.radio_button :end_to, "value" %>
           Value
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :finish_value, class: "input", step: 1 %>
+        <%= f.number_field :end_value, class: "input", step: 1 %>
       </p>
     </div>
     <div class="field has-addons">
       <p class="control">
         <label class="radio button">
-          <%= f.radio_button :finish_to, "offsets_since_start" %>
-          Offsets since start
+          <%= f.radio_button :end_to, "offsets_since_begin" %>
+          Offsets since begin
         </label>
       </p>
       <p class="control">
-        <%= f.number_field :offsets_since_start, class: "input", min: 1, step: 1 %>
+        <%= f.number_field :offsets_since_begin, class: "input", min: 1, step: 1 %>
       </p>
     </div>
   </div>
@@ -84,8 +84,8 @@
 <div class="field">
   <div class="control">
     <label class="checkbox">
-      <%= f.check_box :fixed_finish %>
-      Fixed finish value?
+      <%= f.check_box :fixed_end %>
+      Fixed end value?
     </label>
   </div>
 </div>

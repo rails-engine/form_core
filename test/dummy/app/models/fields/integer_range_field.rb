@@ -11,7 +11,7 @@ module Fields
       accessibility = overrides.fetch(:accessibility, self.accessibility)
       return model if accessibility == :hidden
 
-      nested_model = Class.new(::Fields::IntegerRangeField::IntegerRange)
+      nested_model = Class.new(::Fields::Embeds::IntegerRange)
 
       model.nested_models[name] = nested_model
 
@@ -22,21 +22,6 @@ module Fields
       interpret_extra_to model, accessibility, overrides
 
       model
-    end
-
-    class IntegerRange < VirtualModel
-      attribute :start, :integer
-      attribute :finish, :integer
-
-      validates :start, :finish,
-                presence: true,
-                numericality: {only_integer: true}
-
-      validates :finish,
-                numericality: {
-                  greater_than: :start
-                },
-                allow_blank: false
     end
   end
 end

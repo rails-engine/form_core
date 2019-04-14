@@ -6,7 +6,7 @@
     <%= f.fields_for field.name do |ff| %>
       <div class="field has-addons">
         <p class="control is-expanded">
-          <%= ff.date_field :start, class: 'input', id: "#{field.id}_start", required: field.required, **field.start_options %>
+          <%= ff.date_field :begin, class: 'input', id: "#{field.id}_begin", required: field.required, **field.begin_options %>
         </p>
         <p class="control">
           <a class="button is-static">
@@ -14,7 +14,7 @@
           </a>
         </p>
         <p class="control is-expanded">
-          <%= ff.date_field :finish, class: 'input', id: "#{field.id}_finish", required: field.required, **field.finish_options %>
+          <%= ff.date_field :end, class: 'input', id: "#{field.id}_end", **field.end_options %>
         </p>
       </div>
     <% end %>

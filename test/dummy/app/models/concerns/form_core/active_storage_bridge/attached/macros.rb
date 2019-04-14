@@ -2,7 +2,7 @@
 
 module FormCore
   module ActiveStorageBridge
-    # Provides the class-level DSL for declaring that an Duck Record model has attached blobs.
+    # Provides the class-level DSL for declaring that an Active Entity model has attached blobs.
     module Attached::Macros
       extend ActiveSupport::Concern
 

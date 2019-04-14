@@ -17,33 +17,33 @@ module Fields
       options = {}
       current_time = Time.zone.now.change(sec: 0, usec: 0)
 
-      if @model.options.start_from_now?
-        start_minutes_offset = @model.options.start_from_now_minutes_offset.minutes.to_i
-        options[:min] = current_time + start_minutes_offset
-      elsif @model.options.start_from_time?
-        options[:min] = @model.options.start
-      elsif @model.options.start_from_minutes_before_finish?
-        minutes_before_finish = @model.options.minutes_before_finish.minutes
-        if @model.options.finish_to_now?
-          finish_minutes_offset = @model.options.finish_to_now_minutes_offset.minutes.to_i
-          options[:min] = current_time + finish_minutes_offset - minutes_before_finish
-        elsif @model.options.finish_to_time?
-          options[:min] = @model.options.finish - minutes_before_finish
+      if @model.options.begin_from_now?
+        begin_minutes_offset = @model.options.begin_from_now_minutes_offset.minutes.to_i
+        options[:min] = current_time + begin_minutes_offset
+      elsif @model.options.begin_from_time?
+        options[:min] = @model.options.begin
+      elsif @model.options.begin_from_minutes_before_end?
+        minutes_before_end = @model.options.minutes_before_end.minutes
+        if @model.options.end_to_now?
+          end_minutes_offset = @model.options.end_to_now_minutes_offset.minutes.to_i
+          options[:min] = current_time + end_minutes_offset - minutes_before_end
+        elsif @model.options.end_to_time?
+          options[:min] = @model.options.end - minutes_before_end
         end
       end
 
-      if @model.options.finish_to_now?
-        finish_minutes_offset = @model.options.finish_to_now_minutes_offset.minutes.to_i
-        options[:max] = current_time + finish_minutes_offset
-      elsif @model.options.finish_to_time?
-        options[:max] = @model.options.finish
-      elsif @model.options.finish_to_minutes_since_start?
-        minutes_since_start = @model.options.minutes_since_start.minutes.to_i
-        if @model.options.start_from_now?
-          start_minutes_offset = @model.options.start_from_now_minutes_offset.minutes.to_i
-          options[:max] = current_time + start_minutes_offset + minutes_since_start
-        elsif @model.options.start_from_time?
-          options[:max] = @model.options.start + minutes_since_start
+      if @model.options.end_to_now?
+        end_minutes_offset = @model.options.end_to_now_minutes_offset.minutes.to_i
+        options[:max] = current_time + end_minutes_offset
+      elsif @model.options.end_to_time?
+        options[:max] = @model.options.end
+      elsif @model.options.end_to_minutes_since_begin?
+        minutes_since_begin = @model.options.minutes_since_begin.minutes.to_i
+        if @model.options.begin_from_now?
+          begin_minutes_offset = @model.options.begin_from_now_minutes_offset.minutes.to_i
+          options[:max] = current_time + begin_minutes_offset + minutes_since_begin
+        elsif @model.options.begin_from_time?
+          options[:max] = @model.options.begin + minutes_since_begin
         end
       end
 

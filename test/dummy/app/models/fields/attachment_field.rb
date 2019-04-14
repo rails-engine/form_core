@@ -3,7 +3,7 @@
 module Fields
   class AttachmentField < Field
     serialize :validations, Validations::AttachmentField
-    serialize :options, Options::AttachmentField
+    serialize :options, NonConfigurable
 
     def stored_type
       :integer

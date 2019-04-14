@@ -2,7 +2,7 @@
 
 module Fields::Validations
   class MultipleNestedFormField < FieldOptions
-    prepend Concerns::Fields::Validations::Presence
-    prepend Concerns::Fields::Validations::Length
+    prepend Fields::Validations::Presence
+    prepend Fields::Validations::Length
   end
 end

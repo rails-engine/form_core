@@ -17,33 +17,33 @@ module Fields
       options = {}
       current_date = Time.zone.today
 
-      if @model.options.start_from_today?
-        start_days_offset = @model.options.start_from_today_days_offset.days
-        options[:min] = current_date + start_days_offset
-      elsif @model.options.start_from_date?
-        options[:min] = @model.options.start
-      elsif @model.options.start_from_days_before_finish?
-        days_before_finish = @model.options.days_before_finish.days
-        if @model.options.finish_to_today?
-          finish_days_offset = @model.options.finish_to_today_days_offset.days
-          options[:min] = current_date + finish_days_offset - days_before_finish
-        elsif @model.options.finish_to_date?
-          options[:min] = @model.options.finish - days_before_finish
+      if @model.options.begin_from_today?
+        begin_days_offset = @model.options.begin_from_today_days_offset.days
+        options[:min] = current_date + begin_days_offset
+      elsif @model.options.begin_from_date?
+        options[:min] = @model.options.begin
+      elsif @model.options.begin_from_days_before_end?
+        days_before_end = @model.options.days_before_end.days
+        if @model.options.end_to_today?
+          end_days_offset = @model.options.end_to_today_days_offset.days
+          options[:min] = current_date + end_days_offset - days_before_end
+        elsif @model.options.end_to_date?
+          options[:min] = @model.options.end - days_before_end
         end
       end
 
-      if @model.options.finish_to_today?
-        finish_days_offset = @model.options.finish_to_today_days_offset.days
-        options[:max] = current_date + finish_days_offset
-      elsif @model.options.finish_to_date?
-        options[:max] = @model.options.finish
-      elsif @model.options.finish_to_days_since_start?
-        days_since_start = @model.options.days_since_start.days
-        if @model.options.start_from_today?
-          start_days_offset = @model.options.start_from_today_days_offset.days
-          options[:max] = current_date + start_days_offset + days_since_start
-        elsif @model.options.start_from_date?
-          options[:max] = @model.options.start + days_since_start
+      if @model.options.end_to_today?
+        end_days_offset = @model.options.end_to_today_days_offset.days
+        options[:max] = current_date + end_days_offset
+      elsif @model.options.end_to_date?
+        options[:max] = @model.options.end
+      elsif @model.options.end_to_days_since_begin?
+        days_since_begin = @model.options.days_since_begin.days
+        if @model.options.begin_from_today?
+          begin_days_offset = @model.options.begin_from_today_days_offset.days
+          options[:max] = current_date + begin_days_offset + days_since_begin
+        elsif @model.options.begin_from_date?
+          options[:max] = @model.options.begin + days_since_begin
         end
       end
 

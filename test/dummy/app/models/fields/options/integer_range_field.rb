@@ -2,27 +2,27 @@
 
 module Fields::Options
   class IntegerRangeField < FieldOptions
-    attribute :start_from, :string, default: "unrestricted"
-    enum start_from: {
+    attribute :begin_from, :string, default: "unrestricted"
+    enum begin_from: {
       unrestricted: "unrestricted",
       value: "value",
-      offsets_before_finish: "offsets_before_finish"
-    }, _prefix: :start_from
+      offsets_before_end: "offsets_before_end"
+    }, _prefix: :begin_from
 
-    attribute :start_value, :integer
-    attribute :fixed_start, :boolean, default: false
-    attribute :offsets_before_finish, :integer, default: 1
+    attribute :begin_value, :integer
+    attribute :fixed_begin, :boolean, default: false
+    attribute :offsets_before_end, :integer, default: 1
 
-    attribute :finish_to, :string, default: "unrestricted"
-    enum finish_to: {
+    attribute :end_to, :string, default: "unrestricted"
+    enum end_to: {
       unrestricted: "unrestricted",
       value: "value",
-      offsets_since_start: "offsets_since_start"
-    }, _prefix: :finish_to
+      offsets_since_begin: "offsets_since_begin"
+    }, _prefix: :end_to
 
-    attribute :finish_value, :integer
-    attribute :fixed_finish, :boolean, default: false
-    attribute :offsets_since_start, :integer, default: 1
+    attribute :end_value, :integer
+    attribute :fixed_end, :boolean, default: false
+    attribute :offsets_since_begin, :integer, default: 1
 
     attribute :minimum_gap_check, :string, default: "unrestricted"
     enum minimum_gap_check: {
@@ -41,58 +41,58 @@ module Fields::Options
     attribute :minimum_gap_value, :integer, default: 0
     attribute :maximum_gap_value, :integer, default: 0
 
-    validates :start_from, :finish_to,
+    validates :begin_from, :end_to,
               presence: true
 
-    validates :start_value,
+    validates :begin_value,
               presence: true,
-              if: :start_from_value?
+              if: :begin_from_value?
 
-    validates :finish_value,
+    validates :end_value,
               presence: true,
-              if: :finish_to_value?
+              if: :end_to_value?
 
-    validates :offsets_before_finish,
+    validates :offsets_before_end,
               numericality: {
                 only_integer: true,
                 greater_than: 0
               },
               allow_blank: false,
-              if: :start_from_offsets_before_finish?
+              if: :begin_from_offsets_before_end?
 
-    validates :offsets_since_start,
+    validates :offsets_since_begin,
               numericality: {
                 only_integer: true,
                 greater_than: 0
               },
               allow_blank: false,
-              if: :finish_to_offsets_since_start?
+              if: :end_to_offsets_since_begin?
 
-    validates :finish_value,
+    validates :end_value,
               numericality: {
                 only_integer: true,
-                greater_than: :start_value
+                greater_than: :begin_value
               },
               allow_blank: false,
-              if: %i[start_from_value? finish_to_value?]
+              if: %i[begin_from_value? end_to_value?]
 
-    validates :finish_to,
-              exclusion: {in: %w[offsets_since_start]},
-              if: [:start_from_offsets_before_finish?]
+    validates :end_to,
+              exclusion: {in: %w[offsets_since_begin]},
+              if: [:begin_from_offsets_before_end?]
 
-    validates :fixed_finish,
+    validates :fixed_end,
               absence: true,
-              if: [:fixed_start]
+              if: [:fixed_begin]
 
-    validates :fixed_start,
+    validates :fixed_begin,
               absence: true,
-              if: ->(r) { r.start_from_offsets_before_finish? || r.start_from_unrestricted? }
+              if: ->(r) { r.begin_from_offsets_before_end? || r.begin_from_unrestricted? }
 
-    validates :fixed_finish,
+    validates :fixed_end,
               absence: true,
-              if: ->(r) { r.finish_to_offsets_since_start? || r.finish_to_unrestricted? }
+              if: ->(r) { r.end_to_offsets_since_begin? || r.end_to_unrestricted? }
 
-    validates :start_value, :finish_value,
+    validates :begin_value, :end_value,
               numericality: {
                 only_integer: true
               },
@@ -114,58 +114,58 @@ module Fields::Options
 
       klass = model.nested_models[field_name]
 
-      if start_from_value?
-        klass.validates :start,
+      if begin_from_value?
+        klass.validates :begin,
                         numericality: {
-                          greater_than_or_equal_to: start_value
+                          greater_than_or_equal_to: begin_value
                         },
                         allow_blank: true
-        if fixed_start
-          klass.default_value_for :start,
-                                  start_value,
+        if fixed_begin
+          klass.default_value_for :begin,
+                                  begin_value,
                                   allow_nil: false
-          klass.attr_readonly :start
+          klass.attr_readonly :begin
         end
-      elsif start_from_offsets_before_finish?
-        klass.validates :start,
+      elsif begin_from_offsets_before_end?
+        klass.validates :begin,
                         numericality: {
-                          greater_than_or_equal_to: ->(r) { r.finish - offsets_before_finish }
+                          greater_than_or_equal_to: ->(r) { r.end - offsets_before_end }
                         },
                         allow_blank: true
       end
 
-      if finish_to_value?
-        klass.validates :finish,
+      if end_to_value?
+        klass.validates :end,
                         numericality: {
-                          less_than_or_equal_to: finish_value
+                          less_than_or_equal_to: end_value
                         },
                         allow_blank: true
-        if fixed_finish
-          klass.default_value_for :finish,
-                                  finish_value,
+        if fixed_end
+          klass.default_value_for :end,
+                                  end_value,
                                   allow_nil: false
-          klass.attr_readonly :finish
+          klass.attr_readonly :end
         end
-      elsif finish_to_offsets_since_start?
-        klass.validates :finish,
+      elsif end_to_offsets_since_begin?
+        klass.validates :end,
                         numericality: {
-                          less_than_or_equal_to: ->(r) { r.start + offsets_since_start }
+                          less_than_or_equal_to: ->(r) { r.begin + offsets_since_begin }
                         },
                         allow_blank: true
       end
 
       unless minimum_gap_check_unrestricted?
-        klass.validates :finish,
+        klass.validates :end,
                         numericality: {
-                          minimum_gap_check.to_sym => ->(r) { r.start + minimum_gap_value }
+                          minimum_gap_check.to_sym => ->(r) { r.begin + minimum_gap_value }
                         },
                         allow_blank: false
       end
 
       unless maximum_gap_check_unrestricted?
-        klass.validates :finish,
+        klass.validates :end,
                         numericality: {
-                          maximum_gap_check.to_sym => ->(r) { r.start + maximum_gap_value }
+                          maximum_gap_check.to_sym => ->(r) { r.begin + maximum_gap_value }
                         },
                         allow_blank: false
       end

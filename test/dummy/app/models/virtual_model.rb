@@ -8,6 +8,10 @@ class VirtualModel < FormCore::VirtualModel
 
   include EnumAttributeLocalizable
 
+  def persisted?
+    false
+  end
+
   class << self
     def nested_models
       @nested_models ||= {}
@@ -19,6 +23,10 @@ class VirtualModel < FormCore::VirtualModel
 
     def metadata
       @metadata ||= {}
+    end
+
+    def _embeds_reflections
+      _reflections.select { |_, v| v.is_a? ActiveEntity::Reflection::EmbeddedAssociationReflection }
     end
   end
 end

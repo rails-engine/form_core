@@ -3,7 +3,7 @@
 module Fields
   class MultipleChoiceField < Field
     serialize :validations, Validations::MultipleChoiceField
-    serialize :options, Options::MultipleChoiceField
+    serialize :options, NonConfigurable
 
     def stored_type
       :integer
@@ -36,7 +36,7 @@ module Fields
       super
       return if accessibility != :read_and_write
 
-      choice_ids = choices.map(&:id)
+      choice_ids = choices.pluck(:id)
       return if choice_ids.empty?
 
       model.validates name, subset: {in: choice_ids}, allow_blank: true

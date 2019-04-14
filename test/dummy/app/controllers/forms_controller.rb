@@ -44,6 +44,12 @@ class FormsController < ApplicationController
     redirect_to forms_url, notice: "Form was successfully destroyed."
   end
 
+  def random
+    @form = Form.create_random_form!
+
+    redirect_to form_fields_url(@form), notice: "Form was successfully generated."
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

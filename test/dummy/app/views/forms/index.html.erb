@@ -2,6 +2,7 @@
   <div class="container">
     <p content="content">
       <%= link_to "New Form", new_form_path, class: "button is-primary" %>
+      <%= link_to "Generate form", random_forms_path(@form), method: :post, class: "button is-link" %>
     </p>
     <table class="table is-fullwidth">
       <thead>
