@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    form_core (0.1.0)
-      activeentity (>= 0.0.1.beta3)
+    form_core (0.1.1)
+      activeentity (>= 0.0.1.beta5)
       rails (>= 6.0.0.beta3, < 7)
 
 GEM
@@ -44,7 +44,7 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    activeentity (0.0.1.beta3)
+    activeentity (0.0.1.beta5)
       activemodel (>= 6.0.0.beta3, < 7.0)
       activesupport (>= 6.0.0.beta3, < 7.0)
     activejob (6.0.0.beta3)
