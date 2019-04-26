@@ -31,8 +31,10 @@ module Dummy
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    Rails.autoloaders.main.ignore("#{Rails.root}/app/overrides")
+
     config.to_prepare do
-      Dir.glob(Rails.root + "app/decorators/**/*_decorator*.rb").each do |c|
+      Dir.glob(Rails.root + "app/overrides/**/*_override*.rb").each do |c|
         require_dependency(c)
       end
     end
