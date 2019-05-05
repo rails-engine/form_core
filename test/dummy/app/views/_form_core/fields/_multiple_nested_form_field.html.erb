@@ -3,7 +3,7 @@
 
   <%= tag.div id: field.name, class: "collection" do %>
     <%= f.fields_for field.name do |ff| %>
-      <%= render "_form_core/fields/nested_form", f: ff, field: field, form: field.nested_form %>
+      <%= render "_form_core/fields/nested_form", f: ff, field: field, form: field.nested_form, nesting: false %>
     <% end %>
 
     <div class="links">
@@ -12,7 +12,7 @@
                                     class: "button is-small",
                                     partial: "_form_core/fields/nested_form",
                                     render_options: {
-                                      locals: {field: field, form: field.nested_form}
+                                      locals: {field: field, form: field.nested_form, nesting: true}
                                     } %>
       <% end %>
       <% if field.hint.present? %>

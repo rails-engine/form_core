@@ -10,6 +10,7 @@ module Fields
 
     def value_for_preview
       return unless @model.collection
+      return if @model.collection.none?
 
       collection
         .where(@model.data_source.value_method => value)

@@ -4,6 +4,7 @@ module Fields
   class ResourceFieldPresenter < FieldPresenter
     def value_for_preview
       return unless @model.collection
+      return if @model.collection.none?
 
       id = value
       return unless id.present?

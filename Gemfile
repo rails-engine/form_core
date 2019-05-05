@@ -53,5 +53,4 @@ gem "acts_as_list"
 gem "cocoon"
 
 gem "rubocop"
-gem "rubocop-rails_config"
 gem "rubocop-performance"

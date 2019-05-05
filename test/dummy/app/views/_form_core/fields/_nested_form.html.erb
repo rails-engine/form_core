@@ -1,3 +1,5 @@
+<% nesting ||= false %>
+
 <div class="nested_form">
   <% if f.object.errors.any? %>
     <article class="message is-danger">
@@ -23,7 +25,7 @@
   <% form.fields.each do |field| %>
     <% field = present(field, target: f.object) %>
     <% unless field.access_hidden? %>
-      <%= render "_form_core/fields/#{field.type_key}", f: f, field: field %>
+      <%= render "_form_core/fields/#{field.type_key}", f: f, field: field, nesting: nesting %>
     <% end %>
   <% end %>
 
