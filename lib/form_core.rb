@@ -18,9 +18,7 @@ module FormCore
     end
 
     def virtual_model_class=(klass)
-      unless klass && klass < VirtualModel
-        raise ArgumentError, "#{klass} should be sub-class of #{VirtualModel}."
-      end
+      raise ArgumentError, "#{klass} should be sub-class of #{VirtualModel}." unless klass && klass < VirtualModel
 
       @reserved_names = nil
       @virtual_model_class = klass
@@ -38,9 +36,7 @@ module FormCore
     end
 
     def virtual_model_coder_class=(klass)
-      unless klass && klass < Coder
-        raise ArgumentError, "#{klass} should be sub-class of #{Coder}."
-      end
+      raise ArgumentError, "#{klass} should be sub-class of #{Coder}." unless klass && klass < Coder
 
       @virtual_model_coder_class = klass
     end

@@ -9,9 +9,7 @@ module Fields
       :string
     end
 
-    def data_source
-      options.data_source
-    end
+    delegate :data_source, to: :options
 
     def collection
       data_source.scoped_records
@@ -28,9 +26,7 @@ module Fields
       return model if accessibility == :hidden
 
       model.attribute name, stored_type, default: [], array_without_blank: true
-      if accessibility == :readonly
-        model.attr_readonly name
-      end
+      model.attr_readonly name if accessibility == :readonly
 
       interpret_validations_to model, accessibility, overrides
       interpret_extra_to model, accessibility, overrides
@@ -40,12 +36,12 @@ module Fields
 
     protected
 
-    def interpret_extra_to(model, accessibility, overrides = {})
-      super
-      return if accessibility != :read_and_write
+      def interpret_extra_to(model, accessibility, overrides = {})
+        super
+        return if accessibility != :read_and_write
 
-      # TODO: performance
-      # model.validates name, subset: {in: collection}, allow_blank: true
-    end
+        # TODO: performance
+        # model.validates name, subset: {in: collection}, allow_blank: true
+      end
   end
 end

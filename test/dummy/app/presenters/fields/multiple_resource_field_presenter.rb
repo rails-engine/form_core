@@ -26,9 +26,7 @@ module Fields
     end
 
     def options_for_select
-      unless @model.collection
-        return @view.options_for_select([])
-      end
+      return @view.options_for_select([]) unless @model.collection
 
       @view.options_from_collection_for_select(
         collection, @model.data_source.value_method, @model.data_source.text_method, value
@@ -37,7 +35,7 @@ module Fields
 
     def max_items_size
       size = @model.validations.length.maximum
-      size > 0 ? size : MAX_HARD_CODE_ITEMS_SIZE
+      size.positive? ? size : MAX_HARD_CODE_ITEMS_SIZE
     end
   end
 end

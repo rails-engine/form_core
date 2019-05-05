@@ -44,13 +44,13 @@ class DictionariesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_dictionary
-    @dictionary = Dictionary.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_dictionary
+      @dictionary = Dictionary.find(params[:id])
+    end
 
-  # Only allow a trusted parameter "white list" through.
-  def dictionary_params
-    params.fetch(:dictionary, {}).permit(:scope, :value)
-  end
+    # Only allow a trusted parameter "white list" through.
+    def dictionary_params
+      params.fetch(:dictionary, {}).permit(:scope, :value)
+    end
 end

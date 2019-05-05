@@ -8,7 +8,7 @@ module Fields
 
       validates :begin, :end,
                 presence: true,
-                numericality: {only_integer: false}
+                numericality: { only_integer: false }
 
       validates :end,
                 numericality: {

@@ -15,11 +15,11 @@ module Fields
 
     protected
 
-    def interpret_extra_to(model, accessibility, overrides = {})
-      super
-      return if accessibility != :read_and_write || !options.strict_select
+      def interpret_extra_to(model, accessibility, overrides = {})
+        super
+        return if accessibility != :read_and_write || !options.strict_select
 
-      model.validates name, inclusion: {in: choices.pluck(:label)}, allow_blank: true
-    end
+        model.validates name, inclusion: { in: choices.pluck(:label) }, allow_blank: true
+      end
   end
 end

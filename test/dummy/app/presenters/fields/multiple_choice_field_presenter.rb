@@ -4,7 +4,7 @@ module Fields
   class MultipleChoiceFieldPresenter < FieldPresenter
     def value_for_preview
       ids = value
-      return unless ids.present?
+      return if ids.blank?
 
       if choices.loaded?
         choices.target.select { |choice| ids.include?(choice.id) }.map(&:label)

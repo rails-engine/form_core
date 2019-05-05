@@ -9,9 +9,7 @@ module FormCore
     end
 
     def load(hash)
-      if hash.nil? || !hash.respond_to?(:to_h)
-        return new_or_raise_decoding_error
-      end
+      return new_or_raise_decoding_error if hash.nil? || !hash.respond_to?(:to_h)
 
       object_class.new valid_attributes(hash)
     end

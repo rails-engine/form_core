@@ -44,13 +44,13 @@ class Forms::SectionsController < Forms::ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_section
-    @section = @form.sections.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_section
+      @section = @form.sections.find(params[:id])
+    end
 
-  # Only allow a trusted parameter "white list" through.
-  def section_params
-    params.fetch(:section, {}).permit(:title, :headless)
-  end
+    # Only allow a trusted parameter "white list" through.
+    def section_params
+      params.fetch(:section, {}).permit(:title, :headless)
+    end
 end

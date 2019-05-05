@@ -11,10 +11,10 @@ module Fields
 
     protected
 
-    def interpret_extra_to(model, accessibility, _overrides = {})
-      return if accessibility != :read_and_write
+      def interpret_extra_to(model, accessibility, _overrides = {})
+        return if accessibility != :read_and_write
 
-      model.validates name, numericality: {only_integer: true}, allow_blank: true
-    end
+        model.validates name, numericality: { only_integer: true }, allow_blank: true
+      end
   end
 end

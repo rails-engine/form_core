@@ -3,9 +3,7 @@
 class TimeZonesController < ApplicationController
   def update
     @time_zone = ActiveSupport::TimeZone[params[:time_zone]]
-    unless @time_zone
-      return render :not_found
-    end
+    return render :not_found unless @time_zone
 
     session[:current_time_zone] = params[:time_zone]
 

@@ -34,17 +34,15 @@ class Fields::ChoicesController < Fields::ApplicationController
 
   private
 
-  def require_attach_choices!
-    unless @field.attached_choices?
-      redirect_to fields_url
+    def require_attach_choices!
+      redirect_to fields_url unless @field.attached_choices?
     end
-  end
 
-  def choice_params
-    params.require(:choice).permit(:label)
-  end
+    def choice_params
+      params.require(:choice).permit(:label)
+    end
 
-  def set_choice
-    @choice = @field.choices.find(params[:id])
-  end
+    def set_choice
+      @choice = @field.choices.find(params[:id])
+    end
 end

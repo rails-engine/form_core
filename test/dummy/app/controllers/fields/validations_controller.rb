@@ -16,11 +16,11 @@ class Fields::ValidationsController < Fields::ApplicationController
 
   private
 
-  def set_validations
-    @validations = @field.validations
-  end
+    def set_validations
+      @validations = @field.validations
+    end
 
-  def validations_params
-    params.fetch(:validations, {}).permit!
-  end
+    def validations_params
+      params.fetch(:validations, {}).permit!
+    end
 end

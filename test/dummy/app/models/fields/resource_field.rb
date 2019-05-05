@@ -9,9 +9,7 @@ module Fields
       :integer
     end
 
-    def data_source
-      options.data_source
-    end
+    delegate :data_source, to: :options
 
     def collection
       data_source.scoped_records
@@ -23,12 +21,12 @@ module Fields
 
     protected
 
-    def interpret_extra_to(model, accessibility, overrides = {})
-      super
-      return if accessibility != :read_and_write
+      def interpret_extra_to(model, accessibility, overrides = {})
+        super
+        return if accessibility != :read_and_write
 
-      # TODO: performance
-      # model.validates name, inclusion: {in: collection}, allow_blank: true
-    end
+        # TODO: performance
+        # model.validates name, inclusion: {in: collection}, allow_blank: true
+      end
   end
 end

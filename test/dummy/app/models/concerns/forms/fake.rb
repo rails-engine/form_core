@@ -10,13 +10,12 @@ module Forms
           if type_key.is_a? Hash
             type_key.each do |k, v|
               klass = Fields::MAP[k]
-              unless k.attached_nested_form?
-                raise ArgumentError, "Only nested form types can be key"
-              end
+              raise ArgumentError, "Only nested form types can be key" unless k.attached_nested_form?
+
               field = fields.build type: Fields::MAP[type_key].to_s,
                                    section: sections.first,
                                    accessibility: "read_and_write"
-              field.label = "#{klass.model_name.name.demodulize.titleize} #{field.name.to_s.split("_").last}"
+              field.label = "#{klass.model_name.name.demodulize.titleize} #{field.name.to_s.split('_').last}"
               field.save!
               klass.configure_fake_options_to field
               field.save!
@@ -25,13 +24,12 @@ module Forms
             end
           else
             klass = Fields::MAP[type_key]
-            unless klass
-              raise ArgumentError, "Can't reflect field class by #{type_key}"
-            end
+            raise ArgumentError, "Can't reflect field class by #{type_key}" unless klass
+
             field = fields.build type: Fields::MAP[type_key].to_s,
                                  section: sections.first,
                                  accessibility: "read_and_write"
-            field.label = "#{klass.model_name.name.demodulize.titleize} #{field.name.to_s.split("_").last}"
+            field.label = "#{klass.model_name.name.demodulize.titleize} #{field.name.to_s.split('_').last}"
             field.save!
             klass.configure_fake_options_to field
             field.save!
@@ -43,10 +41,10 @@ module Forms
     module ClassMethods
       DEFAULT_TYPE_KEY_SEQ =
         Field.descendants.map(&:type_key) -
-          %i[nested_form_field multiple_nested_form_field] -
-          %i[attachment_field multiple_attachment_field] -
-          %i[resource_select_field multiple_resource_select_field] -
-          %i[resource_field multiple_resource_field]
+        %i[nested_form_field multiple_nested_form_field] -
+        %i[attachment_field multiple_attachment_field] -
+        %i[resource_select_field multiple_resource_select_field] -
+        %i[resource_field multiple_resource_field]
       def create_random_form!(type_key_seq: DEFAULT_TYPE_KEY_SEQ)
         form = create! title: "Random form #{SecureRandom.hex(3)}"
         form.build_random_fields type_key_seq: type_key_seq

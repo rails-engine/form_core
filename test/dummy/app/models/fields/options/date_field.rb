@@ -84,17 +84,17 @@ module Fields::Options
               if: %i[begin_from_date? end_to_date?]
 
     validates :end_to,
-              exclusion: {in: %w[today]},
+              exclusion: { in: %w[today] },
               if: [:begin_from_today?]
 
     validates :end_to,
-              exclusion: {in: %w[days_since_begin]},
+              exclusion: { in: %w[days_since_begin] },
               if: [:begin_from_days_before_end?]
 
     def interpret_to(model, field_name, accessibility, _options = {})
       return unless accessibility == :read_and_write
 
-      timeliness = {type: :date}
+      timeliness = { type: :date }
 
       if begin_from_today?
         begin_days_offset = begin_from_today_days_offset.days
@@ -105,7 +105,7 @@ module Fields::Options
         days_before_end = self.days_before_end.days
         if end_to_today?
           end_days_offset = end_to_today_days_offset.days
-          timeliness[:on_or_after] = -> {
+          timeliness[:on_or_after] = lambda {
             Time.zone.today + end_days_offset - days_before_end
           }
         elsif end_to_date?
@@ -122,7 +122,7 @@ module Fields::Options
         days_since_begin = self.days_since_begin.days
         if begin_from_today?
           begin_days_offset = begin_from_today_days_offset.days
-          timeliness[:on_or_before] = -> {
+          timeliness[:on_or_before] = lambda {
             Time.zone.today + begin_days_offset + days_since_begin
           }
         elsif begin_from_date?

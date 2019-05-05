@@ -24,20 +24,20 @@ module FormCore
 
     private
 
-    def new_or_raise_decoding_error
-      if strict?
-        raise DecodingDataCorrupted
-      else
-        object_class.new
+      def new_or_raise_decoding_error
+        if strict?
+          raise DecodingDataCorrupted
+        else
+          object_class.new
+        end
       end
-    end
 
-    def valid_attribute_names
-      object_class.attribute_names + object_class._embeds_reflections.keys
-    end
+      def valid_attribute_names
+        object_class.attribute_names + object_class._embeds_reflections.keys
+      end
 
-    def valid_attributes(hash)
-      hash.slice(*valid_attribute_names)
-    end
+      def valid_attributes(hash)
+        hash.slice(*valid_attribute_names)
+      end
   end
 end

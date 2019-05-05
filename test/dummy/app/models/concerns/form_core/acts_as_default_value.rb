@@ -46,7 +46,7 @@ module FormCore
       end
 
       def evaluate(instance)
-        if @block.arity == 0
+        if @block.arity.zero?
           @block.call
         else
           @block.call(instance)

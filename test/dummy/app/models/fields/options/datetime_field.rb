@@ -84,17 +84,17 @@ module Fields::Options
               if: %i[begin_from_time? end_to_time?]
 
     validates :end_to,
-              exclusion: {in: %w[now]},
+              exclusion: { in: %w[now] },
               if: [:begin_from_now?]
 
     validates :end_to,
-              exclusion: {in: %w[minutes_since_begin]},
+              exclusion: { in: %w[minutes_since_begin] },
               if: [:begin_from_minutes_before_end?]
 
     def interpret_to(model, field_name, accessibility, _options = {})
       return unless accessibility == :read_and_write
 
-      timeliness = {type: :datetime}
+      timeliness = { type: :datetime }
 
       if begin_from_now?
         begin_minutes_offset = begin_from_now_minutes_offset.minutes.to_i
@@ -105,7 +105,7 @@ module Fields::Options
         minutes_before_end = self.minutes_before_end.minutes
         if end_to_now?
           end_minutes_offset = end_to_now_minutes_offset.minutes.to_i
-          timeliness[:on_or_after] = -> {
+          timeliness[:on_or_after] = lambda {
             Time.zone.now.change(sec: 0, usec: 0) + end_minutes_offset - minutes_before_end
           }
         elsif end_to_time?
@@ -122,7 +122,7 @@ module Fields::Options
         minutes_since_begin = self.minutes_since_begin.minutes.to_i
         if begin_from_now?
           begin_minutes_offset = begin_from_now_minutes_offset.minutes.to_i
-          timeliness[:on_or_before] = -> {
+          timeliness[:on_or_before] = lambda {
             Time.zone.now.change(sec: 0, usec: 0) + begin_minutes_offset + minutes_since_begin
           }
         elsif begin_from_time?

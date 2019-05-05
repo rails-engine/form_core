@@ -6,6 +6,6 @@ module FormCore
 
     self.table_name = "forms"
 
-    has_many :fields
+    has_many :fields, dependent: :destroy
   end
 end

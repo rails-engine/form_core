@@ -23,19 +23,15 @@ module FormCore
     def load(yaml)
       return object_class.new if yaml.blank?
 
-      unless yaml.is_a?(String) && /^---/.match?(yaml)
-        return new_or_raise_decoding_error
-      end
+      return new_or_raise_decoding_error unless yaml.is_a?(String) && /^---/.match?(yaml)
 
       decoded =
         if safe_mode?
           YAML.safe_load(yaml, YAMLCoder.whitelist_classes)
         else
-          YAML.load(yaml)
+          YAML.safe_load(yaml)
         end
-      unless decoded.is_a? Hash
-        return new_or_raise_decoding_error
-      end
+      return new_or_raise_decoding_error unless decoded.is_a? Hash
 
       object_class.new valid_attributes(decoded)
     end

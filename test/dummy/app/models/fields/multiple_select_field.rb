@@ -20,9 +20,7 @@ module Fields
       return model if accessibility == :hidden
 
       model.attribute name, stored_type, default: [], array_without_blank: true
-      if accessibility == :readonly
-        model.attr_readonly name
-      end
+      model.attr_readonly name if accessibility == :readonly
 
       interpret_validations_to model, accessibility, overrides
       interpret_extra_to model, accessibility, overrides
@@ -32,11 +30,11 @@ module Fields
 
     protected
 
-    def interpret_extra_to(model, accessibility, overrides = {})
-      super
-      return if accessibility != :read_and_write || !options.strict_select
+      def interpret_extra_to(model, accessibility, overrides = {})
+        super
+        return if accessibility != :read_and_write || !options.strict_select
 
-      model.validates name, subset: {in: choices.pluck(:label)}, allow_blank: true
-    end
+        model.validates name, subset: { in: choices.pluck(:label) }, allow_blank: true
+      end
   end
 end

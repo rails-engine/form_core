@@ -77,7 +77,7 @@ module Fields::Options
               if: %i[begin_from_value? end_to_value?]
 
     validates :end_to,
-              exclusion: {in: %w[offsets_since_begin]},
+              exclusion: { in: %w[offsets_since_begin] },
               if: [:begin_from_offsets_before_end?]
 
     validates :fixed_end,

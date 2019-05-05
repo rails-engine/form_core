@@ -11,8 +11,8 @@ module FormCore::Concerns
         validates :name,
                   presence: true,
                   uniqueness: true,
-                  exclusion: {in: FormCore.reserved_names},
-                  format: {with: NAME_REGEX}
+                  exclusion: { in: FormCore.reserved_names },
+                  format: { with: NAME_REGEX }
       end
 
       def to_virtual_model(model_name: "Form",
@@ -38,11 +38,11 @@ module FormCore::Concerns
 
       private
 
-      def check_model_validity!(model)
-        unless model.is_a?(Class) && model < ::FormCore::VirtualModel
-          raise ArgumentError, "#{model} must be a #{::FormCore::VirtualModel}'s subclass"
+        def check_model_validity!(model)
+          unless model.is_a?(Class) && model < ::FormCore::VirtualModel
+            raise ArgumentError, "#{model} must be a #{::FormCore::VirtualModel}'s subclass"
+          end
         end
-      end
     end
   end
 end

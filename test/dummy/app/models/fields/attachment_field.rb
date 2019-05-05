@@ -17,9 +17,7 @@ module Fields
 
       model.attribute name, stored_type
       model.has_one_attached name
-      if accessibility == :readonly
-        model.attr_readonly name
-      end
+      model.attr_readonly name if accessibility == :readonly
 
       interpret_validations_to model, accessibility, overrides
       interpret_extra_to model, accessibility, overrides

@@ -25,7 +25,7 @@ module Fields
       def interpret_to(model, field_name, _accessibility, _options = {})
         return if self.in.empty?
 
-        options = {in: self.in}
+        options = { in: self.in }
         options[:message] = message if message.present?
 
         model.validates field_name, inclusion: options, allow_blank: true

@@ -7,7 +7,7 @@ module Fields
       return if @model.collection.none?
 
       id = value
-      return unless id.present?
+      return if id.blank?
 
       collection
         .where(@model.data_source.value_method => id)
@@ -27,9 +27,7 @@ module Fields
     end
 
     def options_for_select
-      unless @model.collection
-        return @view.options_for_select([])
-      end
+      return @view.options_for_select([]) unless @model.collection
 
       @view.options_from_collection_for_select(
         collection, @model.data_source.value_method, @model.data_source.text_method, value

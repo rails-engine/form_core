@@ -31,7 +31,7 @@ module Fields
 
     def max_items_size
       size = @model.validations.length.maximum
-      size > 0 ? size : MAX_HARD_CODE_ITEMS_SIZE
+      size.positive? ? size : MAX_HARD_CODE_ITEMS_SIZE
     end
   end
 end

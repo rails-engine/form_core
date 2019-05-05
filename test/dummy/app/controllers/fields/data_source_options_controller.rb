@@ -17,17 +17,15 @@ class Fields::DataSourceOptionsController < Fields::ApplicationController
 
   private
 
-  def require_data_source_options
-    unless @field.respond_to?(:data_source)
-      redirect_to fields_url
+    def require_data_source_options
+      redirect_to fields_url unless @field.respond_to?(:data_source)
     end
-  end
 
-  def set_options
-    @options = @field.data_source
-  end
+    def set_options
+      @options = @field.data_source
+    end
 
-  def options_params
-    params.fetch(:options, {}).permit!
-  end
+    def options_params
+      params.fetch(:options, {}).permit!
+    end
 end

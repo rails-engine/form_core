@@ -4,10 +4,10 @@ module Fields
   class MultipleAttachmentFieldPresenter < FieldPresenter
     def value_for_preview
       ids = value
-      return unless ids.present?
+      return if ids.blank?
 
       blobs = ActiveStorage::Blob.where(id: ids)
-      return unless blobs.present?
+      return if blobs.blank?
 
       blobs.map do |blob|
         @view.link_to blob.filename, @view.rails_blob_path(blob, disposition: "attachment")

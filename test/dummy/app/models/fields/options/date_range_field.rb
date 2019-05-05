@@ -90,11 +90,11 @@ module Fields::Options
               if: %i[begin_from_date? end_to_date?]
 
     validates :end_to,
-              exclusion: {in: %w[today]},
+              exclusion: { in: %w[today] },
               if: [:begin_from_today?]
 
     validates :end_to,
-              exclusion: {in: %w[days_since_begin]},
+              exclusion: { in: %w[days_since_begin] },
               if: [:begin_from_days_before_end?]
 
     validates :fixed_end,
@@ -122,7 +122,7 @@ module Fields::Options
                 greater_than_or_equal_to: :minimum_distance
               },
               allow_blank: false,
-              unless: ->(r) { r.maximum_distance.to_i == 0 }
+              unless: ->(r) { r.maximum_distance.to_i.zero? }
 
     def interpret_to(model, field_name, accessibility, _options = {})
       return unless accessibility == :read_and_write
@@ -146,9 +146,7 @@ module Fields::Options
         klass.default_value_for :begin,
                                 ->(_) { Time.zone.today + begin_days_offset },
                                 allow_nil: nullable_begin
-        if fixed_begin
-          klass.attr_readonly :begin
-        end
+        klass.attr_readonly :begin if fixed_begin
       elsif begin_from_date?
         klass.validates :begin,
                         timeliness: {
@@ -159,9 +157,7 @@ module Fields::Options
         klass.default_value_for :begin,
                                 self.begin,
                                 allow_nil: nullable_begin
-        if fixed_begin
-          klass.attr_readonly :begin
-        end
+        klass.attr_readonly :begin if fixed_begin
       elsif begin_from_days_before_end?
         days_before_end = self.days_before_end.days.to_i
         klass.validates :begin,
@@ -184,9 +180,7 @@ module Fields::Options
         klass.default_value_for :end,
                                 ->(_) { Time.zone.today + end_days_offset },
                                 allow_nil: false
-        if fixed_end
-          klass.attr_readonly :end
-        end
+        klass.attr_readonly :end if fixed_end
       elsif end_to_date?
         klass.validates :end,
                         timeliness: {
@@ -197,9 +191,7 @@ module Fields::Options
         klass.default_value_for :end,
                                 self.end,
                                 allow_nil: false
-        if fixed_end
-          klass.attr_readonly :end
-        end
+        klass.attr_readonly :end if fixed_end
       elsif end_to_days_since_begin?
         days_since_begin = self.days_since_begin.days.to_i
         klass.validates :end,
@@ -210,7 +202,7 @@ module Fields::Options
                         allow_blank: true
       end
 
-      if minimum_distance > 0
+      if minimum_distance.positive?
         minimum_distance_days = minimum_distance.days
         if fixed_begin || begin_from_today? || begin_from_date? || end_to_days_since_begin?
           klass.validates :end,
@@ -239,7 +231,7 @@ module Fields::Options
         end
       end
 
-      if maximum_distance > 0
+      if maximum_distance.positive?
         maximum_distance_days = maximum_distance.days
         if fixed_begin || begin_from_today? || begin_from_date? || end_to_days_since_begin?
           klass.validates :end,

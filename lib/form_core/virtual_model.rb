@@ -11,9 +11,7 @@ module FormCore
       inspection =
         if defined?(@attributes) && @attributes
           self.class.attribute_names.collect do |name|
-            if has_attribute?(name)
-              "#{name}: #{attribute_for_inspect(name)}"
-            end
+            "#{name}: #{attribute_for_inspect(name)}" if has_attribute?(name)
           end.compact.join(", ")
         else
           "not initialized"
@@ -51,9 +49,7 @@ module FormCore
       end
 
       def coder=(klass)
-        unless klass && klass < Coder
-          raise ArgumentError, "#{klass} should be sub-class of #{Coder}."
-        end
+        raise ArgumentError, "#{klass} should be sub-class of #{Coder}." unless klass && klass < Coder
 
         @_coder = klass.new(self)
       end

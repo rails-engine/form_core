@@ -14,11 +14,11 @@ class Forms::LoadsController < Forms::ApplicationController
 
   private
 
-  def set_preview
-    @preview = @form.to_virtual_model
-  end
+    def set_preview
+      @preview = @form.to_virtual_model
+    end
 
-  def serialized_form_data
-    params.fetch(:serialized, "")
-  end
+    def serialized_form_data
+      params.fetch(:serialized, "")
+    end
 end

@@ -4,7 +4,7 @@ module Fields
   class ChoiceFieldPresenter < FieldPresenter
     def value_for_preview
       id = value
-      return unless id.present?
+      return if id.blank?
 
       if choices.loaded?
         choices.target.find { |choice| choice.id == id }&.label

@@ -90,11 +90,11 @@ module Fields::Options
               if: %i[begin_from_time? end_to_time?]
 
     validates :end_to,
-              exclusion: {in: %w[now]},
+              exclusion: { in: %w[now] },
               if: [:begin_from_now?]
 
     validates :end_to,
-              exclusion: {in: %w[minutes_since_begin]},
+              exclusion: { in: %w[minutes_since_begin] },
               if: [:begin_from_minutes_before_end?]
 
     validates :fixed_end,
@@ -122,7 +122,7 @@ module Fields::Options
                 greater_than_or_equal_to: :minimum_distance
               },
               allow_blank: false,
-              unless: ->(r) { r.maximum_distance.to_i == 0 }
+              unless: ->(r) { r.maximum_distance.to_i.zero? }
 
     def interpret_to(model, field_name, accessibility, _options = {})
       return unless accessibility == :read_and_write
@@ -146,9 +146,7 @@ module Fields::Options
         klass.default_value_for :begin,
                                 ->(_) { Time.zone.now.change(sec: 0, usec: 0) + begin_minutes_offset },
                                 allow_nil: false
-        if fixed_begin
-          klass.attr_readonly :begin
-        end
+        klass.attr_readonly :begin if fixed_begin
       elsif begin_from_time?
         klass.validates :begin,
                         timeliness: {
@@ -159,9 +157,7 @@ module Fields::Options
         klass.default_value_for :begin,
                                 self.begin,
                                 allow_nil: false
-        if fixed_begin
-          klass.attr_readonly :begin
-        end
+        klass.attr_readonly :begin if fixed_begin
       elsif begin_from_minutes_before_end?
         minutes_before_end = self.minutes_before_end.minutes.to_i
         klass.validates :begin,
@@ -184,9 +180,7 @@ module Fields::Options
         klass.default_value_for :end,
                                 ->(_) { Time.zone.now.change(sec: 0, usec: 0) + end_minutes_offset },
                                 allow_nil: false
-        if fixed_end
-          klass.attr_readonly :end
-        end
+        klass.attr_readonly :end if fixed_end
       elsif end_to_time?
         klass.validates :end,
                         timeliness: {
@@ -197,9 +191,7 @@ module Fields::Options
         klass.default_value_for :end,
                                 self.end,
                                 allow_nil: false
-        if fixed_end
-          klass.attr_readonly :end
-        end
+        klass.attr_readonly :end if fixed_end
       elsif end_to_minutes_since_begin?
         minutes_since_begin = self.minutes_since_begin.minutes.to_i
         klass.validates :end,
@@ -210,7 +202,7 @@ module Fields::Options
                         allow_blank: true
       end
 
-      if minimum_distance > 0
+      if minimum_distance.positive?
         minimum_distance_minutes = minimum_distance.minutes
         if fixed_begin || begin_from_now? || begin_from_time? || end_to_minutes_since_begin?
           klass.validates :end,
@@ -239,7 +231,7 @@ module Fields::Options
         end
       end
 
-      if maximum_distance > 0
+      if maximum_distance.positive?
         maximum_distance_minutes = maximum_distance.minutes
         if fixed_begin || begin_from_now? || begin_from_time? || end_to_minutes_since_begin?
           klass.validates :end,

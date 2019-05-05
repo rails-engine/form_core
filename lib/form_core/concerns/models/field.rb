@@ -8,7 +8,7 @@ module FormCore::Concerns
       NAME_REGEX = /\A[a-z][a-z_0-9]*\z/.freeze
 
       included do
-        enum accessibility: {read_and_write: 0, readonly: 1, hidden: 2},
+        enum accessibility: { read_and_write: 0, readonly: 1, hidden: 2 },
              _prefix: :access
 
         serialize :validations
@@ -16,11 +16,11 @@ module FormCore::Concerns
 
         validates :name,
                   presence: true,
-                  uniqueness: {scope: :form},
-                  exclusion: {in: FormCore.reserved_names},
-                  format: {with: NAME_REGEX}
+                  uniqueness: { scope: :form },
+                  exclusion: { in: FormCore.reserved_names },
+                  format: { with: NAME_REGEX }
         validates :accessibility,
-                  inclusion: {in: accessibilities.keys.map(&:to_sym)}
+                  inclusion: { in: accessibilities.keys.map(&:to_sym) }
 
         after_initialize do
           self.validations ||= {}
@@ -54,9 +54,7 @@ module FormCore::Concerns
         default_value = overrides.fetch(:default_value, self.default_value)
         model.attribute name, stored_type, default: default_value
 
-        if accessibility == :readonly
-          model.attr_readonly name
-        end
+        model.attr_readonly name if accessibility == :readonly
 
         interpret_validations_to model, accessibility, overrides
         interpret_extra_to model, accessibility, overrides
@@ -66,22 +64,18 @@ module FormCore::Concerns
 
       protected
 
-      def interpret_validations_to(model, accessibility, overrides = {})
-        validations = overrides.fetch(:validations, (self.validations || {}))
-        validation_options = overrides.fetch(:validation_options) { self.options.fetch(:validation, {}) }
+        def interpret_validations_to(model, accessibility, overrides = {})
+          validations = overrides.fetch(:validations, (self.validations || {}))
+          validation_options = overrides.fetch(:validation_options) { self.options.fetch(:validation, {}) }
 
-        if accessibility == :read_and_write && validations.present?
-          model.validates name, **validations, **validation_options
+          model.validates name, **validations, **validation_options if accessibility == :read_and_write && validations.present?
         end
-      end
 
-      def interpret_extra_to(_model, _accessibility, _overrides = {}); end
+        def interpret_extra_to(_model, _accessibility, _overrides = {}); end
 
-      def check_model_validity!(model)
-        unless model.is_a?(Class) && model < ::FormCore::VirtualModel
-          raise ArgumentError, "#{model} must be a #{::FormCore::VirtualModel}'s subclass"
+        def check_model_validity!(model)
+          raise ArgumentError, "#{model} must be a #{::FormCore::VirtualModel}'s subclass" unless model.is_a?(Class) && model < ::FormCore::VirtualModel
         end
-      end
     end
   end
 end

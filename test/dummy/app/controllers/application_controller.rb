@@ -7,16 +7,16 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_time_zone(&block)
-    Time.use_zone(current_time_zone, &block)
-  end
+    def set_time_zone(&block)
+      Time.use_zone(current_time_zone, &block)
+    end
 
-  def current_time_zone
-    @_current_time_zone ||=
-      if session[:current_time_zone].present?
-        ActiveSupport::TimeZone[session[:current_time_zone]] || ActiveSupport::TimeZone["UTC"]
-      else
-        ActiveSupport::TimeZone["UTC"]
-      end
-  end
+    def current_time_zone
+      @_current_time_zone ||=
+        if session[:current_time_zone].present?
+          ActiveSupport::TimeZone[session[:current_time_zone]] || ActiveSupport::TimeZone["UTC"]
+        else
+          ActiveSupport::TimeZone["UTC"]
+        end
+    end
 end

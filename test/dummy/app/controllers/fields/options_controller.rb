@@ -16,11 +16,11 @@ class Fields::OptionsController < Fields::ApplicationController
 
   private
 
-  def set_options
-    @options = @field.options
-  end
+    def set_options
+      @options = @field.options
+    end
 
-  def options_params
-    params.fetch(:options, {}).permit!
-  end
+    def options_params
+      params.fetch(:options, {}).permit!
+    end
 end

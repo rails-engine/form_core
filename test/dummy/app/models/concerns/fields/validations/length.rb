@@ -43,7 +43,7 @@ module Fields
         return if minimum.zero? && maximum.zero? && is.zero?
 
         if is.positive?
-          model.validates field_name, length: {is: is}, allow_blank: true
+          model.validates field_name, length: { is: is }, allow_blank: true
           return
         end
 

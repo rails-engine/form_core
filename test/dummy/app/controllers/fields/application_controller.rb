@@ -5,21 +5,21 @@ class Fields::ApplicationController < ApplicationController
 
   protected
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_field
-    @field = Field.find(params[:field_id])
-  end
-
-  def fields_url
-    form = @field.form
-
-    case form
-    when Form
-      form_fields_url(form)
-    when NestedForm
-      nested_form_fields_url(form)
-    else
-      raise "Unknown form: #{form.class}"
+    # Use callbacks to share common setup or constraints between actions.
+    def set_field
+      @field = Field.find(params[:field_id])
     end
-  end
+
+    def fields_url
+      form = @field.form
+
+      case form
+      when Form
+        form_fields_url(form)
+      when NestedForm
+        nested_form_fields_url(form)
+      else
+        raise "Unknown form: #{form.class}"
+      end
+    end
 end

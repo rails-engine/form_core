@@ -21,15 +21,13 @@ module Fields
 
       overrides[:name] = name
 
-      nested_model = nested_form.to_virtual_model(overrides: {_global: {accessibility: accessibility}})
+      nested_model = nested_form.to_virtual_model(overrides: { _global: { accessibility: accessibility } })
 
       model.nested_models[name] = nested_model
 
       model.embeds_many name, anonymous_class: nested_model, validate: true
       model.accepts_nested_attributes_for name, reject_if: :all_blank
-      if accessibility == :readonly
-        model.attr_readonly name
-      end
+      model.attr_readonly name if accessibility == :readonly
 
       interpret_validations_to model, accessibility, overrides
       interpret_extra_to model, accessibility, overrides

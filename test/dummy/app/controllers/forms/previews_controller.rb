@@ -20,11 +20,11 @@ class Forms::PreviewsController < Forms::ApplicationController
 
   private
 
-  def set_preview
-    @preview = @form.to_virtual_model
-  end
+    def set_preview
+      @preview = @form.to_virtual_model
+    end
 
-  def preview_params
-    params.fetch(:preview, {}).permit!
-  end
+    def preview_params
+      params.fetch(:preview, {}).permit!
+    end
 end

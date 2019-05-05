@@ -17,82 +17,76 @@ class FieldOptions < ActiveEntity::Base
 
   private
 
-  def _assign_attribute(k, v)
-    if self.class._embeds_reflections.has_key?(k)
-      public_send("#{k}_attributes=", v)
-    elsif respond_to?("#{k}=")
-      public_send("#{k}=", v)
-    end
-  end
-
-  class << self
-    def _embeds_reflections
-      _reflections.select { |_, v| v.is_a? ActiveEntity::Reflection::EmbeddedAssociationReflection }
+    def _assign_attribute(k, v)
+      if self.class._embeds_reflections.key?(k)
+        public_send("#{k}_attributes=", v)
+      elsif respond_to?("#{k}=")
+        public_send("#{k}=", v)
+      end
     end
 
-    def model_version
-      1
-    end
+    class << self
+      def _embeds_reflections
+        _reflections.select { |_, v| v.is_a? ActiveEntity::Reflection::EmbeddedAssociationReflection }
+      end
 
-    def root_key_for_serialization
-      "#{self}.#{model_version}"
-    end
+      def model_version
+        1
+      end
 
-    def dump(obj)
-      return YAML.dump({}) unless obj
+      def root_key_for_serialization
+        "#{self}.#{model_version}"
+      end
 
-      serializable_hash =
-        if obj.respond_to?(:serializable_hash)
-          obj.serializable_hash
-        elsif obj.respond_to?(:to_hash)
-          obj.to_hash
+      def dump(obj)
+        return YAML.dump({}) unless obj
+
+        serializable_hash =
+          if obj.respond_to?(:serializable_hash)
+            obj.serializable_hash
+          elsif obj.respond_to?(:to_hash)
+            obj.to_hash
+          else
+            raise ArgumentError, "`obj` required can be cast to `Hash` -- #{obj.class}"
+          end.stringify_keys
+
+        data = { root_key_for_serialization => serializable_hash }
+        data.reverse_merge! obj.raw_attributes if keeping_old_serialization
+
+        YAML.dump(data)
+      end
+
+      def load(yaml_or_hash)
+        case yaml_or_hash
+        when Hash
+          load_from_hash(yaml_or_hash)
+        when String
+          load_from_yaml(yaml_or_hash)
         else
-          raise ArgumentError, "`obj` required can be cast to `Hash` -- #{obj.class}"
-        end.stringify_keys
-
-      data = {root_key_for_serialization => serializable_hash}
-      if keeping_old_serialization
-        data.reverse_merge! obj.raw_attributes
+          new
+        end
       end
 
-      YAML.dump(data)
-    end
+      WHITELIST_CLASSES = [BigDecimal, Date, Time, Symbol].freeze
+      def load_from_yaml(yaml)
+        return new if yaml.blank?
 
-    def load(yaml_or_hash)
-      case yaml_or_hash
-      when Hash
-        load_from_hash(yaml_or_hash)
-      when String
-        load_from_yaml(yaml_or_hash)
-      else
-        new
-      end
-    end
+        return new unless yaml.is_a?(String) && /^---/.match?(yaml)
 
-    WHITELIST_CLASSES = [BigDecimal, Date, Time, Symbol].freeze
-    def load_from_yaml(yaml)
-      return new if yaml.blank?
+        decoded = YAML.safe_load(yaml, WHITELIST_CLASSES)
+        return new unless decoded.is_a? Hash
 
-      unless yaml.is_a?(String) && /^---/.match?(yaml)
-        return new
+        record = new decoded[root_key_for_serialization]
+        record.raw_attributes = decoded.freeze
+        record
       end
 
-      decoded = YAML.safe_load(yaml, WHITELIST_CLASSES)
-      unless decoded.is_a? Hash
-        return new
+      def load_from_hash(hash)
+        return new if hash.blank?
+
+        record = new hash[root_key_for_serialization]
+        record.raw_attributes = hash.freeze
+        record
       end
-
-      record = new decoded[root_key_for_serialization]
-      record.raw_attributes = decoded.freeze
-      record
     end
-
-    def load_from_hash(hash)
-      return new if hash.blank?
-
-      record = new hash[root_key_for_serialization]
-      record.raw_attributes = hash.freeze
-      record
-    end
-  end
 end

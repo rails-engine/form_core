@@ -33,7 +33,7 @@ module Fields
 
         with = Regexp.new(self.with)
 
-        options = {with: with}
+        options = { with: with }
         options[:message] = message if message.present?
 
         model.validates field_name, format: options, allow_blank: true

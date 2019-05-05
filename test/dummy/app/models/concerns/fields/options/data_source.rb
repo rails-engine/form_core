@@ -14,7 +14,7 @@ module Fields
       end
 
       validates :data_source_type,
-                inclusion: {in: ->(_) { ::DataSource.descendants.map(&:to_s) }},
+                inclusion: { in: ->(_) { ::DataSource.descendants.map(&:to_s) } },
                 allow_blank: false
     end
 
