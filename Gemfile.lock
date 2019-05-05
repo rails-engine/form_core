@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    form_core (0.1.1)
+    form_core (0.1.2)
       activeentity (>= 0.0.1.beta7)
       rails (>= 6.0.0.rc1, < 7)
 
