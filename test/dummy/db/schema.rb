@@ -70,7 +70,6 @@ ActiveRecord::Schema.define(version: 2018_06_20_194148) do
   end
 
   create_table "forms", force: :cascade do |t|
-    t.string "name", null: false
     t.string "type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -79,7 +78,6 @@ ActiveRecord::Schema.define(version: 2018_06_20_194148) do
     t.string "attachable_type"
     t.integer "attachable_id"
     t.index ["attachable_type", "attachable_id"], name: "index_forms_on_attachable_type_and_attachable_id"
-    t.index ["name"], name: "index_forms_on_name", unique: true
     t.index ["type"], name: "index_forms_on_type"
   end
 
