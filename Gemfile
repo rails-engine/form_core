@@ -41,7 +41,7 @@ gem "puma"
 gem "pry-rails"
 # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
 gem "listen", ">= 3.0.5", "< 3.2"
-gem "web-console"
+gem "web-console", group: :development
 # Call "byebug" anywhere in the code to stop execution and get a debugger console
 gem "byebug", platforms: %i[mri mingw x64_mingw]
 gem "pry-byebug"
