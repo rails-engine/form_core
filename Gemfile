@@ -54,3 +54,4 @@ gem "cocoon"
 
 gem "rubocop"
 gem "rubocop-performance"
+gem "rubocop-rails"
