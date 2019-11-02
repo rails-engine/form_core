@@ -74,7 +74,9 @@ module FormCore::Concerns
         def interpret_extra_to(_model, _accessibility, _overrides = {}); end
 
         def check_model_validity!(model)
-          raise ArgumentError, "#{model} must be a #{::FormCore::VirtualModel}'s subclass" unless model.is_a?(Class) && model < ::FormCore::VirtualModel
+          unless model.is_a?(Class) && model < ::FormCore::VirtualModel
+            raise ArgumentError, "#{model} must be a #{::FormCore::VirtualModel}'s subclass"
+          end
         end
     end
   end
