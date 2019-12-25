@@ -16,9 +16,6 @@ gemspec
 gem "rails", "~> 6.0.0"
 gem "sqlite3"
 
-# To use a debugger
-# gem "byebug", group: [:development, :test]
-
 # To support ES6
 gem "sprockets", "~> 4.0.0.beta5"
 # Support ES6
@@ -38,14 +35,11 @@ gem "turbolinks"
 # Use Puma as the app server
 gem "puma"
 
-# For better console experience
-gem "pry-rails"
 # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
 gem "listen", ">= 3.0.5", "< 3.2"
 gem "web-console", group: :development
 # Call "byebug" anywhere in the code to stop execution and get a debugger console
 gem "byebug", platforms: %i[mri mingw x64_mingw]
-gem "pry-byebug"
 
 gem "timeliness-i18n"
 gem "validates_timeliness", "~> 5.0.0.alpha1"
