@@ -26,7 +26,7 @@ module EnumAttributeLocalizable
       defaults << value.to_s.humanize
 
       options[:default] = defaults
-      I18n.translate(defaults.shift, options)
+      I18n.translate(defaults.shift, **options)
     end
   end
 end
