@@ -22,7 +22,7 @@ module FormCore
 
     def serializable_hash(options = {})
       options = (options || {}).reverse_merge include: self.class._embeds_reflections.keys
-      super **options
+      super(**options)
     end
 
     # Hack
