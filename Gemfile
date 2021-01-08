@@ -13,7 +13,7 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-gem "rails", "~> 6.0.0"
+gem "rails", "~> 6.1.0"
 gem "sqlite3"
 
 # To support ES6

@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_20_194148) do
+ActiveRecord::Schema.define(version: 2021_01_08_214331) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -27,15 +27,22 @@ ActiveRecord::Schema.define(version: 2018_06_20_194148) do
     t.string "filename", null: false
     t.string "content_type"
     t.text "metadata"
+    t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.integer "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
   create_table "choices", force: :cascade do |t|
     t.text "label", null: false
-    t.integer "field_id"
+    t.bigint "field_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
@@ -76,7 +83,7 @@ ActiveRecord::Schema.define(version: 2018_06_20_194148) do
     t.string "title", default: ""
     t.text "description", default: ""
     t.string "attachable_type"
-    t.integer "attachable_id"
+    t.bigint "attachable_id"
     t.index ["attachable_type", "attachable_id"], name: "index_forms_on_attachable_type_and_attachable_id"
     t.index ["type"], name: "index_forms_on_type"
   end
@@ -84,13 +91,15 @@ ActiveRecord::Schema.define(version: 2018_06_20_194148) do
   create_table "sections", force: :cascade do |t|
     t.string "title", default: ""
     t.boolean "headless", default: false, null: false
-    t.integer "form_id"
+    t.bigint "form_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
     t.index ["form_id"], name: "index_sections_on_form_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "choices", "fields"
   add_foreign_key "fields", "forms"
   add_foreign_key "fields", "sections"
