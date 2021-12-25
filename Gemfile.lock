@@ -8,7 +8,7 @@ PATH
 PATH
   remote: .
   specs:
-    form_core (0.1.4)
+    form_core (0.1.5)
       rails (>= 6.1, < 8)
 
 GEM
