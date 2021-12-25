@@ -4,6 +4,8 @@ class FieldOptions < ActiveEntity::Base
   include FormCore::ActsAsDefaultValue
   include EnumAttributeLocalizable
 
+  # self.inheritance_column = nil
+
   class_attribute :keeping_old_serialization
 
   attr_accessor :raw_attributes

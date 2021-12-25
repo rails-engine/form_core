@@ -2,13 +2,14 @@
 
 module FormCore
   module ActiveStorageBridge
-    # Provides the class-level DSL for declaring that an Active Entity model has attached blobs.
-    module Attached::Macros
-      extend ActiveSupport::Concern
+    module Attached
+      # Provides the class-level DSL for declaring that an Active Entity model has attached blobs.
+      module Macros
+        extend ActiveSupport::Concern
 
-      module ClassMethods
-        def has_one_attached(name)
-          class_eval <<-CODE, __FILE__, __LINE__ + 1
+        module ClassMethods
+          def has_one_attached(name)
+            class_eval <<-CODE, __FILE__, __LINE__ + 1
             def #{name}=(attachable)
               blob =
                 case attachable
@@ -37,11 +38,11 @@ module FormCore
 
               super(blob&.id)
             end
-          CODE
-        end
+            CODE
+          end
 
-        def has_many_attached(name)
-          class_eval <<-CODE, __FILE__, __LINE__ + 1
+          def has_many_attached(name)
+            class_eval <<-CODE, __FILE__, __LINE__ + 1
             def #{name}=(attachables)
               blobs = []
               ids = []
@@ -73,7 +74,8 @@ module FormCore
 
               super blobs.map(&:id).concat(ActiveStorage::Blob.where(id: ids).pluck(:id))
             end
-          CODE
+            CODE
+          end
         end
       end
     end

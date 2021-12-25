@@ -67,4 +67,4 @@ class Field < ApplicationRecord
     end
 end
 
-require_dependency "fields"
+require "fields"
